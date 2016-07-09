@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Dataset</title>
+    </head>
+
+    <body>
+        <h1>View Dataset {{ dataset_label }}</h1>
+
+        {% if dataset %}
+            <ul>
+                {% for d in dataset %}
+                    <li> {{ d }} </li>
+                {% endfor %}
+            </ul>
+
+        {% else %}
+            <p>No items.</p>
+        {% endif %}
+
+    </body>
+</html>
