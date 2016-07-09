@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register for Twine</title>
+    </head>
+
+    <body>
+        <h1>Register for Twine</h1>
+
+        {% if registered %}
+        <strong>You're now registered with Twine.</strong>
+        <a href="/welcome/index.html">Index page.</a><br />
+
+        {% else %}
+        <strong>Use this form to register.</strong><br />
+
+        <form id="user_form" method="post" action="/welcome/register/"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- Display each form. The as_p method wraps each element in a paragraph
+                 (<p>) element. This ensures each element appears on a new line,
+                 making everything look neater. -->
+            {{ user_form.as_p }}
+            {{ client_form.as_p }}
+
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="Register" />
+        </form>
+        {% endif %}
+    </body>
+</html>

@@ -136,6 +136,8 @@ class Common(Configuration):
         'fixtures/',
     ]
 
+    LOGIN_URL = '/welcome/login/'
+
 
 class Development(Common):
     """
