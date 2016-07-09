@@ -16,7 +16,8 @@ class Alpha(models.Model):
         app_label = 'dataset'
 
     def __str__(self):
-        return "Dataset #1 Object with keys: " #+ ", ".join(self.data.keys[:5])
+        obj_attrs = [k + ": " + self.data[k] for k in self.data.keys()[:3]]
+        return "Data Item [" + ", ".join(obj_attrs) + " ... ]"
 
 
 class Beta(models.Model):
@@ -30,4 +31,5 @@ class Beta(models.Model):
         app_label = 'dataset'
 
     def __str__(self):
-        return "Dataset #2 Object with keys: " #+ ", ".join(self.data.keys[:5])
+        obj_attrs = [k + ": " + self.data[k] for k in self.data.keys()[:3]]
+        return "Data Item [" + ", ".join(obj_attrs) + " ... ]"
