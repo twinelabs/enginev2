@@ -31,6 +31,7 @@ class Common(Configuration):
         'enginev1.apps.match',
 
         'django_hstore',
+#        'bootstrap3',
 
         'django.contrib.admin',
         'django.contrib.auth',
@@ -60,6 +61,9 @@ class Common(Configuration):
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
             'DIRS': [],
             'APP_DIRS': True,
+            'DIRS': [
+                'enginev1/templates/',
+            ],
             'OPTIONS': {
                 'context_processors': [
                     'django.template.context_processors.debug',
@@ -72,6 +76,10 @@ class Common(Configuration):
     ]
 
     WSGI_APPLICATION = 'enginev1.wsgi.application'
+
+    BOOTSTRAP3 = {
+        'jquery_url': '//code.jquery.com/jquery.min.js',
+    }
 
     # Database
     # https://docs.djangoproject.com/en/1.9/ref/settings/#databases

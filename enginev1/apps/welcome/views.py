@@ -6,13 +6,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserForm, ClientForm
 
 
-def index(request):
-
-    context = {}
-
-    return render(request, 'welcome/index.html', context)
-
-
 def register(request):
     # From: http://www.tangowithdjango.com/book17/chapters/login.html
 
