@@ -31,7 +31,7 @@ class Common(Configuration):
         'enginev1.apps.match',
 
         'django_hstore',
-#        'bootstrap3',
+        'bootstrap3',
 
         'django.contrib.admin',
         'django.contrib.auth',

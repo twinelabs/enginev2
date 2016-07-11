@@ -1,14 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Twine Home</title>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
+{% load bootstrap3 %}
+
+{% block title %}Home{% endblock %}
+
+{% block body_block %}
+
     <div class="page-header">
-    	<h1>Welcome to Pensiev <small>&nbsp; &nbsp;A database for personal information</small></h1>
-    </div>
         <h1>Twine Home</h1>
-        <p>Welcome. Intro.</p>
-    </body>
-</html>
+        <p>Welcome {{ u.username }}! Your info:</p>
+
+        <h4>Client name:</h4>{{ c.name }}
+        <h4>Display name:</h4>{{ c.display_name }}
+        <h4>Domain:</h4>{{ c.domain_prefix }}
+        <h4>Dataset #1 Label:</h4>{{ c.alpha_label }}
+        <h4>Dataset #2 Label:</h4>{{ c.beta_label }}
+
+        <hr>
+
+        <a class="link" href="/welcome/logout">Log Out</a>
+
+    </div>
+
+{% endblock %}

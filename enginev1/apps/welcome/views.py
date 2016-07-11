@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import UserForm, ClientForm
 
-
 def register(request):
     # From: http://www.tangowithdjango.com/book17/chapters/login.html
 
@@ -57,6 +56,20 @@ def user_login(request):
 
     else:
         return render(request, 'welcome/login.html', {})
+
+
+@login_required
+def home(request):
+
+    u = request.user
+    c = u.client
+
+    context = {
+        'u': u,
+        'c': c
+    }
+
+    return render(request, 'welcome/home.html', context)
 
 
 @login_required
