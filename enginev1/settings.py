@@ -8,6 +8,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 import os
+import dj_database_url
 
 from configurations import Configuration, values
 from django.core.exceptions import ImproperlyConfigured
@@ -60,7 +61,6 @@ class Common(Configuration):
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [],
             'APP_DIRS': True,
             'DIRS': [
                 'enginev1/templates/',
@@ -82,12 +82,6 @@ class Common(Configuration):
         'jquery_url': '//code.jquery.com/jquery.min.js',
     }
 
-    # Database
-    # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-#    DATABASES = values.DatabaseURLValue(
-#        'sqlite:///{}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))
-#    )
-
     def get_env_variable(var_name):
         try:
             return os.environ[var_name]
@@ -105,6 +99,10 @@ class Common(Configuration):
             'PORT': '',
         }
     }
+
+    # Update database configuration with $DATABASE_URL.
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
 
     # Password validation
     # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
