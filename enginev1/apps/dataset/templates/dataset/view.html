@@ -6,20 +6,8 @@
 
 {% block body_block %}
 
-    <h2>View {{ dataset_label }}</h2>
+    <h2>View {{ label }}</h2>
 
-    {% if dataset %}
-        <ul>
-            {% for d in dataset %}
-                <li> {{ d }} </li>
-            {% endfor %}
-        </ul>
-
-    {% else %}
-        <p>No items.</p>
-    {% endif %}
-
-    <hr>
     {{ df_html | safe }}
 
 {% endblock %}

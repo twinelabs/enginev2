@@ -11,7 +11,7 @@
     {% if alphas.count > 0 %}
         <p>
             You have {{ alphas.count }} {{ alpha_label }}.
-            <a href="/dataset/viewA/">View {{ alpha_label }}</a>
+            <a href="/dataset/view/alpha">View {{ alpha_label }}</a>
         </p>
 
     {% else %}
@@ -21,8 +21,8 @@
 
 
     {% if betas.count > 0 %}
-        <p>You have {{ betas.count }} {{ beta_label }}.</p>
-        <a href="/dataset/viewB/">View {{ beta_label }}</a>
+        You have {{ betas.count }} {{ beta_label }}.
+        <a href="/dataset/view/beta">View {{ beta_label }}</a>
 
     {% else %}
         <p>You have 0 {{ beta_label }}.</p>

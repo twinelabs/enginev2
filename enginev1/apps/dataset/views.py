@@ -24,36 +24,24 @@ def summary(request):
 
 
 @login_required
-def viewA(request):
+def view(request, alpha_or_beta):
 
     c = request.user.client
 
-    alpha_label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
-    alphas = c.alpha_set.all()
+    if alpha_or_beta == 'alpha':
+        label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
+        objs = c.alpha_set.all()
 
-    df = to_pandas_df(alphas)
+    else:
+        label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
+        objs = c.beta_set.all()
+
+    df = to_pandas_df(objs)
     df_html = df.to_html()
 
     context = {
-        'dataset_label': alpha_label,
-        'dataset': alphas,
+        'label': label,
         'df_html': df_html
-    }
-
-    return render(request, 'dataset/view.html', context)
-
-
-@login_required
-def viewB(request):
-
-    c = request.user.client
-
-    beta_label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
-    betas = c.beta_set.all()
-
-    context = {
-        'dataset_label': beta_label,
-        'dataset': betas,
     }
 
     return render(request, 'dataset/view.html', context)
