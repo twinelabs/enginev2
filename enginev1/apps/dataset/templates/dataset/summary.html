@@ -1,33 +1,32 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Your Data Summary</title>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
-        <h1>Your Data Summary</h1>
+{% load bootstrap3 %}
 
-        {% if alphas.count > 0 %}
-            <p>
-                You have some items of type: {{ alpha_label }}.
-                <a href="/dataset/viewA/">View Dataset</a>
-            </p>
+{% block title %}My Data{% endblock %}
+
+{% block body_block %}
+
+    <h2>Your Data Summary</h2>
+
+    {% if alphas.count > 0 %}
+        <p>
+            You have {{ alphas.count }} {{ alpha_label }}.
+            <a href="/dataset/viewA/">View {{ alpha_label }}</a>
+        </p>
+
+    {% else %}
+        <p>You have 0 {{ alpha_label }}.</p>
+
+    {% endif %}
 
 
-        {% else %}
-            <p>You have no items of type: {{ alpha_label }}.</p>
+    {% if betas.count > 0 %}
+        <p>You have {{ betas.count }} {{ beta_label }}.</p>
+        <a href="/dataset/viewB/">View {{ beta_label }}</a>
 
-        {% endif %}
+    {% else %}
+        <p>You have 0 {{ beta_label }}.</p>
 
+    {% endif %}
 
-        {% if betas.count > 0 %}
-            <p>You have some items of type: {{ beta_label }}.</p>
-            <a href="/dataset/viewB/">View Dataset</a>
-
-        {% else %}
-            <p>You have no items of type: {{ beta_label }}.</p>
-
-        {% endif %}
-
-    </body>
-</html>
+{% endblock %}

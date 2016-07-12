@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}My Matches{% endblock %}
+
+{% block body_block %}
+
+    <h2>My Match Configurations</h2>
+
+    {% if matches.count > 0 %}
+        <ul>
+            {% for m in matches %}
+                <li> {{ m }} </li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>No items.</p>
+    {% endif %}
+
+    <h2>My Match Results</h2>
+
+    {% if results.count > 0 %}
+        <ul>
+            {% for r in results %}
+                <li> {{ r }} </li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>No items.</p>
+    {% endif %}
+
+{% endblock %}

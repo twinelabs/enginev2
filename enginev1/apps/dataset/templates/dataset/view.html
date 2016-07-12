@@ -1,22 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>View Dataset</title>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
-        <h1>View Dataset {{ dataset_label }}</h1>
+{% load bootstrap3 %}
 
-        {% if dataset %}
-            <ul>
-                {% for d in dataset %}
-                    <li> {{ d }} </li>
-                {% endfor %}
-            </ul>
+{% block title %}My Data{% endblock %}
 
-        {% else %}
-            <p>No items.</p>
-        {% endif %}
+{% block body_block %}
 
-    </body>
-</html>
+    <h2>View {{ dataset_label }}</h2>
+
+    {% if dataset %}
+        <ul>
+            {% for d in dataset %}
+                <li> {{ d }} </li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>No items.</p>
+    {% endif %}
+
+    <hr>
+    {{ df_html | safe }}
+
+{% endblock %}

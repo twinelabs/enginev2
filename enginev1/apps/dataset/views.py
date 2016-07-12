@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from .utils import DatasetObjectsToPandas as to_pandas_df
 
 @login_required
 def summary(request):
@@ -30,9 +31,13 @@ def viewA(request):
     alpha_label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
     alphas = c.alpha_set.all()
 
+    df = to_pandas_df(alphas)
+    df_html = df.to_html()
+
     context = {
         'dataset_label': alpha_label,
         'dataset': alphas,
+        'df_html': df_html
     }
 
     return render(request, 'dataset/view.html', context)
