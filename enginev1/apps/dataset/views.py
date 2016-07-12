@@ -41,7 +41,7 @@ def view(request, alpha_or_beta):
         objs = c.beta_set.all()
 
     df = dataset_objects_to_pandas_df(objs)
-    df_html = df.to_html(classes=['table', 'table-striped', 'table-condensed'])
+    df_html = df.to_html(classes=['dataset-table'])
 
     context = {
         'alpha_or_beta': alpha_or_beta,

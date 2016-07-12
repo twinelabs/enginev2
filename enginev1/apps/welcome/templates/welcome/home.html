@@ -10,11 +10,28 @@
         <h1>Twine Home</h1>
         <p>Welcome {{ u.username }}! Your info:</p>
 
-        <h4>Client name:</h4>{{ c.name }}
-        <h4>Display name:</h4>{{ c.display_name }}
-        <h4>Domain:</h4>{{ c.domain_prefix }}
-        <h4>Dataset #1 Label:</h4>{{ c.alpha_label }}
-        <h4>Dataset #2 Label:</h4>{{ c.beta_label }}
+        <table class="table">
+            <tr>
+                <td>Client name</td>
+                <td>{{ c.name }}</td>
+            </tr>
+            <tr>
+                <td>Display name</td>
+                <td>{{ c.display_name }}</td>
+            </tr>
+            <tr>
+                <td>Domain</td>
+                <td>{{ c.domain_prefix }}</td>
+            </tr>
+            <tr>
+                <td>Dataset A Label</td>
+                <td>{{ c.alpha_label }}</td>
+            </tr>
+            <tr>
+                <td>Dataset B Label</td>
+                <td>{{ c.beta_label }}</td>
+            </tr>
+        </table>
 
         <hr>
 
