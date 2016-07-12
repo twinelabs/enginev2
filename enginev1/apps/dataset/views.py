@@ -44,7 +44,9 @@ def view(request, alpha_or_beta):
     df_html = df.to_html(classes=['table', 'table-striped', 'table-condensed'])
 
     context = {
+        'alpha_or_beta': alpha_or_beta,
         'label': label,
+        'df_count': len(df),
         'df_html': df_html
     }
 
@@ -72,3 +74,21 @@ def upload_csv(request):
         context = { 'csv_form': csv_form }
 
     return render(request, 'dataset/upload_csv.html', context)
+
+
+@login_required
+def delete(request, alpha_or_beta):
+
+    c = request.user.client
+
+    if alpha_or_beta == 'alpha':
+        objs = c.alpha_set.all()
+
+    else:
+        objs = c.beta_set.all()
+
+    objs.delete()
+
+    context = {}
+
+    return HttpResponseRedirect('/dataset/summary/')

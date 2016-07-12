@@ -8,6 +8,13 @@
 
     <h2>View {{ label }}</h2>
 
-    {{ df_html | safe }}
+    {% if df_count > 0 %}
+        {{ df_html | safe }}
+        <a href="/dataset/delete/{{ alpha_or_beta }}">Delete All</a>
+
+    {% else  %}
+        <p>No {{ label }} found.</p>
+
+    {% endif %}
 
 {% endblock %}
