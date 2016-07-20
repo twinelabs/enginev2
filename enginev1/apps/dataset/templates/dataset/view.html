@@ -9,6 +9,9 @@
     <h2>View {{ label }}</h2>
 
     {% if df_count > 0 %}
+        <a href="/dataset/export_csv/{{ alpha_or_beta }}">Export as CSV</a> &nbsp;
+        <a href="/dataset/export_xls/{{ alpha_or_beta }}">Export as Excel</a>
+
         {{ df_html | safe }}
         <a href="/dataset/delete/{{ alpha_or_beta }}">Delete All</a>
 

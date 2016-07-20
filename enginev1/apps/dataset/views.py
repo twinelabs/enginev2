@@ -1,6 +1,9 @@
+import csv
+import xlwt
+
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 from .utils import *
 from .forms import UploadCSVForm
@@ -74,6 +77,96 @@ def upload_csv(request):
         context = { 'csv_form': csv_form }
 
     return render(request, 'dataset/upload_csv.html', context)
+
+
+@login_required
+def upload_xls(request):
+
+    if request.method == 'POST':
+        xls_form = UploadXLSForm(request.POST, request.FILES)
+
+        if xls_form.is_valid():
+
+            client = request.user.client
+            alpha_or_beta = xls_form.cleaned_data['alpha_or_beta']
+            xls_file = request.FILES['xls_file']
+
+            import_xls_as_dataset(client, alpha_or_beta, xls_file)
+
+            return HttpResponseRedirect('/dataset/view/' + alpha_or_beta)
+
+    else:
+        csv_form = UploadCSVForm()
+        context = { 'csv_form': csv_form }
+
+    return render(request, 'dataset/upload_csv.html', context)
+
+@login_required
+def export_csv(request, alpha_or_beta):
+
+    c = request.user.client
+
+    if alpha_or_beta == 'alpha':
+        label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
+        objs = c.alpha_set.all()
+
+    else:
+        label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
+        objs = c.beta_set.all()
+
+    df = dataset_objects_to_pandas_df(objs)
+    csv_header = df.columns.values.tolist()
+    csv_rows = df.values.tolist()
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="' + label + '.csv"'
+
+    writer = csv.writer(response)
+    writer.writerows([csv_header] + csv_rows)
+
+    return response
+
+
+@login_required
+def export_xls(request, alpha_or_beta):
+
+    c = request.user.client
+
+    if alpha_or_beta == 'alpha':
+        label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
+        objs = c.alpha_set.all()
+
+    else:
+        label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
+        objs = c.beta_set.all()
+
+    df = dataset_objects_to_pandas_df(objs)
+    csv_header = df.columns.values.tolist()
+    csv_rows = df.values.tolist()
+
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="' + label + '.xls"'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet("Data")
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    i_row = 0
+    for i_col, colname in enumerate(df.columns.values.tolist()):
+        ws.write(i_row, i_col, colname, font_style)
+        ws.col(i_col).width = 4000
+
+    font_style = xlwt.XFStyle()
+    font_style.alignment.wrap = 1
+
+    for csv_row in csv_rows:
+        i_row += 1
+        for i_col, x in enumerate(csv_row):
+            ws.write(i_row, i_col, x, font_style)
+
+    wb.save(response)
+    return response
 
 
 @login_required

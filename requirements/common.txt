@@ -14,3 +14,4 @@ python-dateutil==2.5.3
 pytz==2016.4
 six==1.10.0
 sqlparse==0.1.19
+xlwt==1.1.2
