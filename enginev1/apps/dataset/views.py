@@ -80,28 +80,6 @@ def upload_csv(request):
 
 
 @login_required
-def upload_xls(request):
-
-    if request.method == 'POST':
-        xls_form = UploadXLSForm(request.POST, request.FILES)
-
-        if xls_form.is_valid():
-
-            client = request.user.client
-            alpha_or_beta = xls_form.cleaned_data['alpha_or_beta']
-            xls_file = request.FILES['xls_file']
-
-            import_xls_as_dataset(client, alpha_or_beta, xls_file)
-
-            return HttpResponseRedirect('/dataset/view/' + alpha_or_beta)
-
-    else:
-        csv_form = UploadCSVForm()
-        context = { 'csv_form': csv_form }
-
-    return render(request, 'dataset/upload_csv.html', context)
-
-@login_required
 def export_csv(request, alpha_or_beta):
 
     c = request.user.client
