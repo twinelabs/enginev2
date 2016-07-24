@@ -3,7 +3,7 @@ from entwine_cluster import *
 from models import *
 
 import numpy as np
-
+import time
 
 def l2(x, y):
     x2 = x if isinstance(x, list) else x.tolist()
@@ -18,13 +18,27 @@ def l2_norm(data_rows):
     return [[l2(row_1, row_2) for row_1 in data_rows] for row_2 in data_rows]
 
 
+def binary_same(x):
+    return [[0 if i == j else 1 for j in x] for i in x]
+
+
+def combine_ds(ds):
+    w = 1.0/len(ds)
+    ds_np = [np.array(d) for d in ds]
+    d = sum([w*d_i for d_i in ds_np])
+    return d
+
 def distance_matrix(df, params):
 
+    ds = []
     colnames = params['colnames'].split(',')
-    data_rows = df[colnames].values.tolist()
-    distance_matrix = l2_norm(data_rows)
-    return np.array(distance_matrix)
+    for i, colname in enumerate(colnames):
+        data_row = [x[0] for x in df[[colname]].values.tolist()]
+        d_i = binary_same(data_row)
+        ds.append(d_i)
 
+    d = combine_ds(ds)
+    return d
 
 def match_from_config(config):
 
@@ -33,17 +47,20 @@ def match_from_config(config):
 
     if params['task'] == "cluster":
 
+        run_start = time.time()
         dataset_objs = client.alpha_set.all()
         df = dataset_objects_to_pandas_df(dataset_objs)
 
         d = distance_matrix(df, params)
         clusters = cluster_adapt(d, params)
 
-        result_data = {
-            'd': d,
-            'clusters': clusters
+        result_output = {
+            'clusters': str(clusters)
         }
-        result = Result(client = client, data = result_data)
+        run_end = time.time()
+
+        result = Result(client = client, config = config,
+                        output = result_output)
         result.save()
 
         return True

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}Create Match{% endblock %}
+
+{% block body_block %}
+
+    <div class="page-header">
+        <h2>Create Match</h2>
+    </div>
+
+    <form id="user_form" method="post" action="/match/create_match/"
+            enctype="multipart/form-data" class="form">
+
+        {% csrf_token %}
+        {% bootstrap_form match_config_form %}
+
+        <input type="submit" name="submit" value="Create Match" class="btn btn-default"/>
+    </form>
+
+{% endblock %}

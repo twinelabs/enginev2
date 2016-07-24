@@ -23,7 +23,7 @@ def cluster_mean_distance(d, cluster):
 
 def cluster_adapt(d, params):
 
-    k_size = params['k_size']
+    k_size = int(params['k_size'])
     gom_function = cluster_mean_distance
 
     # first, cluster randomly

@@ -21,10 +21,11 @@ class Config(models.Model):
 
 class Result(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    config = models.ForeignKey(Config, on_delete=models.CASCADE, default="")
     name = models.CharField(max_length=100)
 
-    run_start = models.DateTimeField()
-    run_end = models.DateTimeField()
+    run_start = models.DateTimeField(null=True, blank=True)
+    run_end = models.DateTimeField(null=True, blank=True)
 
     output = hstore.DictionaryField()
     objects = hstore.HStoreManager()

@@ -8,6 +8,7 @@
 
     <h2>{{ config }}</h2>
 
+    <h4>Setup</h4>
     <ul>
         {% for k,v in items %}
             <li>{{ k }}: {{ v }}</li>
@@ -15,5 +16,12 @@
     </ul>
 
     <a class="nav-link" href="/match/run_match/{{ config.id }}">Run Match</a>
+
+    <h4>Results</h4>
+    <ul>
+        {% for result in results %}
+            <li>{{ result.output }}</li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

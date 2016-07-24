@@ -6,14 +6,14 @@
 
 {% block body_block %}
 
-    <h2>My Match Configurations</h2>
+    <h2>My Matches</h2>
 
     {% if matches.count > 0 %}
         <ul>
             {% for m in matches %}
                 <li>
                     <a class="nav-link" href="/match/view/{{ m.id }}">
-                        {{ m }}
+                        {{ m.name }}
                     </a>
                 </li>
             {% endfor %}
@@ -24,19 +24,6 @@
 
     {% endif %}
 
-
-    <h2>My Match Results</h2>
-
-    {% if results.count > 0 %}
-        <ul>
-            {% for r in results %}
-                <li> {{ r }} </li>
-            {% endfor %}
-        </ul>
-
-    {% else %}
-        <p>No items.</p>
-
-    {% endif %}
+    <a class="nav-link" href="/match/create_match">Create New Match</a>
 
 {% endblock %}
