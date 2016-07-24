@@ -1,6 +1,6 @@
 from enginev1.apps.dataset.utils import *
 from entwine_cluster import *
-from models import *
+from enginev1.apps.match.models import *
 
 import numpy as np
 import time
@@ -40,7 +40,8 @@ def distance_matrix(df, params):
     d = combine_ds(ds)
     return d
 
-def match_from_config(config):
+
+def run_match(config):
 
     client = config.client
     params = config.params
@@ -53,17 +54,15 @@ def match_from_config(config):
 
         d = distance_matrix(df, params)
         clusters = cluster_adapt(d, params)
-
-        result_output = {
-            'clusters': str(clusters)
-        }
         run_end = time.time()
 
-        result = Result(client = client, config = config,
-                        output = result_output)
-        result.save()
+        result_output = {
+            'clusters': str(clusters),
+            'run_start': run_start,
+            'run_end': run_end
+        }
 
-        return True
+        return result_output
 
     elif params['task'] == "assign":
         raise TypeError("Assign not yet built")

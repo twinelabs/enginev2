@@ -20,7 +20,11 @@
     <h4>Results</h4>
     <ul>
         {% for result in results %}
-            <li>{{ result.output }}</li>
+            <li>
+                {{ result }}
+                -
+                <a class="nav-link" href="/match/delete_result/{{ config.id }}/{{ result.id }}">Delete</a>
+            </li>
         {% endfor %}
     </ul>
 

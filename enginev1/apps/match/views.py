@@ -1,23 +1,23 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
 
-from .forms import MatchConfigForm
+import datetime
+
+from entwine import entwine
 from models import *
-from entwine import match_from_config
+from .forms import MatchConfigForm
 
 
 @login_required
 def summary(request):
 
     c = request.user.client
-
     matches = c.config_set.all()
 
     context = {
         'matches': matches,
     }
-
     return render(request, 'match/summary.html', context)
 
 
@@ -81,6 +81,38 @@ def run_match(request, config_id):
     if config.client != c:
         return HttpResponse("You are not permissioned.")
 
-    match_from_config(config)
+    result_output = entwine.run_match(config)
+    result_name = config.name + ', run at ' + datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    result = Result(client = c, name = result_name, config = config, output = result_output)
+    result.save()
 
     return HttpResponseRedirect('/match/view/' + str(config.id))
+
+
+@login_required
+def delete_match(request, config_id):
+
+    c = request.user.client
+    config = Config.objects.get(pk=config_id)
+
+    if config.client != c:
+        return HttpResponse("You are not permissioned.")
+
+    config.delete()
+
+    return HttpResponseRedirect('/match/summary/')
+
+
+@login_required
+def delete_result(request, config_id, result_id):
+
+    c = request.user.client
+    result = Result.objects.get(pk=result_id)
+
+    if result.client != c:
+        return HttpResponse("You are not permissioned.")
+
+    result.delete()
+
+    return HttpResponseRedirect('/match/view/' + str(config_id))
