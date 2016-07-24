@@ -11,13 +11,19 @@
     {% if matches.count > 0 %}
         <ul>
             {% for m in matches %}
-                <li> {{ m }} </li>
+                <li>
+                    <a class="nav-link" href="/match/view/{{ m.id }}">
+                        {{ m }}
+                    </a>
+                </li>
             {% endfor %}
         </ul>
 
     {% else %}
         <p>No items.</p>
+
     {% endif %}
+
 
     <h2>My Match Results</h2>
 
@@ -30,6 +36,7 @@
 
     {% else %}
         <p>No items.</p>
+
     {% endif %}
 
 {% endblock %}

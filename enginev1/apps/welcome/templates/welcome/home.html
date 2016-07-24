@@ -7,36 +7,8 @@
 {% block body_block %}
 
     <div class="page-header">
-        <h1>Twine Home</h1>
-        <p>Welcome {{ u.username }}! Your info:</p>
-
-        <table class="table">
-            <tr>
-                <td>Client name</td>
-                <td>{{ c.name }}</td>
-            </tr>
-            <tr>
-                <td>Display name</td>
-                <td>{{ c.display_name }}</td>
-            </tr>
-            <tr>
-                <td>Domain</td>
-                <td>{{ c.domain_prefix }}</td>
-            </tr>
-            <tr>
-                <td>Dataset A Label</td>
-                <td>{{ c.alpha_label }}</td>
-            </tr>
-            <tr>
-                <td>Dataset B Label</td>
-                <td>{{ c.beta_label }}</td>
-            </tr>
-        </table>
-
-        <hr>
-
-        <a class="link" href="/welcome/logout">Log Out</a>
-
+        <h2>Welcome {{ u.username }}!</h2>
+        <p>Use the links above to navigate.</p>
     </div>
 
 {% endblock %}

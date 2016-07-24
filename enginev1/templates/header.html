@@ -8,36 +8,58 @@
     </a>
 
 
+
     <ul class="nav navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="#">&nbsp;&nbsp;</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/welcome/login">Login</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/welcome/register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">&nbsp;&nbsp;</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/dataset/summary">My Data</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/dataset/view/alpha">View A</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/dataset/view/beta">View B</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/dataset/upload_csv">Upload CSV</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">&nbsp;&nbsp;</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/match/summary">My Matches</a>
-        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">&nbsp;&nbsp;</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dataset/view/alpha">
+                    {% if user.client.alpha_label == '' %}
+                        Dataset #1
+                    {% else %}
+                        {{ user.client.alpha_label }}
+                    {% endif %}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dataset/view/beta">
+                    {% if user.client.beta_label == '' %}
+                        Dataset #2
+                    {% else %}
+                        {{ user.client.beta_label }}
+                    {% endif %}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">&nbsp;&nbsp;</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/match/summary">Matches</a>
+            </li>
+        {% endif %}
     </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="/welcome/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">&nbsp;&nbsp;</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/welcome/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/welcome/register">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">&nbsp;&nbsp;</a>
+            </li>
+        {% endif %}
+    </ul>
+
 </nav>

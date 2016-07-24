@@ -15,7 +15,10 @@
         </p>
 
     {% else %}
-        <p>You have 0 {{ alpha_label }}.</p>
+        <p>
+            You have 0 {{ alpha_label }}.
+            <a href="/dataset/upload_csv">Upload Data</a>
+        </p>
 
     {% endif %}
 
@@ -25,7 +28,10 @@
         <a href="/dataset/view/beta">View {{ beta_label }}</a>
 
     {% else %}
-        <p>You have 0 {{ beta_label }}.</p>
+        <p>
+            You have 0 {{ beta_label }}.
+            <a href="/dataset/upload_csv">Upload Data</a>
+        </p>
 
     {% endif %}
 
