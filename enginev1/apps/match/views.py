@@ -73,6 +73,24 @@ def view(request, config_id):
 
 
 @login_required
+def view_result(request, result_id):
+
+    c = request.user.client
+    result = Result.objects.get(pk=result_id)
+
+    if result.client != c:
+        return HttpResponse("You are not permissioned.")
+
+    context = {
+        'result': result,
+        'clusters_with_data': result.clusters_with_data,
+        'items': result.output.items()
+    }
+
+    return render(request, 'match/view_result.html', context)
+
+
+@login_required
 def run_match(request, config_id):
 
     c = request.user.client

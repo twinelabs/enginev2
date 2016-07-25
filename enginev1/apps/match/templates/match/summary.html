@@ -9,19 +9,16 @@
     <h2>My Matches</h2>
 
     {% if matches.count > 0 %}
-        <ul>
+        <ol>
             {% for m in matches %}
                 <li>
                     <a class="nav-link" href="/match/view/{{ m.id }}">
                         {{ m.name }}
-                    </a> -
-                    <a class="nav-link" href="/match/delete_match/{{ m.id }}">
-                        Delete
                     </a>
-
+                    (<a class="nav-link" href="/match/delete_match/{{ m.id }}">x</a>)
                 </li>
             {% endfor %}
-        </ul>
+        </ol>
 
     {% else %}
         <p>No items.</p>

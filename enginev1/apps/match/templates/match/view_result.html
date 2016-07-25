@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}View Result{% endblock %}
+
+{% block body_block %}
+
+    <h2>{{ result.name }}</h2>
+    
+    <div class="row">
+        <h3>Clusters</h3>
+        <ol>
+            {% for cluster in clusters_with_data %}
+                <li>
+                    <ul>
+                        {% for data_item in cluster %}
+                            <li>
+                                {{ data_item }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+
+    <ul>
+        {% for k,v in items %}
+            <li>{{ k }}: {{ v }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

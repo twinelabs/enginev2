@@ -4,6 +4,8 @@ from django.db import models
 from enginev1.apps.welcome.models import Client
 from django_hstore import hstore
 
+import json
+
 
 class Config(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
@@ -35,3 +37,12 @@ class Result(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clusters(self):
+        clusters = json.loads(self.output['clusters'])
+        return clusters
+
+    def clusters_with_data(self):
+        dataset_objs = self.client.alpha_set.all()
+        res = [[ str(dataset_objs[i]) for i in cluster] for cluster in self.clusters()]
+        return res
