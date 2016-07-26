@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad743e94-6345-467f-80f9-9f9856f94123" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/templates/footer.html" afterPath="$PROJECT_DIR$/enginev1/templates/footer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements/common.txt" afterPath="$PROJECT_DIR$/requirements/common.txt" />
     </list>
     <ignored path="enginev1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,11 +75,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="footer.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="footer.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/enginev1/templates/footer.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.04318618">
-              <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+            <state vertical-scroll-proportion="-5.0">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dev.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/requirements/dev.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="common.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/requirements/common.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.2673546">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="production.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/requirements/production.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -128,7 +157,6 @@
         <option value="$PROJECT_DIR$/requirements/production.txt" />
         <option value="$PROJECT_DIR$/enginev1/settings.py" />
         <option value="$PROJECT_DIR$/enginev1/apps/dataset/export.py" />
-        <option value="$PROJECT_DIR$/requirements/common.txt" />
         <option value="$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/upload_xls.html" />
         <option value="$PROJECT_DIR$/enginev1/apps/dataset/urls.py" />
         <option value="$PROJECT_DIR$/enginev1/apps/dataset/forms.py" />
@@ -152,6 +180,7 @@
         <option value="$PROJECT_DIR$/enginev1/apps/match/models.py" />
         <option value="$PROJECT_DIR$/enginev1/apps/match/templates/match/view_result.html" />
         <option value="$PROJECT_DIR$/enginev1/templates/footer.html" />
+        <option value="$PROJECT_DIR$/requirements/common.txt" />
       </list>
     </option>
   </component>
@@ -240,6 +269,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="enginev1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enginev1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enginev1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="requirements" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -672,20 +715,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements/dev.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements/production.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06656805">
-          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1331361">
@@ -896,14 +925,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements/common.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2251407">
-          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -914,8 +935,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/templates/footer.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.04318618">
-          <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+        <state vertical-scroll-proportion="-5.0">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements/production.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements/dev.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements/common.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2673546">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
