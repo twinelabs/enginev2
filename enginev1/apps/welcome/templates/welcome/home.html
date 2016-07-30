@@ -1,14 +1,36 @@
-{% extends 'base.html' %}
-
-{% load bootstrap3 %}
-
+{% extends 'sidebar_page.html' %}
+{% load staticfiles %}
 {% block title %}Home{% endblock %}
 
-{% block body_block %}
-
-    <div class="page-header">
-        <h2>Welcome {{ u.username }}!</h2>
-        <p>Use the links above to navigate.</p>
+{% block content_block %}
+<div class="row content-header">Placeholder...</div>
+<div class="row content-section">
+    <div class="col-sm-6">
+        <h3>Data Sets</h3>
+        Lorem ipsum...<br> More text
     </div>
-
+    <div class="col-sm-6">
+        <a href="#" class="content-button btn btn-default">Manage Data Sets</a>
+        <a href="#" class="content-button btn btn-default">View Data Analytics</a>
+    </div>
+</div>
+<div class="row content-section">
+    <div class="col-sm-6">
+        <h3>Match Setup</h3>
+        Lorem ipsum...<br> More text
+    </div>
+    <div class="col-sm-6">
+        <a href="#" class="content-button btn btn-default">Create New Match</a>
+    </div>
+</div>
+<div class="row content-section">
+    <div class="col-sm-6">
+        <h3>Match Results</h3>
+        Lorem ipsum...<br> More text
+    </div>
+    <div class="col-sm-6">
+        <a href="#" class="content-button btn btn-default">View Match Analytics</a>
+        <a href="#" class="content-button btn btn-default">Results/Feedback</a>
+    </div>
+</div>
 {% endblock %}

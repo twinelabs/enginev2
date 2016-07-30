@@ -3,10 +3,18 @@ $secondary-color: #BD4932;
 $text-color: #333;
 $background-color: #fafafa;
 
+html {
+    height: 100%;
+}
 body {
     background-color: $background-color;
     color: $text-color;
     font-family: $font-stack;
+    height: 100%;
+}
+
+.main-content {
+    height: 100%;
 }
 
 .form-control:focus {

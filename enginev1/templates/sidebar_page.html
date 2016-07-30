@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+    <div class="row content-wrapper">
+        <div class="sidebar-content col-sm-3">
+            <div class="sidebar-close-button sidebar-visible"><
+            </div>
+            <div class="sidebar-header">
+                <img class="sidebar-logo" src="{% static "img/twine_logo.png" %}" alt="Twine logo" />
+                <h5>Hello, <strong>{{ user.username }}</strong>.</h5>
+            </div>
+            <div class="sidebar-menu">
+                <a href="#" class="sidebar-menu-header">Data Sets</a>
+                <div class="sidebar-submenu">
+                    <a href="#" class="sidebar-menu-item">Employees</a>
+                    <a href="#" class="sidebar-menu-item">Administrators</a>
+                    <a href="#" class="sidebar-menu-item">Mentors</a>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <a href="#" class="sidebar-menu-header">Match Setup</a>
+                <div class="sidebar-submenu">
+                    <a href="#" class="sidebar-menu-item">Employees</a>
+                    <a href="#" class="sidebar-menu-item">Administrators</a>
+                    <a href="#" class="sidebar-menu-item">Mentors</a>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <a href="#" class="sidebar-menu-header">Match Results</a>
+                <div class="sidebar-submenu">
+                    <a href="#" class="sidebar-menu-item">Employees</a>
+                    <a href="#" class="sidebar-menu-item">Administrators</a>
+                    <a href="#" class="sidebar-menu-item">Mentors</a>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                Logout | Settings
+            </div>
+        </div>
+        <div class="main-content col-sm-9">
+            {% block content_block %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
