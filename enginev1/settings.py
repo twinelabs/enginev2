@@ -150,6 +150,7 @@ class Common(Configuration):
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'enginev1/scss'),
+        os.path.join(BASE_DIR, 'enginev1/fonts'),
     )
 #    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     STATICFILES_FINDERS = (

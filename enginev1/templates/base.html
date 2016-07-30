@@ -16,8 +16,8 @@
         <link href="{% static "main.scss"|compile %}" rel="stylesheet">
     </head>
 
-    <body>
-        {% include 'header.html' %}
+    <body class="{% block body_class %}{% endblock %}">
+        <!--{% include 'header.html' %}-->
 
         <div class="container">
             {% block body_block %}
@@ -26,4 +26,6 @@
 
         {% include 'footer.html' %}
     </body>
+    {% block footer_block %}
+    {% endblock %}
 </html>
