@@ -1,4 +1,4 @@
-#!/Users/ns/Dropbox/twine/Product/enginev1/venv/bin/python
+#!/Users/jeff/Documents/twine/enginev1/venv/bin/python
 from django.core import management
 
 if __name__ == "__main__":

@@ -6,6 +6,7 @@ django-debug-toolbar==1.4
 django-dotenv==1.4.1
 django-extensions==1.6.7
 django-hstore==1.4.2
+django-static-precompiler==1.4
 et-xmlfile==1.0.1
 jdcal==1.2
 numpy==1.11.1

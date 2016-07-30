@@ -33,6 +33,7 @@ class Common(Configuration):
 
         'django_hstore',
         'bootstrap3',
+        'static_precompiler',
 
         'django.contrib.admin',
         'django.contrib.auth',
@@ -44,6 +45,16 @@ class Common(Configuration):
         'django_extensions',
         'debug_toolbar',
     ]
+
+    STATIC_PRECOMPILER_COMPILERS = (
+        ('static_precompiler.compilers.SCSS', {
+            "precision": 8,
+            "compass_enabled": True,
+            "load_paths": [os.path.join(BASE_DIR, "/enginev1/scss/")]
+        }),
+    )
+
+    STATIC_PRECOMPILER_LIST_FILES = True
 
     MIDDLEWARE_CLASSES = [
         'django.middleware.security.SecurityMiddleware',
@@ -137,7 +148,15 @@ class Common(Configuration):
     # https://docs.djangoproject.com/en/1.9/howto/static-files/
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'enginev1/scss'),
+    )
 #    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_FINDERS = (
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+        'static_precompiler.finders.StaticPrecompilerFinder'
+    )
 
     FIXTURE_DIRS = [
         'fixtures/',
