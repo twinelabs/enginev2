@@ -15,12 +15,13 @@
                     Export as... <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">CSV</a></li>
-                    <li><a href="#">Excel</a></li>
+                    <li><a href="/dataset/export_csv/{{ alpha_or_beta }}">CSV</a></li>
+                    <li><a href="/dataset/export_xls/{{ alpha_or_beta }}">Excel</a></li>
                     <li><a href="#">PDF</a></li>
                 </ul>
             </div>
             <a href="#" class="header-button btn btn-default" id="analytics-button">Analytics</a>
+            <a class="header-button btn btn-danger" id="delete-all" href="/dataset/delete/{{ alpha_or_beta }}">Delete All</a>
         </div>
         {% endif %}
     </div>
@@ -44,7 +45,6 @@
                 {% endfor %}
             </tbody>
         </table>
-        <a class="btn btn-danger" id="delete-all" href="/dataset/delete/{{ alpha_or_beta }}">Delete All</a>
     {% else  %}
         <p>No {{ label }} found.</p>
         <a href="/dataset/upload_csv">Upload Data</a>
