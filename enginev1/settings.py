@@ -33,7 +33,6 @@ class Common(Configuration):
 
         'django_hstore',
         'bootstrap3',
-        'static_precompiler',
 
         'django.contrib.admin',
         'django.contrib.auth',
@@ -44,17 +43,16 @@ class Common(Configuration):
 
         'django_extensions',
         'debug_toolbar',
+        'compressor'
     ]
 
-    STATIC_PRECOMPILER_COMPILERS = (
-        ('static_precompiler.compilers.SCSS', {
-            "precision": 8,
-            "compass_enabled": True,
-            "load_paths": [os.path.join(BASE_DIR, "/enginev1/scss/")]
-        }),
+    COMPRESS_PRECOMPILERS = (
+        ('text/x-scss', 'django_libsass.SassCompiler'),
     )
 
-    STATIC_PRECOMPILER_LIST_FILES = True
+    COMPRESS_CSS_FILTERS = (
+        'django_compressor_autoprefixer.AutoprefixerFilter',
+    )
 
     MIDDLEWARE_CLASSES = [
         'django.middleware.security.SecurityMiddleware',
@@ -155,7 +153,7 @@ class Common(Configuration):
     STATICFILES_FINDERS = (
         'django.contrib.staticfiles.finders.FileSystemFinder',
         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-        'static_precompiler.finders.StaticPrecompilerFinder'
+        'compressor.finders.CompressorFinder',
     )
 
     FIXTURE_DIRS = [

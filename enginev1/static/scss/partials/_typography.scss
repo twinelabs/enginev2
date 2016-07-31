@@ -1,13 +1,11 @@
-// $font-stack: Helvetica, sans-serif;
-// $header-font-stack: Helvetica, sans-serif;
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic);
 
-// Font weights
-$light: 100;
-$regular: 400;
-$bold: 600;
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
 
-$base-font-size: 13px;
-$base-font-weight: $regular;
-$base-line-height: 1.4;
-
-$header-font-weight: $bold;
+$font-family-sans-serif:  "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family-base:        $font-family-sans-serif !default;

@@ -17,15 +17,8 @@ $(document).ready(function(){
 
     $('.sidebar-menu-header').on('click', function(event) {
         var target = $(event.currentTarget).parent();
-        var isActive = !target.hasClass('active');
-
-        // $('.sidebar-menu').removeClass('active');
-        // $('.sidebar-submenu').hide();
-
-        // if (isActive) {
-            target.toggleClass('active');
-            target.find('.sidebar-submenu').toggle();
-        // }
+        target.toggleClass('active');
+        target.find('.sidebar-submenu').toggle();
     });
 
     var selectedItem;
@@ -35,47 +28,50 @@ $(document).ready(function(){
         scrollX: true,
         scrollY: true,
         select: 'single',
-        lengthChange: false,
+        lengthMenu: [ [10, 25, 250, -1], [10, 25, 250, 'All'] ],
         buttons: [{
             extend: 'colvis',
             text: 'Select columns',
-            className: 'btn btn-default'
-        }, {
-          text: 'View',
-          action: function (e, dt, node, config) {
-              // Do stuff
-          },
-          className: 'btn btn-default view'
+        }],
+        columnDefs: [
+            { visible: false, targets: 0 }
+        ]
+    });
+    new $.fn.dataTable.Buttons(table, {
+        buttons: [{
+            text: 'View',
+            action: function(e, dt, node, config) {
+                // Do stuff
+            },
         },
         {
             text: 'Edit',
             action: function(e, dt, node, config) {
                 // Do stuff
             },
-            className: 'btn btn-default edit'
         },
         {
             text: 'Delete',
             action: function(e, dt, node, config) {
                 // Do stuff
             },
-            className: 'btn btn-default delete'
-        }],
-        columnDefs: [
-            { visible: false, targets: 0 }
-        ]
+            className: 'btn-danger'
+        }]
     });
-    table.buttons(['.view', '.edit', '.delete']).disable();
+    table.buttons(1, null).disable();
 
-    table.buttons().container().prependTo( table.table().container() ) ;
+    $('.row>.col-sm-6:first-of-type', table.table().container()).prepend(table.buttons(0, null).container());
+    $('.row>.col-sm-6>.dt-buttons', table.table().container()).after(table.buttons(1, null).container());
 
     table.on('select', function(e, dt, type, indexes) {
         selectedItem = $(table[type](indexes).nodes().to$()[0]);
-        table.buttons(['.view', '.edit', '.delete']).enable();
+        table.buttons(1, null).enable();
     });
 
     table.on('deselect', function(e, dt, type, indexes) {
         selectedItem = null;
-        table.buttons(['.view', '.edit', '.delete']).disable();
+        table.buttons(1, null).disable();
     });
+
+
 });

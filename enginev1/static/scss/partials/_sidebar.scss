@@ -1,5 +1,5 @@
 .sidebar-content {
-    background-color: $primary-color;
+    background-color: $brand-primary;
     color: white;
     min-height: 100%;
     padding: 0.5rem 2rem;
@@ -35,10 +35,10 @@
             padding: 0.5rem 2rem;
             display: block;
             font-size: 18px;
-            font-weight: $bold;
+            font-weight: 600;
 
             &:hover {
-                background-color: lighten($primary-color, 5%)
+                background-color: lighten($brand-primary, 5%)
             }
 
             span.dd-icon {
@@ -56,19 +56,25 @@
                 font-size: 16px;
 
                 &:hover {
-                    background-color: lighten($primary-color, 5%)
+                    background-color: lighten($brand-primary, 5%)
                 }
             }
         }
         &.active {
-            background-color: darken($primary-color, 5%);
+            background-color: darken($brand-primary, 5%);
             padding-bottom: 1rem;
         }
     }
 
     .sidebar-footer {
-        margin-top: 100px;
+        position: absolute;
+        bottom: 2rem;
+        right: 2rem;
         text-align: right;
+
+        a:hover {
+            color: $brand-warning;
+        }
     }
 
     transition: left 0.25s;

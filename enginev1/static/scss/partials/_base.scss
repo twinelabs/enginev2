@@ -1,21 +1,13 @@
-$primary-color: rgb(56, 78, 84);
-$secondary-color: rgb(237, 156, 42);
-
-$text-color: $primary-color;
-$text-color-secondary: darken($primary-color, 10%);
-$divider-color: rgb(180, 188, 194);
-$background-color: #FEFEFE;
-
 html, .content {
     height: 100%;
 }
 body {
-    background-color: $background-color;
+    background-color: $body-bg;
     color: $text-color;
     // font-family: $font-stack;
     height: 100%;
 }
 
 a {
-    color: $secondary-color;
+    color: $brand-warning;
 }

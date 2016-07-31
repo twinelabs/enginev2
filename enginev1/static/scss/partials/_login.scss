@@ -3,7 +3,7 @@ $login-button-width: 30%;
 
 body {
     &.login {
-        background-color: $primary-color;
+        background-color: $brand-primary;
         color: white;
     }
 }
@@ -52,7 +52,7 @@ body {
                 color: white;
                 &:hover {
                     text-decoration: none;
-                    color: $secondary-color;
+                    color: $brand-warning;
                     transition: color 0.2s;
                 }
             }
