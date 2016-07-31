@@ -3,29 +3,30 @@
 }
 
 .main-content {
-    .content-button {
-        display: block;
-        width: 200px;
-        margin: 1rem 0;
-    }
-
-    .content-button:first-of-type {
-        margin-top: 21px;
-    }
-
-    .buttons-right {
-        direction: rtl;
-
-        * {
-            direction: ltr;
-        }
-    }
-
     .content-header {
         .header-buttons {
             text-align: right;
             .header-button {
                 margin-top: 20px;
+            }
+        }
+    }
+
+    .well {
+        h3, .content-button:first-of-type {
+            margin-top: 0;
+        }
+        .content-button {
+            display: block;
+            width: 200px;
+            margin: 1rem 0;
+        }
+
+        .buttons-right {
+            direction: rtl;
+
+            * {
+                direction: ltr;
             }
         }
     }

@@ -19,7 +19,6 @@
             </ul>
         </div>
         <a href="#" class="header-button btn btn-warning" id="analytics-button">Analytics</a>
-        <!--<a class="header-button btn btn-danger" id="delete-all" href="/dataset/delete/{{ alpha_or_beta }}">Delete All</a>-->
         <button type="button" class="header-button btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete All</button>
     </div>
     <!-- Modal -->
@@ -34,7 +33,7 @@
                     Are you sure you want to delete all data? This action is irreversible.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <a href="/dataset/delete/{{ alpha_or_beta }}" type="button" class="btn btn-danger">Delete All</a>
                 </div>
             </div>
