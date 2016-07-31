@@ -44,13 +44,19 @@ def view(request, alpha_or_beta):
         objs = c.beta_set.all()
 
     df = dataset_objects_to_pandas_df(objs)
-    df_html = df.to_html(classes=['dataset-table', 'display', 'nowrap'])
+    df_column_names = ['id'] + list(df.columns.values)
+    df_values = df.values.tolist()
+    df_values_with_index = [ [i] + vals for i, vals in enumerate(df_values) ]
+
+    df_html = df.to_html(classes=['dataset-table'])
 
     context = {
         'alpha_or_beta': alpha_or_beta,
         'label': label,
         'df_count': len(df),
-        'df_html': df_html
+        'df_html': df_html,
+        'df_column_names': df_column_names,
+        'df_values_with_index': df_values_with_index
     }
 
     return render(request, 'dataset/view.html', context)

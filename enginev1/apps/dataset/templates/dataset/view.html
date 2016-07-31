@@ -26,9 +26,25 @@
     </div>
 
     {% if df_count > 0 %}
-        {{ df_html | safe }}
+        <table class="dataset-table nowrap display">
+            <thead>
+                <tr>
+                    {% for column_name in df_column_names %}
+                    <th>{{ column_name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in df_values_with_index %}
+                <tr>
+                    {% for value in row %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         <a class="btn btn-danger" id="delete-all" href="/dataset/delete/{{ alpha_or_beta }}">Delete All</a>
-
     {% else  %}
         <p>No {{ label }} found.</p>
         <a href="/dataset/upload_csv">Upload Data</a>
