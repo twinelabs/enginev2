@@ -3,6 +3,10 @@
     color: white;
     min-height: 100%;
     padding: 0.5rem 2rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
 
     a {
         color: white;
@@ -37,10 +41,9 @@
                 background-color: lighten($primary-color, 5%)
             }
 
-            &::after {
-                display: inline-block;
-                content: "∨";
+            span.dd-icon {
                 float: right;
+                margin-top: 5px;
             }
         }
         margin: 0 -2rem;
@@ -68,22 +71,26 @@
         text-align: right;
     }
 
-    transition: margin-left 0.25s;
+    transition: left 0.25s;
     &.sidebar-hidden {
-        margin-left: -25%;
+        left: -16.666666667%;
     }
 }
 
 .sidebar-close-button {
-    position: absolute;
-    top: 2rem;
-    right: 0;
     background-color: black;
     border-radius: 100%;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
     text-align: center;
-    margin-right: -10px;
     z-index: 1;
     color: white;
+    position: absolute;
+    left: -15px;
+    top: 24px;
+}
+
+.content-header {
+    margin: 0 0 2rem;
 }

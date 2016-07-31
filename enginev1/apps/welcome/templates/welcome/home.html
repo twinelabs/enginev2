@@ -1,36 +1,49 @@
 {% extends 'sidebar_page.html' %}
 {% load staticfiles %}
 {% block title %}Home{% endblock %}
-
+{% block header_block %}
+    <div class="col-sm-8">
+        <h2>Home</h2>
+    </div>
+    <div class="col-sm-4 header-buttons">
+        <a href="#" class="header-button btn btn-info" id="analytics-button">Placeholder</a>
+        <a href="/" class="header-button btn btn-primary">Sign out</a>
+    </div>
+{% endblock %}
 {% block content_block %}
-<div class="row content-header">Placeholder...</div>
-<div class="row content-section">
-    <div class="col-sm-6">
-        <h3>Data Sets</h3>
-        Lorem ipsum...<br> More text
-    </div>
-    <div class="col-sm-6">
-        <a href="#" class="content-button btn btn-default">Manage Data Sets</a>
-        <a href="#" class="content-button btn btn-default">View Data Analytics</a>
-    </div>
-</div>
-<div class="row content-section">
-    <div class="col-sm-6">
-        <h3>Match Setup</h3>
-        Lorem ipsum...<br> More text
-    </div>
-    <div class="col-sm-6">
-        <a href="#" class="content-button btn btn-default">Create New Match</a>
+<div class="well well-lg">
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Data Sets</h3>
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        </div>
+        <div class="col-sm-6 buttons-right">
+            <a href="#" class="content-button btn btn-primary">Manage Data Sets</a>
+            <a href="#" class="content-button btn btn-primary">View Data Analytics</a>
+        </div>
     </div>
 </div>
-<div class="row content-section">
-    <div class="col-sm-6">
-        <h3>Match Results</h3>
-        Lorem ipsum...<br> More text
+<div class="well well-lg">
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Match Setup</h3>
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        </div>
+        <div class="col-sm-6 buttons-right">
+            <a href="#" class="content-button btn btn-primary">Create New Match</a>
+        </div>
     </div>
-    <div class="col-sm-6">
-        <a href="#" class="content-button btn btn-default">View Match Analytics</a>
-        <a href="#" class="content-button btn btn-default">Results/Feedback</a>
+</div>
+<div class="well well-lg">
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Match Results</h3>
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        </div>
+        <div class="col-sm-6 buttons-right">
+            <a href="#" class="content-button btn btn-primary">View Match Analytics</a>
+            <a href="#" class="content-button btn btn-primary">Results/Feedback</a>
+        </div>
     </div>
 </div>
 {% endblock %}

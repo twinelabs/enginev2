@@ -3,17 +3,32 @@
 }
 
 .main-content {
-    .content-section {
-        margin: 1rem 2rem;
-        border: 2px solid gray;
-        .content-button {
-            display: block;
-            width: 200px;
-            margin: 1rem auto;
+    .content-button {
+        display: block;
+        width: 200px;
+        margin: 1rem 0;
+    }
+
+    .content-button:first-of-type {
+        margin-top: 21px;
+    }
+
+    .buttons-right {
+        direction: rtl;
+
+        * {
+            direction: ltr;
         }
     }
 
     .content-header {
-        margin: 1rem 2rem;
+        .header-buttons {
+            text-align: right;
+            .header-button {
+                margin-top: 20px;
+            }
+        }
     }
+
+    transition: margin-left 0.25s, width 0.25s;
 }

@@ -10,13 +10,22 @@ $(document).ready(function(){
         }
         $('.sidebar-content').toggleClass('sidebar-hidden');
         $('.sidebar-close-button').toggleClass('sidebar-visible');
-        $('.main-content').toggleClass('col-sm-9');
+        $('.main-content').toggleClass('col-sm-10');
         $('.main-content').toggleClass('col-sm-12');
+        $('.main-content').toggleClass('col-sm-offset-2');
     });
 
-    $('.sidebar-menu-header').on('click', function(e) {
-        $(event.currentTarget).parent().toggleClass('active');
-        $(event.currentTarget).parent().find('.sidebar-submenu').toggle();
+    $('.sidebar-menu-header').on('click', function(event) {
+        var target = $(event.currentTarget).parent();
+        var isActive = !target.hasClass('active');
+
+        // $('.sidebar-menu').removeClass('active');
+        // $('.sidebar-submenu').hide();
+
+        // if (isActive) {
+            target.toggleClass('active');
+            target.find('.sidebar-submenu').toggle();
+        // }
     });
 
     var selectedItem;

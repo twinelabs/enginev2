@@ -3,22 +3,21 @@
 
 {% block body_block %}
     <div class="row content-wrapper">
-        <div class="sidebar-content col-sm-3">
-            <div class="sidebar-close-button sidebar-visible"><
-            </div>
+        <div class="sidebar-content col-sm-2">
+
             <div class="sidebar-header">
                 <a href="/welcome"><img class="sidebar-logo" src="{% static "img/twine_logo.png" %}" alt="Twine logo" /></a>
                 <h5>Hello, <strong>{{ user.username }}</strong>.</h5>
             </div>
             <div class="sidebar-menu">
-                <a href="#" class="sidebar-menu-header">Data Sets</a>
+                <a href="#" class="sidebar-menu-header">Data Sets<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>
                 <div class="sidebar-submenu">
                     <a href="/dataset/view/alpha" class="sidebar-menu-item">Alphas</a>
                     <a href="/dataset/view/beta" class="sidebar-menu-item">Betas</a>
                 </div>
             </div>
             <div class="sidebar-menu">
-                <a href="#" class="sidebar-menu-header">Match Setup</a>
+                <a href="#" class="sidebar-menu-header">Match Setup<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>
                 <div class="sidebar-submenu">
                     <a href="#" class="sidebar-menu-item">Employees</a>
                     <a href="#" class="sidebar-menu-item">Administrators</a>
@@ -26,7 +25,7 @@
                 </div>
             </div>
             <div class="sidebar-menu">
-                <a href="#" class="sidebar-menu-header">Match Results</a>
+                <a href="#" class="sidebar-menu-header">Match Results<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>
                 <div class="sidebar-submenu">
                     <a href="#" class="sidebar-menu-item">Employees</a>
                     <a href="#" class="sidebar-menu-item">Administrators</a>
@@ -38,7 +37,12 @@
                 Logout | Settings
             </div>
         </div>
-        <div class="main-content col-sm-9">
+        <div class="main-content col-sm-10 col-sm-offset-2">
+            <div class="row content-header">
+                <div class="sidebar-close-button sidebar-visible"> < </div>
+                {% block header_block %}
+                {% endblock %}
+            </div>
             {% block content_block %}
             {% endblock %}
         </div>

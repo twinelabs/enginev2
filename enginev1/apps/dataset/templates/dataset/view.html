@@ -1,50 +1,54 @@
 {% extends 'sidebar_page.html' %}
 
 {% block title %}My Data{% endblock %}
+{% block header_block %}
+    <div class="col-sm-8">
+        <h2>View {{ label }}</h2>
+    </div>
+    {% if df_count > 0 %}
+    <div class="col-sm-4 header-buttons">
+        <div class="btn-group">
+            <button type="button" class="btn header-button btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded
+                "false">
+                        Export as... <span class="caret"></span>
+                    </button>
+            <ul class="dropdown-menu">
+                <li><a href="/dataset/export_csv/{{ alpha_or_beta }}">CSV</a></li>
+                <li><a href="/dataset/export_xls/{{ alpha_or_beta }}">Excel</a></li>
+                <li><a href="#">PDF</a></li>
+            </ul>
+        </div>
+        <a href="#" class="header-button btn btn-info" id="analytics-button">Analytics</a>
+        <a class="header-button btn btn-danger" id="delete-all" href="/dataset/delete/{{ alpha_or_beta }}">Delete All</a>
+    </div>
+    {% endif %}
+{% endblock %}
 {% block content_block %}
-
-    <div class="row dataset-header">
-        <div class="col-sm-8">
-            <h2>View {{ label }}</h2>
-        </div>
-        {% if df_count > 0 %}
-        <div class="col-sm-4 header-buttons">
-            <!--<a href="#" class="header-button btn btn-default" id="export-button">Export</a>-->
-            <div class="btn-group">
-                <button type="button" class="btn header-button btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded"false">
-                    Export as... <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="/dataset/export_csv/{{ alpha_or_beta }}">CSV</a></li>
-                    <li><a href="/dataset/export_xls/{{ alpha_or_beta }}">Excel</a></li>
-                    <li><a href="#">PDF</a></li>
-                </ul>
-            </div>
-            <a href="#" class="header-button btn btn-default" id="analytics-button">Analytics</a>
-            <a class="header-button btn btn-danger" id="delete-all" href="/dataset/delete/{{ alpha_or_beta }}">Delete All</a>
-        </div>
-        {% endif %}
+    <div class="row dataset-info">
+        <p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
     </div>
 
     {% if df_count > 0 %}
-        <table class="dataset-table nowrap display">
-            <thead>
-                <tr>
-                    {% for column_name in df_column_names %}
-                    <th>{{ column_name }}</th>
+        <div class="well">
+            <table class="dataset-table nowrap display">
+                <thead>
+                    <tr>
+                        {% for column_name in df_column_names %}
+                        <th>{{ column_name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in df_values_with_index %}
+                    <tr>
+                        {% for value in row %}
+                        <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in df_values_with_index %}
-                <tr>
-                    {% for value in row %}
-                    <td>{{ value }}</td>
-                    {% endfor %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     {% else  %}
         <p>No {{ label }} found.</p>
         <a href="/dataset/upload_csv">Upload Data</a>
