@@ -3,7 +3,7 @@ $secondary-color: #BD4932;
 $text-color: #333;
 $background-color: #fafafa;
 
-html {
+html, .content {
     height: 100%;
 }
 body {
@@ -15,10 +15,6 @@ body {
 
 a {
     color: $primary-color;
-}
-
-.main-content {
-    height: 100%;
 }
 
 .form-control:focus {
