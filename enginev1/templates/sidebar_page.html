@@ -7,14 +7,14 @@
             <div class="sidebar-close-button sidebar-visible"><
             </div>
             <div class="sidebar-header">
-                <img class="sidebar-logo" src="{% static "img/twine_logo.png" %}" alt="Twine logo" />
+                <a href="/welcome"><img class="sidebar-logo" src="{% static "img/twine_logo.png" %}" alt="Twine logo" /></a>
                 <h5>Hello, <strong>{{ user.username }}</strong>.</h5>
             </div>
             <div class="sidebar-menu">
                 <a href="#" class="sidebar-menu-header">Data Sets</a>
                 <div class="sidebar-submenu">
-                    <a href="#" class="sidebar-menu-item">Employees</a>
-                    <a href="#" class="sidebar-menu-item">Administrators</a>
+                    <a href="/dataset/view/alpha" class="sidebar-menu-item">Alphas</a>
+                    <a href="/dataset/view/beta" class="sidebar-menu-item">Betas</a>
                     <a href="#" class="sidebar-menu-item">Mentors</a>
                 </div>
             </div>
