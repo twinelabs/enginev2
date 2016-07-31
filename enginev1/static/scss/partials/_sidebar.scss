@@ -99,4 +99,12 @@
 
 .content-header {
     margin: 0 0 2rem;
+
+    h2 {
+        text-transform: uppercase;
+        // font-variant: small-caps;
+        font-size: 20px;
+        margin-top: 26px;
+        // color: $gray-light;
+    }
 }
