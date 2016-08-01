@@ -2,11 +2,12 @@
 
 {% block title %}My Data{% endblock %}
 {% block header_block %}
-    <div class="col-sm-8">
+    <div class="col-sm-6">
         <h2>View {{ label }}</h2>
     </div>
     {% if df_count > 0 %}
-    <div class="col-sm-4 header-buttons">
+    <div class="col-sm-6 header-buttons">
+        <a href="#" class="header-button btn btn-warning" id="analytics-button">Analytics</a>
         <div class="btn-group">
             <button type="button" class="btn header-button btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded
                 "false">
@@ -18,7 +19,6 @@
                 <li><a href="#">PDF</a></li>
             </ul>
         </div>
-        <a href="#" class="header-button btn btn-warning" id="analytics-button">Analytics</a>
         <button type="button" class="header-button btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete All</button>
     </div>
     <!-- Modal -->

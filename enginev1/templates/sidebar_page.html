@@ -19,23 +19,26 @@
             <div class="sidebar-menu">
                 <a href="#" class="sidebar-menu-header">Match Setup<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>
                 <div class="sidebar-submenu">
-                    <a href="#" class="sidebar-menu-item">Employees</a>
-                    <a href="#" class="sidebar-menu-item">Administrators</a>
-                    <a href="#" class="sidebar-menu-item">Mentors</a>
+                    <a href="/match/create_match" class="sidebar-menu-item">Create New Match</a>
                 </div>
             </div>
             <div class="sidebar-menu">
                 <a href="#" class="sidebar-menu-header">Match Results<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>
                 <div class="sidebar-submenu">
-                    <a href="#" class="sidebar-menu-item">Employees</a>
-                    <a href="#" class="sidebar-menu-item">Administrators</a>
-                    <a href="#" class="sidebar-menu-item">Mentors</a>
+                    <a href="/match/summary" class="sidebar-menu-item">Match Summaries</a>
                 </div>
             </div>
 
             <div class="sidebar-footer">
                 <!--<h5>Powered by <strong>Twine Labs</strong>.</h5>-->
-                <a href="#">Settings</a> &nbsp;&#8729;&nbsp; <a href="/">Sign out</a>
+                <ul>
+                    <li>
+                        <a href="#">Settings</a>
+                    </li>
+                    <li>
+                        <a href="/">Sign out</a>
+                    </li>
+                </ul>
                 <img class="sidebar-logo" src="{% static "img/twine_logo.png" %}" />
 
             </div>

@@ -1,30 +1,42 @@
 {% extends 'sidebar_page.html' %}
 
-{% load bootstrap3 %}
-
 {% block title %}My Matches{% endblock %}
-
+{% block header_block %}
+    <div class="col-sm-8"><h2>My Matches</h2></div>
+    <div class="col-sm-4 header-buttons">
+        <!--<a href="/" class="header-button btn btn-danger">Delete match</a>-->
+    </div>
+{% endblock %}
 {% block content_block %}
 
-    <h2>My Matches</h2>
-
     {% if matches.count > 0 %}
-        <ol>
+        <div class="well well-lg">
             {% for m in matches %}
-                <li>
-                    <a class="nav-link" href="/match/view/{{ m.id }}">
-                        {{ m.name }}
-                    </a>
-                    (<a class="nav-link" href="/match/delete_match/{{ m.id }}">x</a>)
-                </li>
+            <div class="row match-row">
+                <div class="col-sm-8">
+                    <h3><strong>{{ m.name }}</strong></h3>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                </div>
+                <div class="col-sm-4 match-buttons">
+                    <a href="/match/view/{{ m.id }}" class="match-button btn btn-default">View</a>&nbsp;&nbsp;
+                    <a href="/match/delete_match/{{ m.id}}" class="match-button btn btn-danger">Delete match</a>
+                </div>
+                <!--<div class="col-sm-8">
+                    <h5><a href="/match/view/{{ m.id }}">{{ m.name }}</a></h5>
+                </div>
+                <div class="col-sm-4 header-buttons">
+                    <a href="/match/delete_match/{{ m.id }}" class="header-button btn btn-danger">Delete match</a>
+                </div>-->
+            </div>
             {% endfor %}
-        </ol>
+        </div>
+
 
     {% else %}
         <p>No items.</p>
 
     {% endif %}
 
-    <a class="nav-link" href="/match/create_match">Create New Match</a>
+    <a class="nav-link btn btn-info" href="/match/create_match">Create New Match</a>
 
 {% endblock %}

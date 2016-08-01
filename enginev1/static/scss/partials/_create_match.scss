@@ -9,19 +9,25 @@
     .radio-pulldown {
         top: 7px;
     }
+
+    .radio-inline:not(:last-of-type) {
+        margin-right: 3rem;
+    }
 }
 .titles {
+    margin-left: -20px;
     div {
         display: inline-block;
         font-weight: bold;
+        font-size: 18px;
     }
 
     .pref-title {
-        margin-left: 12rem;
+        margin-left: 9.5rem;
     }
 
     .weight-title {
-        margin-left: 11rem;
+        margin-left: 8.5rem;
     }
 
     .additional-title {
@@ -30,7 +36,7 @@
     }
 
     .use-custom-prefs-title {
-        margin-left: -1rem;
+        margin-left: -2rem;
     }
     margin-bottom: 2rem;
 }
@@ -73,7 +79,7 @@
     .pref-importance {
         width: 50px;
         display: inline-block;
-        margin-left: 2.5rem;
+        margin-left: 3.5rem;
         text-align: center;
     }
 }

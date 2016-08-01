@@ -18,4 +18,8 @@
         margin: 1rem 0;
         border-bottom: 1px solid $table-border-color;
     }
+
+    table.dataTable thead th.sorting:after {
+        content: "";
+    }
 }
