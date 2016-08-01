@@ -119,4 +119,8 @@ $(document).ready(function(){
         $('input[name="save-custom-search"]').toggleClass('hidden');
         $('.custom-search-options').toggleClass('hidden');
     }
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 });
