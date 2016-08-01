@@ -1,34 +1,61 @@
 {% extends 'sidebar_page.html' %}
-{% block title %}My Data{% endblock %}
+{% load staticfiles %}
+{% block title %}Data Summary{% endblock %}
+{% block header_block %}
+    <div class="col-sm-8">
+        <h2>Data Summary</h2>
+    </div>
+    <div class="col-sm-4 header-buttons">
+        <a href="#" class="header-button btn btn-default">__View Analytics</a>
+    </div>
+{% endblock %}
 {% block content_block %}
 
-    <h2>Your Data Summary</h2>
+<div class="well well-lg">
+    <div class="row">
+        <div class="col-sm-8">
+            {% if alphas.count > 0 %}
+                <p>
+                    You have {{ alphas.count }} {{ alpha_label }}.
+                </p>
+            {% else %}
+                <p>
+                    You have 0 {{ alpha_label }}.
+                </p>
+            {% endif %}
+        </div>
+        <div class="col-sm-4 buttons-right">
+            {% if alphas.count > 0 %}
+                <a href="/dataset/view/alpha" class="content-button btn btn-primary">View {{ alpha_label }}</a>
+            {% else %}
+                <a href="/dataset/upload_csv" class="content-button btn btn-primary">Upload Data</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
-    {% if alphas.count > 0 %}
-        <p>
-            You have {{ alphas.count }} {{ alpha_label }}.
-            <a href="/dataset/view/alpha">View {{ alpha_label }}</a>
-        </p>
+<div class="well well-lg">
+    <div class="row">
+        <div class="col-sm-8">
+            {% if betas.count > 0 %}
+                <p>
+                    You have {{ betas.count }} {{ beta_label }}.
+                </p>
+            {% else %}
+                <p>
+                    You have 0 {{ beta_label }}.
+                </p>
+            {% endif %}
+        </div>
+        <div class="col-sm-4 buttons-right">
+            {% if betas.count > 0 %}
+                <a href="/dataset/view/beta" class="content-button btn btn-primary">View {{ beta_label }}</a>
+            {% else %}
+                <a href="/dataset/upload_csv" class="content-button btn btn-primary">Upload Data</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
-    {% else %}
-        <p>
-            You have 0 {{ alpha_label }}.
-            <a href="/dataset/upload_csv">Upload Data</a>
-        </p>
-
-    {% endif %}
-
-
-    {% if betas.count > 0 %}
-        You have {{ betas.count }} {{ beta_label }}.
-        <a href="/dataset/view/beta">View {{ beta_label }}</a>
-
-    {% else %}
-        <p>
-            You have 0 {{ beta_label }}.
-            <a href="/dataset/upload_csv">Upload Data</a>
-        </p>
-
-    {% endif %}
-
+</div>
 {% endblock %}

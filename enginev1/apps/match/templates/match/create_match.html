@@ -14,20 +14,20 @@
         <div class="well match-type">
             <h3>Match Type</h3>
             <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-teammates" value="teammates"> Teammates
+                <input type="radio" name="inlineRadioOptions" id="radio-teammates" value="teammates"> Create Teams
             </label>
             <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-partners" value="partners"> Ideation Partners
+                <input type="radio" name="inlineRadioOptions" id="radio-partners" value="partners"> Find Ideation Partners
             </label>
             <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-mentors" value="mentors"> Mentors
+                <input type="radio" name="inlineRadioOptions" id="radio-mentors" value="mentors"> Assign Mentors
             </label>
             <label class="radio-inline">
                 <input type="radio" class="radio-pulldown" name="inlineRadioOptions" id="radio-custom" value="custom">
                 <select class="form-control custom-search-dropdown" id="custom-search">
-                    <option>Custom search 1</option>
-                    <option>Custom search 2</option>
-                    <option>Custom search 3</option>
+                    <option>July 2016 Offsite</option>
+                    <option>Founder's Match</option>
+                    <option>CTO / CEO Dinner</option>
                 </select>
             </label>
             <label class="radio-inline">
@@ -39,9 +39,9 @@
             <div class="prefs">
                 <div class="row titles">
                     <div class="col-sm-6">
-                        <div class="category-title">Category</div>
+                        <div class="category-title">Variable</div>
                         <div class="pref-title">Preference</div>
-                        <div class="weight-title">Weight (1-5)</div>
+                        <div class="weight-title">Weight</div>
                     </div>
                     <div class="col-sm-6">
                         <div class="use-custom-prefs-title">Custom?</div>
@@ -71,7 +71,7 @@
                     <div class="col-sm-6 additional-prefs">
                         <input type="checkbox" class="prefs-checkbox form-control" name="gender-enabled">
                         <div class="form-group">
-                            <select multiple class="form-control selectpicker additional-pref-select" disabled="disabled" data-none-selected-text="Select genders..." id="placeholder">
+                            <select multiple class="form-control selectpicker additional-pref-select" disabled="disabled" data-none-selected-text="Select one or more genders..." id="placeholder">
                                 <option>Male</option>
                                 <option>Female</option>
                                 <option>Other</option>
@@ -102,7 +102,7 @@
                         <input type="checkbox" class="prefs-checkbox form-control" name="ethnicities-enabled">
                         <div class="form-group">
                             <!--<label for="placeholder">Select ethnicities</label>-->
-                            <select multiple class="form-control selectpicker additional-pref-select" disabled="disabled" data-none-selected-text="Select ethnicities..." id="placeholder">
+                            <select multiple class="form-control selectpicker additional-pref-select" disabled="disabled" data-none-selected-text="Select one or more ethnicities..." id="placeholder">
                                 <option>Example 1</option>
                                 <option>Example 2</option>
                                 <option>Example 3</option>
@@ -135,7 +135,7 @@
                     <div class="col-sm-6 additional-prefs">
                         <input type="checkbox" class="prefs-checkbox form-control" name="ethnicities-enabled">
                         <div class="form-group">
-                            <select multiple class="form-control selectpicker additional-pref-select" disabled="disabled" data-none-selected-text="Select colleges..." id="placeholder">
+                            <select multiple class="form-control selectpicker additional-pref-select" disabled="disabled" data-none-selected-text="Select one or more colleges..." id="placeholder">
                                 <option>Example 1</option>
                                 <option>Example 2</option>
                                 <option>Example 3</option>
@@ -182,44 +182,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="pref-wrapper row sortable">
-                    <div class="col-sm-6 slider-pref pref">
-                        <div class="slider-label">Industry</div>
-                        <div class="form prefs-form">
-                            <div class="form-group">
-                                <input type="radio" name="industry-prefs" value="1">
-                                <label for="industry-prefs">Different</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="radio" name="industry-prefs" value="2">
-                                <label for="industry-prefs">Any</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="radio" name="industry-prefs" value="3">
-                                <label for="industry-prefs">Similar</label>
-                            </div>
-                        </div>
-                        <input type="text" name="industry-weight" class="form-control pref-importance" placeholder="1-5" value="1">
-                    </div>
-                    <div class="col-sm-6 additional-prefs">
-                        <input type="checkbox" class="prefs-checkbox form-control" name="ethnicities-enabled">
-                        <div class="form-group">
-                            <select multiple class="form-control selectpicker additional-pref-select" disabled="disabled" data-none-selected-text="Select industries..." id="placeholder">
-                                <option>Example 1</option>
-                                <option>Example 2</option>
-                                <option>Example 3</option>
-                                <option>Example 4</option>
-                                <option>Example 5</option>
-                                <option>Example 6</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <input type="button" name="choose-categories" value="Add additional variables" class="btn btn-warning" />
+            <input type="button" name="choose-categories" value="+ Add variable" class="btn btn-warning" />
         </div>
-        <input type="button" name="save-custom-search" value="Save Custom Search" class="btn btn-primary" />
-        <input type="submit" name="submit" value="Generate Matches" class="btn btn-success"/>
+        <div class="well match-buttons">
+            <input type="button" name="save-custom-search" value="Save Search" class="btn btn-primary" />
+            <input type="submit" name="submit" value="Run Matches" class="btn btn-success"/>
+        </div>
     </form>
         <!--<form id="user_form" method="post" action="/match/create_match/"
             enctype="multipart/form-data" class="form">

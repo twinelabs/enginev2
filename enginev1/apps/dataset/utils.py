@@ -34,7 +34,7 @@ def pandas_df_to_dashboard_format(df, df_id, df_name):
         "id": df_id,
         "name": df_name,
         "columns": [{"name": col[0], "type": col[1]} for col in cols],
-        "data": df[1:10].to_dict(orient='records')
+        "data": df.to_dict(orient='records')
     }
 
     return res

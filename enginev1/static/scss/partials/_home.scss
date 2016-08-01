@@ -25,12 +25,24 @@
         .buttons-right {
             direction: rtl;
 
+            a {
+                margin: 30px;
+            }
+
             * {
                 direction: ltr;
             }
         }
 
         margin: 1rem 2rem;
+
+        div {
+            div {
+                p {
+                    margin: 10px;
+                }
+            }
+        }
     }
 
     transition: margin-left 0.25s, width 0.25s;

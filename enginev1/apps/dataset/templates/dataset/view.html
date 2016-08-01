@@ -7,7 +7,7 @@
     </div>
     {% if df_count > 0 %}
     <div class="col-sm-6 header-buttons">
-        <a href="#" class="header-button btn btn-warning" id="analytics-button">Analytics</a>
+        <a href="/dataset/analytics/{{ alpha_or_beta }}" class="header-button btn btn-warning" id="analytics-button">Analytics</a>
         <div class="btn-group">
             <button type="button" class="btn header-button btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded
                 "false">
@@ -42,10 +42,6 @@
     {% endif %}
 {% endblock %}
 {% block content_block %}
-    <div class="row dataset-info">
-        <p> "Lorem ipsum dolor sit amet" </p>
-    </div>
-
     {% if df_count > 0 %}
         <div class="well">
             <table class="dataset-table nowrap table table-striped table-hover">

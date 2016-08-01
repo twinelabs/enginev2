@@ -93,9 +93,31 @@ def analytics(request, alpha_or_beta):
 @login_required
 def analytics_app(request):
 
-    context = {}
+    c = request.user.client
 
+    label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
+    objs = c.alpha_set.all()
+
+    df = dataset_objects_to_pandas_df(objs)
+    dashboard = [pandas_df_to_dashboard_format(df, 1, label)]
+    dashboard_s = json.dumps(dashboard)
+
+    context = {
+        'alpha_or_beta': 'alpha',
+        'label': label,
+        'dashboard': dashboard,
+        'dashboard_s': dashboard_s
+    }
     return render(request, 'dataset/analytics_app.html', context)
+
+def analytics_app2(request):
+    context = {}
+    return render(request, 'dataset/analytics_app2.html', context)
+
+@login_required
+def testang(request):
+    context = {}
+    return render(request, 'dataset/testang.html', context)
 
 
 @login_required
