@@ -21,7 +21,8 @@
     <ul>
         {% for result in results %}
             <li>
-                <a class="nav-link" href="/match/view_result/{{ result.id }}">{{ result }}</a>
+                <a class="nav-link" href="/match/analyze/{{ result.id }}">{{ result }}</a>
+                (<a class="nav-link" href="/match/view_result/{{ config.id }}/{{ result.id }}">raw</a>)
                 (<a class="nav-link" href="/match/delete_result/{{ config.id }}/{{ result.id }}">x</a>)
             </li>
         {% endfor %}

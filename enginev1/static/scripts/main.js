@@ -18,6 +18,8 @@ $(document).ready(function(){
     $('.sidebar-menu-header').on('click', function(event) {
         var target = $(event.currentTarget).parent();
         target.toggleClass('active');
+        $(event.currentTarget).toggleClass('active');
+
         target.find('.sidebar-submenu').toggle();
     });
 
@@ -63,6 +65,10 @@ $(document).ready(function(){
 
         $('.row>.col-sm-6:first-of-type', table.table().container()).prepend(table.buttons(0, null).container());
         $('.row>.col-sm-6>.dt-buttons', table.table().container()).after(table.buttons(1, null).container());
+
+        $('.row>.col-sm-6:first-of-type', table.table().container()).removeClass('col-sm-6').addClass('col-sm-8');
+        $('.row>.col-sm-6', table.table().container()).removeClass('col-sm-6').addClass('col-sm-4');
+
 
         table.on('select', function(e, dt, type, indexes) {
             selectedItem = $(table[type](indexes).nodes().to$()[0]);
@@ -112,5 +118,9 @@ $(document).ready(function(){
     function showCustomSearch() {
         $('input[name="save-custom-search"]').toggleClass('hidden');
         $('.custom-search-options').toggleClass('hidden');
+    }
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 });
