@@ -75,7 +75,7 @@ $(document).ready(function(){
         });
     }
 
-    $('.radio-inline')[0].click();
+    $('.radio-inline')[4].click();
 
     $('#custom-search').click(function(event) {
         $('#radio-custom').prop('checked', true);
@@ -86,11 +86,28 @@ $(document).ready(function(){
     });
 
     $('#radio-custom, #radio-newcustom').on('change', function(event) {
-        console.log(this.checked);
-        console.log(this.value);
-        if (this.checked && this.value.indexOf('custom') !== -1)
-            showCustomSearch();
+        // if (this.checked && this.value.indexOf('custom') !== -1)
+            // showCustomSearch();
     });
+
+    // sortable('.sortable');
+
+    $('.prefs-checkbox').click(function(event) {
+        var gp = $(this).parent().parent();
+        if (this.checked) {
+            $('.slider-pref input[type="radio"]', gp).prop('disabled', true);
+            $('.additional-prefs .form-group *', gp).prop('disabled', false);
+            $('.additional-prefs .form-group *', gp).removeClass('disabled');
+        }
+        else {
+            $('.slider-pref input[type="radio"]', gp).prop('disabled', false);
+            $('.additional-prefs .form-group *', gp).prop('disabled', true);
+            $('.additional-prefs .form-group *', gp).addClass('disabled');
+
+        }
+    });
+
+    $('.slider-pref').click();
 
     function showCustomSearch() {
         $('input[name="save-custom-search"]').toggleClass('hidden');

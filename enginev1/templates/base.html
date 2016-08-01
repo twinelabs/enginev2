@@ -9,20 +9,19 @@
 
         <script src="{% static "js/jquery.min.js" %}"></script>
         <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}" ></script>
-        <!--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.colVis.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>-->
         <script src="{% static "DataTables/datatables.min.js" %}"></script>
+        <script src="{% static "scripts/html.sortable.min.js" %}"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.1.1/bootstrap-slider.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
         <script src="{% static "scripts/main.js" %}"></script>
-        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css" />-->
-        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css"/>-->
-        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css" />-->
         {% compress css %}
         <!--<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">-->
         <link type="text/x-scss" href="{% static "scss/main.scss" %}" rel="stylesheet">
         <link type="text/css" href="{% static "DataTables/datatables.min.css" %}" rel="stylesheet">
         {% endcompress %}
+        <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.1.1/css/bootstrap-slider.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
