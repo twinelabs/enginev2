@@ -1,0 +1,78 @@
+[
+  {
+    "id": "123",
+    "name": "Simple Dataset",
+    "columns": [
+      {
+        "name": "name",
+        "type": "string"
+      }, {
+        "name": "age",
+        "type": "number"
+      }, {
+        "name": "color",
+        "type": "string"
+      }, {
+        "name": "ocean",
+        "type": "string"
+      }
+    ],
+    "data": [
+      {
+        "name": "John",
+        "age": "30",
+        "color": "Blue",
+        "ocean": "Pacific"
+      }, {
+        "name": "Mary",
+        "age": "35",
+        "color": "Red",
+        "ocean": "Atlantic"
+      }, {
+        "name": "Michael",
+        "age": "20",
+        "color": "Yellow",
+        "ocean": "Indian"
+      }
+    ]
+  },
+  {
+    "id": "124",
+    "name": "Animals with Dates",
+    "columns": [
+      {
+        "name": "animal_name",
+        "type": "string"
+      }, {
+        "name": "height",
+        "type": "number"
+      }, {
+        "name": "birthday",
+        "type": "date",
+        "date_format": "%Y-%m-%d"
+      }, {
+        "name": "birthday_withtime",
+        "type": "date",
+        "date_format": "%Y-%m-%d %H:%M:%S"
+      }
+    ],
+    "data": [
+      {
+        "animal_name": "Cat",
+        "height": "4",
+        "birthday": "1997-07-16",
+        "birthday_withtime": "1997-07-16 23:59:59"
+      }, {
+        "animal_name": "Dog",
+        "height": "8.4",
+        "birthday": "1997-07-17",
+        "birthday_withtime": "1997-07-17 04:04:04"
+      }, {
+        "animal_name": "Pig",
+        "height": "5.3",
+        "birthday": "1997-07-18",
+        "birthday_withtime": "1997-07-18 12:12:12"
+      }
+    ]
+  }
+]
