@@ -1,5 +1,6 @@
 import csv
 import xlwt
+import json
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -60,6 +61,41 @@ def view(request, alpha_or_beta):
     }
 
     return render(request, 'dataset/view.html', context)
+
+
+@login_required
+def analytics(request, alpha_or_beta):
+
+    c = request.user.client
+
+    if alpha_or_beta == 'alpha':
+        label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
+        objs = c.alpha_set.all()
+
+    else:
+        label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
+        objs = c.beta_set.all()
+
+    df = dataset_objects_to_pandas_df(objs)
+    dashboard = [pandas_df_to_dashboard_format(df, 1, "my table")]
+    dashboard_s = json.dumps(dashboard)
+
+    context = {
+        'alpha_or_beta': alpha_or_beta,
+        'label': label,
+        'dashboard': dashboard,
+        'dashboard_s': dashboard_s
+    }
+
+    return render(request, 'dataset/analytics.html', context)
+
+
+@login_required
+def analytics_app(request):
+
+    context = {}
+
+    return render(request, 'dataset/analytics_app.html', context)
 
 
 @login_required
