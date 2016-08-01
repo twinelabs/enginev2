@@ -75,7 +75,7 @@ $(document).ready(function(){
         });
     }
 
-    $('.radio-inline')[4].click();
+    if ($('radio-inline').length > 4) $('.radio-inline')[4].click();
 
     $('#custom-search').click(function(event) {
         $('#radio-custom').prop('checked', true);
