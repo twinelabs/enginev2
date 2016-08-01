@@ -48,7 +48,7 @@ def view(request, alpha_or_beta):
     df_column_names = ['id'] + list(df.columns.values)
     df_values = df.values.tolist()
     df_values_with_index = [ [i] + vals for i, vals in enumerate(df_values) ]
-    
+
     df_html = df.to_html(classes=['dataset-table'])
 
     context = {

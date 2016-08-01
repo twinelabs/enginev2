@@ -1,0 +1,117 @@
+.sidebar-content {
+    background-color: $brand-primary;
+    color: white;
+    min-height: 100%;
+    padding: 0.5rem 2rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    a {
+        color: white;
+        transition: color 0.25s, background-color 0.25s;
+    }
+
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+    }
+
+    .sidebar-header {
+        .sidebar-logo {
+            margin: 0 auto;
+            padding: 1rem;
+            display: block;
+            width: 100%;
+        }
+        margin-bottom: 2rem;
+    }
+
+    .sidebar-menu {
+        color: white;
+        line-height: 1.75;
+        .sidebar-menu-header {
+            padding: 0.5rem 2rem;
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+
+            &:hover {
+                background-color: lighten($brand-primary, 5%)
+            }
+
+            span.dd-icon {
+                float: right;
+                margin-top: 5px;
+            }
+        }
+        margin: 0 -2rem;
+
+        .sidebar-submenu {
+            display: none;
+            .sidebar-menu-item {
+                display: block;
+                padding: 0 2rem 0 3rem;
+                font-size: 16px;
+
+                &:hover {
+                    background-color: lighten($brand-primary, 5%)
+                }
+            }
+        }
+        &.active {
+            background-color: darken($brand-primary, 5%);
+            padding-bottom: 1rem;
+        }
+    }
+
+    .sidebar-footer {
+        position: absolute;
+        bottom: 2rem;
+        right: 0;
+        left: 0;
+        text-align: center;
+
+        a:hover {
+            color: $brand-warning;
+        }
+
+        img {
+            width: 25%;
+            margin: 2rem auto 0;
+            display: block;
+        }
+    }
+
+    transition: left 0.25s;
+    &.sidebar-hidden {
+        left: -16.666666667%;
+    }
+}
+
+.sidebar-close-button {
+    background-color: black;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    z-index: 1;
+    color: white;
+    position: absolute;
+    left: -15px;
+    top: 24px;
+}
+
+.content-header {
+    margin: 0 0 2rem;
+
+    h2 {
+        text-transform: uppercase;
+        // font-variant: small-caps;
+        font-size: 20px;
+        margin-top: 26px;
+        // color: $gray-light;
+    }
+}

@@ -1,0 +1,43 @@
+.network-wrapper, .info-wrapper {
+    display: flex;
+    align-items: strech;
+}
+
+.network-diagram, .info {
+    width: 100%;
+}
+
+.info {
+    .info-list {
+        padding: 0;
+        list-style-type: none;
+
+        li {
+            .info-img {
+                max-height: 50px;
+                max-width: 50px;
+            }
+
+            padding: 2rem 0;
+        }
+    }
+}
+
+.diagram-img {
+    width: 100%;
+    height: 100%;
+}
+
+.overview {
+    .overview-item {
+        .overview-img {
+            display: inline-block;
+            max-width: 100px;
+        }
+        .overview-text {
+            margin-left: 1rem;
+            display: inline-block;
+        }
+        margin: 1rem 0;
+    }
+}

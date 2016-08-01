@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^view/(?P<config_id>\w+)$', views.view, name="view"),
     url(r'^delete_match/(?P<config_id>\w+)$', views.delete_match, name="delete_match"),
     url(r'^view_result/(?P<result_id>\w+)$', views.view_result, name="view_result"),
+    url(r'^analyze/(?P<result_id>\w+)$', views.analyze, name="analyze"),
     url(r'^delete_result/(?P<config_id>\w+)/(?P<result_id>\w+)$', views.delete_result, name="delete_result"),
     url(r'^run_match/(?P<config_id>\w+)$', views.run_match, name="run_match"),
 ]

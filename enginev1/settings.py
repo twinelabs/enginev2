@@ -43,7 +43,16 @@ class Common(Configuration):
 
         'django_extensions',
         'debug_toolbar',
+        'compressor'
     ]
+
+    COMPRESS_PRECOMPILERS = (
+        ('text/x-scss', 'django_libsass.SassCompiler'),
+    )
+
+    COMPRESS_CSS_FILTERS = (
+        'django_compressor_autoprefixer.AutoprefixerFilter',
+    )
 
     MIDDLEWARE_CLASSES = [
         'django.middleware.security.SecurityMiddleware',
@@ -137,7 +146,15 @@ class Common(Configuration):
     # https://docs.djangoproject.com/en/1.9/howto/static-files/
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'enginev1/static'),
+    )
 #    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_FINDERS = (
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+        'compressor.finders.CompressorFinder',
+    )
 
     FIXTURE_DIRS = [
         'fixtures/',

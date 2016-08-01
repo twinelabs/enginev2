@@ -1,0 +1,24 @@
+html, .content {
+    height: 100%;
+}
+body {
+    background-color: $body-bg;
+    color: $text-color;
+    // font-family: $font-stack;
+    height: 100%;
+}
+
+a {
+    color: $brand-warning;
+}
+
+/*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}

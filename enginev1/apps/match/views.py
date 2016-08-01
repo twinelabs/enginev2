@@ -89,6 +89,56 @@ def view_result(request, result_id):
 
     return render(request, 'match/view_result.html', context)
 
+@login_required
+def analyze(request, result_id):
+
+    c = request.user.client
+    result = Result.objects.get(pk=result_id)
+
+    if result.client != c:
+        return HttpResponse("You are not permissioned.")
+
+    context = {
+        'result': result,
+        'clusters_with_data': result.clusters_with_data,
+        'items': result.output.items(),
+        'overview_items': [
+            {
+                'img': "img/twine_logo.png",
+                'title': 'Matched users',
+                'value': '1000'
+            },
+            {
+                'img': "img/twine_logo.png",
+                'title': 'Matches/user',
+                'value': '10'
+            },
+            {
+                'img': "img/twine_logo.png",
+                'title': 'Total matches',
+                'value': '10000'
+            },
+            {
+                'img': "img/twine_logo.png",
+                'title': 'Match strength',
+                'value': 'Very High'
+            },
+            {
+                'img': "img/twine_logo.png",
+                'title': 'Match Var',
+                'value': '45'
+            },
+            {
+                'img': "img/twine_logo.png",
+                'title': 'Div Coeff',
+                'value': '0.89'
+            }
+        ]
+    }
+
+    return render(request, 'match/analyze.html', context)
+
+
 
 @login_required
 def run_match(request, config_id):

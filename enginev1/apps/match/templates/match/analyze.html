@@ -1,0 +1,130 @@
+{% extends 'sidebar_page.html' %}
+{% load staticfiles %}
+
+{% block title %}View Result{% endblock %}
+{% block header_block %}
+    <div class="col-sm-8">
+        <h2>Match Analytics - {{ result.name }}</h2>
+    </div>
+    <div class="col-sm-4 header-buttons">
+        <a href="#" class="header-button btn btn-info" id="analytics-button">Placeholder</a>
+        <a href="/" class="header-button btn btn-primary">Sign out</a>
+    </div>
+{% endblock %}
+{% block content_block %}
+<div class="analytics-wrapper">
+    <div class="row overview-wrapper">
+        <div class="col-sm-12">
+            <div class="well well-lg overview">
+                <div class="row">
+                    <div class="col-sm-12 block-header">
+                        <h3>Overview</h3>
+                    </div>
+                    <div class="col-sm-12 block-content overview-content">
+                        <div class="row">
+                            {% for item in overview_items %}
+                            <div class="col-sm-4 overview-item">
+                                <img class="overview-img" src="{% static item.img %}" />
+                                <div class="overview-text">
+                                    <h4>{{ item.title }}</h4>
+                                    <p>{{ item.value }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-eq-height">
+        <div class="col-sm-9 network-wrapper">
+            <div class="well well-lg network-diagram">
+                <div class="row">
+                    <div class="col-sm-12 block-header"><h3>Network Diagram</h3></div>
+                    <div class="col-sm-12 block-content diagram-content">
+                        <img class="diagram-img" src="{% static "img/twine_logo.png" %}" alt="Twine logo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 info-wrapper">
+            <div class="well well-lg info">
+                <div class="row">
+                    <div class="col-sm-12 block-header">
+                        <h3>Info</h3>
+                    </div>
+                    <div class="col-sm-12 block-content info-content">
+                        <ul class="info-list">
+                            <li>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <img class="info-img" src="{% static "img/twine_logo.png" %}" />
+                                    </div>
+                                    <p class="col-sm-9">Some very interesting information.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <img class="info-img" src="{% static "img/twine_logo.png" %}" />
+                                    </div>
+                                    <p class="col-sm-9">Some very interesting information.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <img class="info-img" src="{% static "img/twine_logo.png" %}" />
+                                    </div>
+                                    <p class="col-sm-9">Some very interesting information.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row recommendations-wrapper">
+        <div class="col-sm-12">
+            <div class="well well-lg recommendations">
+                <div class="row">
+                    <div class="col-sm-12 block-header">
+                        <h3>Recommendations</h3>
+                    </div>
+                    <div class="col-sm-12 block-content recommendations-content">
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!--<h2>{{ result.name }}</h2>
+
+    <div class="row">
+        <h3>Clusters</h3>
+        <ol>
+            {% for cluster in clusters_with_data %}
+                <li>
+                    <ul>
+                        {% for data_item in cluster %}
+                            <li>
+                                {{ data_item }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+
+    <ul>
+        {% for k,v in items %}
+            <li>{{ k }}: {{ v }}</li>
+        {% endfor %}
+    </ul>-->
+
+{% endblock %}
