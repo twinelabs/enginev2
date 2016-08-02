@@ -5,8 +5,13 @@
 
 
 {% block header_block %}
-    <div class="col-sm-6">
+    <div class="col-sm-9">
         <h2 class="headerLine">{{ label }} Analytics</h2>
+    </div>
+    <div class="col-sm-3 header-buttons">
+        <a href="/dataset/view/{{ alpha_or_beta }}" class="header-button btn btn-primary" id="analytics-button">
+            &nbsp; &nbsp; &nbsp; View Data &nbsp; &nbsp; &nbsp;
+        </a>
     </div>
 {% endblock %}
 
@@ -16,65 +21,31 @@
   <div class="dashboard">
 
     <div class="row">
-      <div class="col col-md-12">
-        <div class="section section-top-table">
 
-          <div class="title">Select Data Set</div>
-
-          <div class="row">
-            <div class="col col-md-12">
-              <div class="btn btn-default btn-lg" ng-repeat="t in _.tables track by t.id"
-                   ng-class="{ active: t.id == _.selectedTable.id }"
-                   ng-click="_.selectedTable = t"
-              ><div>{{ t.name }}</div><div class="count">{{t.data.length}}</div></div>
-            </div>
-          </div>
-
-        </div>
-        <div class="section section-top-view">
-
-          <div class="title">Select View</div>
-
-          <div class="row">
-            <div class="col col-md-12">
-              <div class="view" ng-repeat="v in _.views track by v.id"
-                   ng-class="{ active: v.id == _.selectedView.id }"
-                   ng-click="_.selectedView = v"
-              ><a href="">{{ v.name }}</a></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-
-      <div class="col col-md-3">
+    <div class="col col-md-3">
         <div class="section section-left">
 
-          <div class="title">Tables & Data Fields</div>
+            <div class="title">Variables</div>
 
-          <ul>
-            <li class="types" ng-repeat="t in _.getFieldTypes() track by $index">
+            <ul class="typeList">
+                <li class="types" ng-repeat="t in _.getFieldTypes() track by $index">
 
-              <span class="arrow" ng-class="{ open: _.dataFieldsByType[t].open }"></span>
-              <div class="typeName" ng-click="_.dataFieldsByType[t].open = !_.dataFieldsByType[t].open">
-                {{ _.dataFieldsByType[t].name }}
-              </div>
+                  <span class="arrow" ng-class="{ open: _.dataFieldsByType[t].open }"></span>
+                  <div class="typeName" ng-click="_.dataFieldsByType[t].open = !_.dataFieldsByType[t].open">
+                    <strong>{{ _.dataFieldsByType[t].name }}</strong>
+                  </div>
 
-              <ul class="fieldList" ng-class="{ open: _.dataFieldsByType[t].open }">
-                <li class="fields" ng-repeat="f in _.dataFieldsByType[t].fields track by $index"
-                     ng-class="{ active: f == _.selectedDataField }"
-                     ng-click="_.selectedDataField = f"
-                >{{ f }}</li>
-              </ul>
+                  <ul class="fieldList" ng-class="{ open: _.dataFieldsByType[t].open }">
+                    <li class="fields" ng-repeat="f in _.dataFieldsByType[t].fields track by $index"
+                         ng-class="{ active: f == _.selectedDataField }"
+                         ng-click="_.selectedDataField = f"
+                    >{{ f }}</li>
+                  </ul>
 
-            </li>
-          </ul>
-
+                </li>
+            </ul>
         </div>
-      </div>
+    </div>
 
       <div class="col col-md-9">
 
@@ -115,9 +86,8 @@
 
           </div>
 
-
-          <div class="grid-container">
-            <div ng-if="_.showGrid" ui-grid="_.gridOptions" class="grid"></div>
+          <div class="db-grid-container">
+            <div ng-if="_.showGrid" ui-grid="_.gridOptions" class="db-grid"></div>
 
             <div ng-if="_.showGrid" class="dropdown">
               <button class="dropbtn">Export</button>

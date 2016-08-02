@@ -1,6 +1,6 @@
 app = angular.module('dashApp', []);
 
-app.controller('dashCtrl', [ '$scope', '$http', function($scope, $http) {
+app.controller('dashCtrl', [ '$scope', '$timeout', function($scope, $timeout) {
   var _ = this;
 
   // TABLES
@@ -35,12 +35,12 @@ app.controller('dashCtrl', [ '$scope', '$http', function($scope, $http) {
     },
     numeric: {
       fields: [],
-      open: false,
+      open: true,
       name: 'Numeric Fields'
     },
     date: {
       fields: [],
-      open: false,
+      open: true,
       name: 'Date Fields'
     }
   };
@@ -93,6 +93,8 @@ app.controller('dashCtrl', [ '$scope', '$http', function($scope, $http) {
   _.click = click;
 
   _.getFieldTypes = getFieldTypes;
+
+  _.prettyVariable = prettyVariable;
 
   // WATCH
   $scope.$watch('_.selectedTable', onSelectedTable);
@@ -177,6 +179,11 @@ app.controller('dashCtrl', [ '$scope', '$http', function($scope, $http) {
 
   function getFieldTypes(){
     return Object.keys(_.dataFieldsByType);
+  }
+
+  function prettyVariable(s){
+    s.replace("_", " ")
+
   }
 
   function loadData(cb){
@@ -397,7 +404,7 @@ app.controller('dashCtrl', [ '$scope', '$http', function($scope, $http) {
 
       res = data.map(function(d, i){
         return {
-          x: prettyNum(range[0] + i * step) + ' to ' + prettyNum(range[0] + (i + 1) * step),
+          x: prettyNum(range[0] + i * step) + '-' + prettyNum(range[0] + (i + 1) * step),
           y: 100 * d.length / L,
           count: d.length
         };
@@ -974,7 +981,7 @@ function horizontalBarChart(_data, selector, options){
       return chart;
     }
 
-    if (data.length > 10) {
+    if (data.length > 12) {
       svg
         .attr('transform', 'translate(0,0)')
         .append('text')

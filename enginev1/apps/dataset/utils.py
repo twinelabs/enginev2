@@ -28,7 +28,15 @@ def pandas_df_to_dashboard_format(df, df_id, df_name):
     df2 = df.apply(pd.to_numeric, errors='ignore')
     colnames = df2.columns.values
     coltypes = df2.dtypes
-    cols = [ (colnames[i], "number" if coltype == np.int64 else "string") for i, coltype in enumerate(coltypes) ]
+
+    ALLOWED_COLNAMES = ['Ethnicity', 'Gender', 'Major', 'Status',
+                        'Business Offering', 'Business Type', 'Incorporated', 'Industries',
+                        'Looking For', 'Phase', 'Grad Year', 'Revenue', 'Total Capital', 'Users']
+
+    cols = []
+    for i, coltype in enumerate(coltypes):
+        if colnames[i] in ALLOWED_COLNAMES:
+            cols.append((colnames[i], "number" if coltype == np.int64 else "string"))
 
     res = {
         "id": df_id,
