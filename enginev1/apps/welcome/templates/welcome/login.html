@@ -8,12 +8,11 @@
 {% block body_block %}
     <div class="login-page">
         <div class="row">
-            <img class="login-logo" src="{% static "img/logo_blackstone.jpg" %}" />
+            <img class="login-logo" src="{% static "img/twine_logo.png" %}" />
         </div>
 
         <div class="row login-dialog">
             <div class="col-sm-12">
-                <!--<div class="login-title">Sign in</div>-->
                 <form id="login_form" method="post" action="/welcome/login/" class="form-signin">
                     {% csrf_token %}
 
@@ -34,10 +33,7 @@
                 </form>
             </div>
         </div>
-        <!--<h5 class="powered-by" >Powered by <strong>Twine Labs</strong>.</h5>-->
-
     </div>
-
 
 {% endblock %}
 
@@ -45,8 +41,6 @@
 <footer class="login-footer">
     <ul>
         <li><a href="#">About Twine</a></li>
-        <li>&nbsp; &#8729; &nbsp;</li>
-        <li><img class="twine-logo" src="{% static "img/twine_logo.png" %}" alt="Twine logo"/></li>
         <li>&nbsp; &#8729; &nbsp;</li>
         <li><a href="# ">Contact Us</a></li>
     </ul>

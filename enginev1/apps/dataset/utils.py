@@ -6,6 +6,13 @@ import numpy as np
 
 import models
 
+"""
+from enginev1.apps.welcome.models import *
+from enginev1.apps.dataset.utils import *
+c = Client.objects.all()[5]
+alphas = c.alpha_set.all()
+df = dataset_objects_to_pandas_df(alphas)
+"""
 
 def dataset_objects_to_pandas_df(dataset_objects):
     """
@@ -15,13 +22,21 @@ def dataset_objects_to_pandas_df(dataset_objects):
 
     list_of_dicts = [obj.data for obj in dataset_objects]
     df = pd.DataFrame.from_dict(list_of_dicts)
-    col_order = ['First name', 'Last name', 'Email ', 'College', 'Graduation year', 'Major', 'Ethnicity', 'Gender', 'Status', 'business_offering', 'business_type', 'incorporated', 'industries', 'looking_for', 'most_help', 'phase', 'received_capital', 'revenue', 'sales_or_users', 'success', 'total_capital', 'users']
-    df = df[col_order]
+
+    colnames = list(df.columns.values)
+    desired_order = ['First name', 'Last name', 'Email ', 'College', 'Graduation year', 'Major', 'Ethnicity', 'Gender', 'Status', 'business_offering', 'business_type', 'incorporated', 'industries', 'looking_for', 'most_help', 'phase', 'received_capital', 'revenue', 'sales_or_users', 'success', 'total_capital', 'users']
+
+    desired_order.reverse()
+    for colname in desired_order:
+        if colname in colnames:
+            new_cols = [colname] + [x for x in colnames if x != colname]
+            df = df[new_cols]
+            colnames = list(df.columns.values)
 
     return df
 
 
-def pandas_df_to_dashboard_format(df, df_id, df_name):
+def pandas_df_to_dashboard_format(df, df_id, df_name, filter_viz=False):
     """
     :param df: Pandas dataframe
     :return: JSON object for usage in data dashboard
@@ -31,15 +46,12 @@ def pandas_df_to_dashboard_format(df, df_id, df_name):
     colnames = df2.columns.values
     coltypes = df2.dtypes
 
-    ALLOWED_COLNAMES = ['Ethnicity', 'Gender', 'Status', 'Graduation year',
-                        'business_offering', 'business_type', 'incorporated', 'industries',
-                        'looking_for', 'most_help', 'phase', 'received_capital', 'revenue',
-                        'sales_or_users', 'success', 'total_capital', 'users']
-
     cols = []
     for i, coltype in enumerate(coltypes):
-        if colnames[i] in ALLOWED_COLNAMES:
-            cols.append((colnames[i], "number" if coltype == np.int64 else "string"))
+        cols.append((colnames[i], "number" if coltype == np.int64 else "string"))
+
+    if filter_viz:
+        cols = [col for col in cols if len(df[col[0]].unique()) < 10]
 
     res = {
         "id": df_id,

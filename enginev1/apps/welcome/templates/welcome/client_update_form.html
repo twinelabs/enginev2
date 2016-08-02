@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block title %}Register{% endblock %}
+{% block body_class %}login{% endblock %}
+
+{% block body_block %}
+    <div class="login-page">
+
+        <div class="page-header">
+            <h3>Settings</h3>
+        </div>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update" />
+        </form>
+    </div>
+
+{% endblock %}

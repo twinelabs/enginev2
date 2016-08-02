@@ -13,6 +13,8 @@ class Client(models.Model):
     alpha_lastupdate = models.DateTimeField(blank=True, null=True)
     beta_lastupdate = models.DateTimeField(blank=True, null=True)
 
+    logo = models.ImageField(blank=True, null=True)
+
     class Meta:
         app_label = 'welcome'
 

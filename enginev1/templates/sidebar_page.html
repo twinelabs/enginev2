@@ -6,7 +6,12 @@
         <div class="sidebar-content col-sm-2">
 
             <div class="sidebar-header">
-                <a href="/welcome"><img class="sidebar-logo" src="{% static "img/logo_blackstone.jpg" %}" /></a>
+                {% if user.client.logo.name %}
+                    <a href="/welcome"><img class="sidebar-logo" src="{{ user.client.logo.path }}" /></a>
+                {% else %}
+                    <a href="/welcome"><img class="sidebar-logo" src="{% static "img/twine_logo.png" %}" /></a>
+                {% endif %}
+
                 <h5>Hello, <strong>{{ user.client.display_name }}</strong>.</h5>
             </div>
             <div class="sidebar-menu">
@@ -29,8 +34,9 @@
 
             <div class="sidebar-footer">
                 <ul>
-                    <li><a href="#">Settings</a></li>
+                    <li><a href="/welcome/client/{{ user.client.id }}">Settings</a></li>
                     <li>&nbsp; &nbsp;</li>
+                    <!--<h5 class="powered-by" >Powered by <strong>Twine Labs</strong>.</h5>-->
                     <li><img class="sidebar-twine-logo" src="{% static "img/twine_logo.png" %}" alt="Twine logo"/></li>
                     <li>&nbsp; &nbsp;</li>
                     <li><a href="/welcome/logout">Sign out</a></li>

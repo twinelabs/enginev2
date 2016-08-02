@@ -14,4 +14,4 @@ class UserForm(forms.ModelForm):
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ('name', 'display_name', 'alpha_label', 'beta_label')
+        fields = ('name', 'display_name', 'alpha_label', 'beta_label', 'logo')

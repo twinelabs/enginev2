@@ -2,8 +2,19 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
 
 from .forms import UserForm, ClientForm
+from .models import Client
+
+
+class ClientUpdate(UpdateView):
+    model = Client
+    fields = ['name', 'display_name', 'domain_prefix', 'alpha_label', 'beta_label', 'logo']
+    template_name_suffix = '_update_form'
+    success_url = '/welcome/'
+
+
 
 def register(request):
     # From: http://www.tangowithdjango.com/book17/chapters/login.html
@@ -12,7 +23,7 @@ def register(request):
 
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
-        client_form = ClientForm(data=request.POST)
+        client_form = ClientForm(data=request.POST, files=request.FILES)
 
         if user_form.is_valid() and client_form.is_valid():
 

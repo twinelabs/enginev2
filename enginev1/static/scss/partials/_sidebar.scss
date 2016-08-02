@@ -23,7 +23,9 @@
             margin: 0 auto;
             padding: 1rem;
             display: block;
-            width: 100%;
+            max-height: 80px;
+            height: 100%;
+            width: auto;
         }
         color: $gray-lighter;
         margin-bottom: 2rem;

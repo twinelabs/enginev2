@@ -83,7 +83,7 @@ def analytics(request, alpha_or_beta):
         objs = c.beta_set.all()
 
     df = dataset_objects_to_pandas_df(objs)
-    dashboard = [pandas_df_to_dashboard_format(df, 1, "my table")]
+    dashboard = [pandas_df_to_dashboard_format(df, 1, "my table", True)]
     dashboard_s = json.dumps(dashboard)
 
     context = {
