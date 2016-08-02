@@ -3,44 +3,48 @@
 {% block title %}My Data{% endblock %}
 {% block header_block %}
     <div class="col-sm-6">
-        <h2>View {{ label }}</h2>
+        <h2 class="headerLine">View {{ label }}</h2>
     </div>
+
     {% if df_count > 0 %}
-    <div class="col-sm-6 header-buttons">
-        <a href="/dataset/analytics/{{ alpha_or_beta }}" class="header-button btn btn-warning" id="analytics-button">Analytics</a>
-        <div class="btn-group">
-            <button type="button" class="btn header-button btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded
-                "false">
-                        Export as... <span class="caret"></span>
-                    </button>
-            <ul class="dropdown-menu">
-                <li><a href="/dataset/export_csv/{{ alpha_or_beta }}">CSV</a></li>
-                <li><a href="/dataset/export_xls/{{ alpha_or_beta }}">Excel</a></li>
-                <li><a href="#">PDF</a></li>
-            </ul>
+        <div class="col-sm-6 header-buttons">
+            <a href="/dataset/analytics/{{ alpha_or_beta }}" class="header-button btn btn-primary" id="analytics-button">
+                &nbsp; &nbsp; &nbsp; View Analytics &nbsp; &nbsp; &nbsp;
+            </a>
+            <div class="btn-group">
+                <button type="button" class="btn header-button btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded
+                    "false">
+                            Export as... <span class="caret"></span>
+                        </button>
+                <ul class="dropdown-menu">
+                    <li><a href="/dataset/export_csv/{{ alpha_or_beta }}">CSV</a></li>
+                    <li><a href="/dataset/export_xls/{{ alpha_or_beta }}">Excel</a></li>
+                    <li><a href="#">PDF</a></li>
+                </ul>
+            </div>
+            <button type="button" class="header-button btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete All</button>
         </div>
-        <button type="button" class="header-button btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete All</button>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="deleteModalLabel">Delete All Data</h4>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete all data? This action is irreversible.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <a href="/dataset/delete/{{ alpha_or_beta }}" type="button" class="btn btn-danger">Delete All</a>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="deleteModalLabel">Delete All Data</h4>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete all data? This action is irreversible.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <a href="/dataset/delete/{{ alpha_or_beta }}" type="button" class="btn btn-danger">Delete All</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     {% endif %}
 {% endblock %}
+
 {% block content_block %}
     {% if df_count > 0 %}
         <div class="well">
@@ -64,9 +68,10 @@
             </table>
         </div>
     {% else  %}
-        <p>No {{ label }} found.</p>
-        <a href="/dataset/upload_csv">Upload Data</a>
-
+        <div class="well">
+            <p>No {{ label }} found.</p>
+            <a class="content-button btn btn-primary" href="/dataset/upload_csv">Upload Data</a>
+        </div>
     {% endif %}
 
 {% endblock %}

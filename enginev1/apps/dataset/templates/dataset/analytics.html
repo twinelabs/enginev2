@@ -1,13 +1,149 @@
-{% extends 'base.html' %}
+{% extends 'base_dashboard.html' %}
 
-{% load bootstrap3 %}
+{% load compress %}
+{% load staticfiles %}
 
-{% block title %}My Data - Analytics{% endblock %}
 
-{% block body_block %}
+{% block header_block %}
+    <div class="col-sm-6">
+        <h2 class="headerLine">{{ label }} Analytics</h2>
+    </div>
+{% endblock %}
 
-    <h2>Analytics for {{ label }}</h2>
+{% block content_block %}
+{% verbatim %}
 
-	<p>{{ dashboard_s }}</p>
+  <div class="dashboard">
 
+    <div class="row">
+      <div class="col col-md-12">
+        <div class="section section-top-table">
+
+          <div class="title">Select Data Set</div>
+
+          <div class="row">
+            <div class="col col-md-12">
+              <div class="btn btn-default btn-lg" ng-repeat="t in _.tables track by t.id"
+                   ng-class="{ active: t.id == _.selectedTable.id }"
+                   ng-click="_.selectedTable = t"
+              ><div>{{ t.name }}</div><div class="count">{{t.data.length}}</div></div>
+            </div>
+          </div>
+
+        </div>
+        <div class="section section-top-view">
+
+          <div class="title">Select View</div>
+
+          <div class="row">
+            <div class="col col-md-12">
+              <div class="view" ng-repeat="v in _.views track by v.id"
+                   ng-class="{ active: v.id == _.selectedView.id }"
+                   ng-click="_.selectedView = v"
+              ><a href="">{{ v.name }}</a></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col col-md-3">
+        <div class="section section-left">
+
+          <div class="title">Tables & Data Fields</div>
+
+          <ul>
+            <li class="types" ng-repeat="t in _.getFieldTypes() track by $index">
+
+              <span class="arrow" ng-class="{ open: _.dataFieldsByType[t].open }"></span>
+              <div class="typeName" ng-click="_.dataFieldsByType[t].open = !_.dataFieldsByType[t].open">
+                {{ _.dataFieldsByType[t].name }}
+              </div>
+
+              <ul class="fieldList" ng-class="{ open: _.dataFieldsByType[t].open }">
+                <li class="fields" ng-repeat="f in _.dataFieldsByType[t].fields track by $index"
+                     ng-class="{ active: f == _.selectedDataField }"
+                     ng-click="_.selectedDataField = f"
+                >{{ f }}</li>
+              </ul>
+
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+      <div class="col col-md-9">
+
+        <div class="section section-right" ng-if="_.selectedView.id == 1">
+
+          <div class="title"> Chart {{ _.selectedDataField ? ' &dash; ' + _.selectedDataField : '' }}</div>
+
+          <div class="chart-container">
+            <div ng-if="_.showGrid" class="controls">
+
+              <div class="sort">
+                <span>sort: </span>
+                <div class="view" ng-repeat="c in _.chartControlSort track by c.id"
+                     ng-class="{ active: c.id == _.selectedChartControlSort.id }"
+                     ng-click="_.selectedChartControlSort = c"
+                ><a href="">{{ c.name }}</a></div>
+              </div>
+
+              <div class="scale">
+                <span>scale: </span>
+                <div class="view" ng-repeat="c in _.chartControlScale track by c.id"
+                     ng-class="{ active: c.id == _.selectedChartControlScale.id }"
+                     ng-click="_.selectedChartControlScale = c"
+                ><a href="">{{ c.name }}</a></div>
+              </div>
+
+            </div>
+
+            <div id="chart"></div>
+
+            <div ng-if="_.showGrid" class="dropdown">
+              <button class="dropbtn">Export</button>
+              <div class="dropdown-content">
+                <a href="" ng-click="_.click('png', $event)">PNG</a>
+                <a href="" ng-click="_.click('pdf', $event)">PDF</a>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="grid-container">
+            <div ng-if="_.showGrid" ui-grid="_.gridOptions" class="grid"></div>
+
+            <div ng-if="_.showGrid" class="dropdown">
+              <button class="dropbtn">Export</button>
+              <div class="dropdown-content">
+                <a href="" ng-click="_.click('csv', $event)">CSV</a>
+                <a href="" ng-click="_.click('json', $event)">JSON</a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="section section-right" ng-if="_.selectedView.id == 0">
+          <div class="title"> Summary </div>
+        </div>
+
+        <div class="section section-right" ng-if="_.selectedView.id == 2">
+          <div class="title"> Statistics </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+{% endverbatim %}
 {% endblock %}

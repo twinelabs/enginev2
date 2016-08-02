@@ -1,32 +1,47 @@
 {% extends 'base.html' %}
 
 {% load bootstrap3 %}
+{% load staticfiles %}
 
 {% block title %}Register{% endblock %}
+{% block body_class %}login{% endblock %}
 
 {% block body_block %}
+    <div class="login-page">
 
-    <div class="page-header">
-        <h2>Register</h2>
+        <div class="page-header">
+            <h3>Sign Up for Twine</h3>
+        </div>
+
+        {% if registered %}
+
+            <p>Thanks for registering with Twine. <a href="/welcome/home">Home screen</a>.</p>
+
+        {% else %}
+            <div class="col-sm-6">
+                <form id="user_form" method="post" action="/welcome/register/"
+                        enctype="multipart/form-data" class="form-signin">
+
+                    {% csrf_token %}
+                    {% bootstrap_form user_form %}
+                    {% bootstrap_form client_form %}
+
+                    <input type="submit" name="submit" value="Register" class="btn btn-default"/>
+                </form>
+            </div>
+        {% endif %}
     </div>
 
-    {% if registered %}
+{% endblock %}
 
-        <p>Thanks for registering with Twine.</p>
-        <p>Use the links at the top to navigate.</p>
-
-    {% else %}
-
-        <form id="user_form" method="post" action="/welcome/register/"
-                enctype="multipart/form-data" class="form">
-
-            {% csrf_token %}
-            {% bootstrap_form user_form %}
-            {% bootstrap_form client_form %}
-
-            <input type="submit" name="submit" value="Register" class="btn btn-default"/>
-        </form>
-    {% endif %}
-
-
+{% block footer_block %}
+<footer class="login-footer">
+    <ul>
+        <li><a href="#">About Twine</a></li>
+        <li>&nbsp; &#8729; &nbsp;</li>
+        <li><img class="twine-logo" src="{% static "img/twine_logo.png" %}" alt="Twine logo"/></li>
+        <li>&nbsp; &#8729; &nbsp;</li>
+        <li><a href="# ">Contact Us</a></li>
+    </ul>
+</footer>
 {% endblock %}

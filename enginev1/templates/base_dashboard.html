@@ -1,0 +1,116 @@
+{% load compress %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Twine - {% block title %}{% endblock %}</title>
+
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}" ></script>
+    <script src="{% static "DataTables/datatables.min.js" %}"></script>
+    <script src="{% static "scripts/html.sortable.min.js" %}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.1.1/bootstrap-slider.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
+    <script src="{% static "scripts/main.js" %}"></script>
+    {% compress css %}
+    <!--<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">-->
+    <link type="text/x-scss" href="{% static "scss/main.scss" %}" rel="stylesheet">
+    <link type="text/css" href="{% static "DataTables/datatables.min.css" %}" rel="stylesheet">
+    {% endcompress %}
+    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.1.1/css/bootstrap-slider.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+
+    <!--
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/3.2.6/ui-grid.min.css" rel="stylesheet"/>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+    -->
+
+    <link type="text/css" href="{% static "css/dashboard/db_styles.min.css" %}" rel="stylesheet">
+
+</head>
+
+
+<body ng-app="{% block ng_app %}dashApp{% endblock %}">
+    <div class="content" ng-controller="{% block ng_controller %}dashCtrl as _{% endblock %}">
+
+        <div class="container-fluid content">
+            <div class="row content-wrapper">
+                <div class="sidebar-content col-sm-2">
+
+                    <div class="sidebar-header">
+                        <a href="/welcome"><img class="sidebar-logo" src="{% static "img/logo_blackstone.jpg" %}" /></a>
+                        <h5>Hello, <strong>{{ user.username }}</strong>.</h5>
+                    </div>
+                    <div class="sidebar-menu">
+                        <a href="#" class="sidebar-menu-header">Data Sets<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>
+                        <div class="sidebar-submenu">
+                            <a href="/dataset/view/alpha" class="sidebar-menu-item">
+                                {% if alpha_label %}{{ alpha_label }}{% else %}Data Set 1{% endif %}
+                            </a>
+                            <a href="/dataset/view/beta" class="sidebar-menu-item">
+                                {% if beta_label %}{{ beta_label }}{% else %}Data Set 2{% endif %}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sidebar-menu">
+                        <a href="#" class="sidebar-menu-header">Match Setup<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>
+                        <div class="sidebar-submenu">
+                            <a href="/match/create_match" class="sidebar-menu-item">Create New Match</a>
+                        </div>
+                    </div>
+                    <div class="sidebar-menu">
+                        <a href="#" class="sidebar-menu-header">Match Results<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>
+                        <div class="sidebar-submenu">
+                            <a href="/match/summary" class="sidebar-menu-item">Match Summaries</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-footer">
+                        <ul>
+                            <li><a href="#">Settings</a></li>
+                            <li>&nbsp; &nbsp;</li>
+                            <li><img class="sidebar-twine-logo" src="{% static "img/twine_logo.png" %}" alt="Twine logo"/></li>
+                            <li>&nbsp; &nbsp;</li>
+                            <li><a href="/welcome/logout">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="main-content col-sm-10 col-sm-offset-2">
+                    <div class="row content-header">
+                        <div class="sidebar-close-button sidebar-visible"> < </div>
+                        {% block header_block %}
+                        {% endblock %}
+                    </div>
+                    {% block content_block %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+        {% include 'footer.html' %}
+    </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/3.2.6/ui-grid.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+  <script type='text/javascript'>
+    var myTables = {{ dashboard_s|safe }};
+  </script>
+
+  <script src="{% static "scripts/dashboard/analytics_app.js" %}"></script>
+
+  <script src="{% static "scripts/dashboard/libs/blob/blob.js" %}"></script>
+  <script src="{% static "scripts/dashboard/libs/FileSaver/FileSaver.min.js" %}"></script>
+  <script src="{% static "scripts/dashboard/libs/pdfmake/pdfmake.min.js" %}"></script>
+  <script src="{% static "scripts/dashboard/libs/pdfmake/vfs_fonts.js" %}"></script>
+  <script src="{% static "scripts/dashboard/libs/chart-export/chart-export.js" %}"></script>
+
+</body>
+
+</html>

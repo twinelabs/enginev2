@@ -64,9 +64,22 @@ def home(request):
     u = request.user
     c = u.client
 
+    alpha_label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
+    beta_label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
+
+    alphas = c.alpha_set.all()
+    betas = c.beta_set.all()
+
+    matches = c.config_set.all()
+
     context = {
         'u': u,
-        'c': c
+        'c': c,
+        'alpha_label': alpha_label,
+        'beta_label': beta_label,
+        'alphas': alphas,
+        'betas': betas,
+        'matches': matches
     }
 
     return render(request, 'welcome/home.html', context)

@@ -28,6 +28,7 @@ $(document).ready(function(){
     if ($('.dataset-table').length > 0) {
         var table = $('.dataset-table').DataTable({
             paging: true,
+            pageLength: 25,
             scrollX: true,
             scrollY: true,
             select: 'single',

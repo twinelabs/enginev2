@@ -71,16 +71,39 @@
         }
     }
 
+    .sidebar-footer2 {
+        text-align: center;
+        width: $login-width;
+        margin: -75px auto 0;
+        font-size: 18px;
+        ul {
+            padding: 0;
+            li {
+                display: inline-block;
+                margin: 0;
+                a {
+                    color: black;
+                    &:hover {
+                        text-decoration: none;
+                        color: $brand-warning;
+                        transition: color 0.2s;
+                    }
+                }
+            }
+        }
+    }
+
     .sidebar-footer {
         position: absolute;
         bottom: 2rem;
         right: 0;
         left: 0;
-        text-align: left;
 
         ul {
             list-style-type: none;
-            padding-left: 2rem;
+            li {
+                display: inline-block;
+            }
         }
 
         a:hover {
@@ -88,11 +111,10 @@
         }
 
         img {
-            position: absolute;
-            bottom: 0.8rem;
-            right: 2rem;
-            width: 20%;
+            height: 30px;
+            width: 30px;
         }
+
     }
 
     transition: left 0.25s;

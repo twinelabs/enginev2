@@ -3,51 +3,55 @@
 {% block title %}Home{% endblock %}
 {% block header_block %}
     <div class="col-sm-8">
-        <h2>Home</h2>
+        <h2 class="headerLine">Home</h2>
     </div>
     <div class="col-sm-4 header-buttons">
-        <a href="http://www.twinelabs.com/" target="_blank" class="header-button btn btn-default">About Twine</a>
+        <a href="#" class="header-button btn btn-default">Settings</a>
     </div>
 {% endblock %}
 {% block content_block %}
 <div class="well well-lg">
     <h3>Data Sets</h3>
     <div class="row">
-        <div class="col-sm-8">
-            <p>View, manage, and analyze the data that you've uploaded here.</p>
-            <p>Click <strong>Manage Data Sets</strong> to manually inspect each of your data tables.</p>
-            <p>Click <strong>View Data Analytics</strong> to start to better understand your data. You can see how your population breaks down across each variable here.</p>
+        <div class="col-sm-3 dataContainer">
+            <p>&nbsp; <br /> &nbsp; </p>
+            <img class="dataset-img" src="{% static "img/dataset_add.png" %}" />
+            <a href="/dataset/upload_csv" class="content-button btn btn-primary">Create New</a>
         </div>
-        <div class="col-sm-4 buttons-right">
-            <a href="/dataset/summary" class="content-button btn btn-primary">Manage Data Sets</a>
-            <a href="#" class="content-button btn btn-primary">__View Data Analytics</a>
-        </div>
+        {% if alphas.count > 0 %}
+            <div class="col-sm-3 dataContainer">
+                <p><strong>{{ alpha_label }}</strong> <br /> (n={{ alphas.count }})</p>
+                <img class="dataset-img" src="{% static "img/dataset.png" %}" />
+                <a href="/dataset/view/alpha" class="content-button btn btn-primary">View</a>
+                <a href="/dataset/analytics/alpha" class="content-button btn btn-success">Analytics</a>
+            </div>
+        {% endif %}
+        {% if betas.count > 0 %}
+            <div class="col-sm-3 dataContainer">
+                <p><strong>{{ beta_label }}</strong> <br /> (n={{ betas.count }})</p>
+                <img class="dataset-img" src="{% static "img/dataset.png" %}" />
+                <a href="/dataset/view/beta" class="content-button btn btn-primary">View</a>
+                <a href="/dataset/analytics/beta" class="content-button btn btn-success">Analytics</a>
+            </div>
+        {% endif %}
     </div>
 </div>
 <div class="well well-lg">
-    <h3>Match Setup</h3>
+    <h3>Matches</h3>
     <div class="row">
-        <div class="col-sm-8">
-            <p>Outline the rules that will be used to match people in your data set. You can set custom preferences and weights based on how you want each person to be matched.</p>
-            <p>Twine will use your rules to intelligently generate the best matches for each user.</p>
+        <div class="col-sm-3 matchContainer">
+            <p> &nbsp; <br /> &nbsp; </p>
+            <img class="match-img" src="{% static "img/match_add.png" %}" />
+            <a href="/match/create_match" class="content-button btn btn-primary">Create Match</a>
         </div>
-        <div class="col-sm-4 buttons-right">
-            <a href="/match/create_match" class="content-button btn btn-primary">Create New Match</a>
-        </div>
-    </div>
-</div>
-<div class="well well-lg">
-    <h3>Match Results</h3>
-    <div class="row">
-        <div class="col-sm-8">
-            <p>View Twine's intelligently generated results.</p>
-            <p>Click on <strong>View Match Analytics</strong> to see a summary of how well the people inside your data set were matched.</p>
-            <p>Click on <strong>Results/Feedback</strong> to view actual results and matches between people in your data set.</p>
-        </div>
-        <div class="col-sm-4 buttons-right">
-            <a href="/match/summary" class="content-button btn btn-primary">View Match Analytics</a>
-            <a href="#" class="content-button btn btn-primary">__Results/Feedback</a>
-        </div>
+        {% for match in matches %}
+            <div class="col-sm-3 dataContainer">
+                <p><strong>{{ match.name }}</strong> <br /> &nbsp; {{ match.created_at }} </p>
+                <img class="match-img" src="{% static "img/match.png" %}" />
+                <a href="/match/view/{{ match.id }}" class="content-button btn btn-primary">View Results</a>
+                <a href="/match/analyze/{{ match.id }}" class="content-button btn btn-success">View Analytics</a>
+            </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
