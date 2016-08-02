@@ -99,6 +99,21 @@ $(document).ready(function(){
 
     // sortable('.sortable');
 
+    $('.prefs-checkbox2').click(function(event) {
+        var gp = $(this).parent().parent();
+        if (this.checked) {
+            $('.match-preference-form input[type="radio"]', gp).prop('disabled', true);
+            $('.match-custom-options .form-group *', gp).prop('disabled', false);
+            $('.match-custom-options .form-group *', gp).removeClass('disabled');
+        }
+        else {
+            $('.match-preference-formf input[type="radio"]', gp).prop('disabled', false);
+            $('.match-custom-options .form-group *', gp).prop('disabled', true);
+            $('.match-custom-options .form-group *', gp).addClass('disabled');
+
+        }
+    });
+
     $('.prefs-checkbox').click(function(event) {
         var gp = $(this).parent().parent();
         if (this.checked) {

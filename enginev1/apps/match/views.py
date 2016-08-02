@@ -90,48 +90,41 @@ def view_result(request, result_id):
     return render(request, 'match/view_result.html', context)
 
 @login_required
-def analyze(request, result_id):
+def analyze(request):
 
     c = request.user.client
-    result = Result.objects.get(pk=result_id)
-
-    if result.client != c:
-        return HttpResponse("You are not permissioned.")
 
     context = {
-        'result': result,
-        'clusters_with_data': result.clusters_with_data,
-        'items': result.output.items(),
         'overview_items': [
             {
-                'img': "img/twine_logo.png",
-                'title': 'Matched users',
-                'value': '1000'
+                'img': "img/demo/match_strength.JPG",
+                'title': 'Match Strength',
+                'value': '9.3 (High)'
             },
             {
-                'img': "img/twine_logo.png",
-                'title': 'Matches/user',
-                'value': '10'
-            },
-            {
-                'img': "img/twine_logo.png",
-                'title': 'Total matches',
-                'value': '10000'
-            },
-            {
-                'img': "img/twine_logo.png",
-                'title': 'Match strength',
-                'value': 'Very High'
-            },
-            {
-                'img': "img/twine_logo.png",
-                'title': 'Match Var',
+                'img': "img/demo/match_variables.JPG",
+                'title': '# of Variables',
                 'value': '45'
             },
             {
-                'img': "img/twine_logo.png",
-                'title': 'Div Coeff',
-                'value': '0.89'
+                'img': "img/demo/diversity_coefficient.JPG",
+                'title': 'Diversity Score',
+                'value': '7.8'
+            },
+            {
+                'img': "img/demo/matched_users.JPG",
+                'title': 'Matched Users',
+                'value': '1,000'
+            },
+            {
+                'img': "img/demo/matches_per_user.JPG",
+                'title': 'Matches per User',
+                'value': '10'
+            },
+            {
+                'img': "img/demo/total_matches.JPG",
+                'title': 'Total # Matches',
+                'value': '10,000'
             }
         ]
     }

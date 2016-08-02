@@ -73,7 +73,7 @@
 }
 
 .dashboard .section-left {
-  height: 38em;
+  height: 44em;
   margin-bottom: 1.5em;
   overflow: auto;
 }
@@ -147,15 +147,20 @@
 }
 
 .dashboard .section-right {
-  height: 38em;
+  height: 44em;
   margin-bottom: 1.5em;
+}
+
+.btn-pad {
+    margin-top: 20px;
 }
 
 .dashboard .section-right .chart-container {
   position: relative;
-  height: 20em;
+  height: 40em;
   margin-bottom: 2.5em;
   padding-right: 100px;
+  padding-top: 20px;
 }
 
 .dashboard .section-right .chart-container #chart {
@@ -197,8 +202,8 @@
 
 .dashboard .section-right .chart-container .controls .view {
   display: inline-block;
-  width: 45px;
   text-align: center;
+  margin: 5px;
 }
 
 .dashboard .section-right .chart-container .controls .view a {
@@ -206,12 +211,12 @@
 }
 
 .dashboard .section-right .chart-container .controls .view.active {
-  background-color: lightblue;
+    color: black;
 }
 
 .dashboard .section-right .chart-container .controls .view.active a {
   text-decoration: none !important;
-  color: #fff;
+    color: black;
 }
 
 .dashboard .section-right .chart-container .dropdown {
@@ -238,7 +243,7 @@
   right: 0px;
 }
 
-.dashboard .title {
+.dashboard .chartTitle {
   position: absolute;
   top: -1px;
   left: -1px;

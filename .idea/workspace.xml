@@ -2,12 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad743e94-6345-467f-80f9-9f9856f94123" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/enginev1/static/css/dashboard/db_styles.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/enginev1/static/img/Demo images - Shortcut.lnk" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/static/img/match.png" afterPath="$PROJECT_DIR$/enginev1/static/img/match.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/static/img/match_add.png" afterPath="$PROJECT_DIR$/enginev1/static/img/match_add.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/analytics.html" afterPath="$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/analytics.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/dataset/utils.py" afterPath="$PROJECT_DIR$/enginev1/apps/dataset/utils.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/dataset/views.py" afterPath="$PROJECT_DIR$/enginev1/apps/dataset/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/match/templates/match/analyze.html" afterPath="$PROJECT_DIR$/enginev1/apps/match/templates/match/analyze.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/match/templates/match/create_match.html" afterPath="$PROJECT_DIR$/enginev1/apps/match/templates/match/create_match.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/match/urls.py" afterPath="$PROJECT_DIR$/enginev1/apps/match/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/match/views.py" afterPath="$PROJECT_DIR$/enginev1/apps/match/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/home.html" afterPath="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/register.html" afterPath="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/register.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/static/css/dashboard/db_styles.css" afterPath="$PROJECT_DIR$/enginev1/static/css/dashboard/db_styles.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/static/scripts/dashboard/analytics_app.js" afterPath="$PROJECT_DIR$/enginev1/static/scripts/dashboard/analytics_app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/templates/base_dashboard.html" afterPath="$PROJECT_DIR$/enginev1/templates/base_dashboard.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/static/scripts/main.js" afterPath="$PROJECT_DIR$/enginev1/static/scripts/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/static/scss/partials/_create_match.scss" afterPath="$PROJECT_DIR$/enginev1/static/scss/partials/_create_match.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/templates/sidebar_page.html" afterPath="$PROJECT_DIR$/enginev1/templates/sidebar_page.html" />
     </list>
     <ignored path="enginev1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,31 +39,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="analytics.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="analytics.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/analytics.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.875">
-              <caret line="88" column="41" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.672">
+              <caret line="65" column="20" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base_dashboard.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/enginev1/templates/base_dashboard.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.375">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="db_styles.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="db_styles.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/enginev1/static/css/dashboard/db_styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33281973">
-              <caret line="228" column="49" selection-start-line="228" selection-start-column="49" selection-end-line="228" selection-end-column="49" />
+            <state vertical-scroll-proportion="-12.444445">
+              <caret line="210" column="1" selection-start-line="210" selection-start-column="1" selection-end-line="210" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -61,18 +62,8 @@
       <file leaf-file-name="analytics_app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/enginev1/static/scripts/dashboard/analytics_app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+            <state vertical-scroll-proportion="-9.666667">
+              <caret line="56" column="14" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -97,34 +88,38 @@
         <option value="$PROJECT_DIR$/enginev1/static/scss/partials/_colors.scss" />
         <option value="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/login.html" />
         <option value="$PROJECT_DIR$/enginev1/static/scss/partials/_login.scss" />
-        <option value="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/register.html" />
         <option value="$PROJECT_DIR$/enginev1/apps/welcome/views.py" />
         <option value="$PROJECT_DIR$/enginev1/static/scss/partials/_base.scss" />
         <option value="$PROJECT_DIR$/enginev1/static/scss/partials/_sidebar.scss" />
-        <option value="$PROJECT_DIR$/enginev1/templates/sidebar_page.html" />
         <option value="$PROJECT_DIR$/enginev1/apps/dataset/forms.py" />
         <option value="$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/upload_csv.html" />
         <option value="$PROJECT_DIR$/enginev1/templates/footer.html" />
-        <option value="$PROJECT_DIR$/enginev1/static/scripts/main.js" />
         <option value="$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/view.html" />
-        <option value="$PROJECT_DIR$/enginev1/apps/dataset/views.py" />
         <option value="$PROJECT_DIR$/enginev1/apps/dataset/urls.py" />
-        <option value="$PROJECT_DIR$/enginev1/static/scss/partials/_create_match.scss" />
-        <option value="$PROJECT_DIR$/enginev1/apps/match/templates/match/create_match.html" />
         <option value="$PROJECT_DIR$/enginev1/static/scss/partials/_home.scss" />
-        <option value="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/home.html" />
         <option value="$PROJECT_DIR$/enginev1/apps/dataset/utils.py" />
-        <option value="$PROJECT_DIR$/enginev1/static/scripts/dashboard/analytics_app.js" />
         <option value="$PROJECT_DIR$/enginev1/templates/base_dashboard.html" />
-        <option value="$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/analytics.html" />
+        <option value="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/register.html" />
+        <option value="$PROJECT_DIR$/enginev1/apps/dataset/views.py" />
+        <option value="$PROJECT_DIR$/enginev1/apps/match/templates/match/analyze.html" />
+        <option value="$PROJECT_DIR$/enginev1/static/scss/partials/_analyze.scss" />
+        <option value="$PROJECT_DIR$/enginev1/static/scripts/main.js" />
+        <option value="$PROJECT_DIR$/enginev1/apps/match/templates/match/create_match.html" />
+        <option value="$PROJECT_DIR$/enginev1/static/scss/partials/_create_match.scss" />
+        <option value="$PROJECT_DIR$/enginev1/templates/sidebar_page.html" />
+        <option value="$PROJECT_DIR$/enginev1/apps/match/views.py" />
+        <option value="$PROJECT_DIR$/enginev1/apps/match/urls.py" />
+        <option value="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/home.html" />
+        <option value="$PROJECT_DIR$/enginev1/static/scripts/dashboard/analytics_app.js" />
         <option value="$PROJECT_DIR$/enginev1/static/css/dashboard/db_styles.css" />
+        <option value="$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/analytics.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="10" />
+    <option name="x" value="31" />
     <option name="y" value="23" />
-    <option name="width" value="1265" />
+    <option name="width" value="1210" />
     <option name="height" value="773" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -222,10 +217,6 @@
               <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -272,24 +263,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="dashboard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="enginev1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="enginev1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="enginev1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -404,6 +377,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dataset" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -606,10 +583,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="23" width="1265" height="773" extended-state="0" />
+    <frame x="31" y="23" width="1210" height="773" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21660079" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22644629" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3252841" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -641,13 +618,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/enginev1/apps/welcome/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.088757396">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/apps/welcome/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.088757396">
@@ -655,24 +625,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/apps/match/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06656805">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/apps/match/entwine/entwine_cluster.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.55473375">
           <caret line="25" column="34" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/apps/match/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15532544">
-          <caret line="9" column="81" selection-start-line="9" selection-start-column="81" selection-end-line="9" selection-end-column="81" />
         </state>
       </provider>
     </entry>
@@ -728,14 +684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/apps/match/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.35502958">
-          <caret line="84" column="25" selection-start-line="84" selection-start-column="25" selection-end-line="84" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/static/scss/partials/_footer.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -772,14 +720,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2868098">
-          <caret line="21" column="72" selection-start-line="21" selection-start-column="72" selection-end-line="21" selection-end-column="72" />
           <folding />
         </state>
       </provider>
@@ -856,14 +796,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/static/scripts/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40088758">
-          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22189349">
@@ -896,42 +828,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/static/scss/partials/_create_match.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2662722">
-          <caret line="50" column="14" selection-start-line="50" selection-start-column="14" selection-end-line="50" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/apps/match/templates/match/create_match.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20705521">
-          <caret line="123" column="76" selection-start-line="123" selection-start-column="76" selection-end-line="123" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19478528">
-          <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/static/scss/partials/_home.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.42159763">
           <caret line="38" column="42" selection-start-line="38" selection-start-column="42" selection-end-line="38" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/apps/match/templates/match/analyze.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69018406">
-          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -943,14 +843,6 @@
           <folding>
             <element signature="e#0#35#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8446745">
-          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -978,10 +870,114 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39110428">
+          <caret line="17" column="68" selection-start-line="17" selection-start-column="68" selection-end-line="17" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.75443786">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/templates/base_dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34509203">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5769231">
+          <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/apps/match/templates/match/create_match.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49386504">
+          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.76073617">
+          <caret line="50" column="36" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/static/scripts/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33284023">
+          <caret line="104" column="16" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/static/scss/partials/_create_match.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.40088758">
+          <caret line="151" column="0" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/static/scss/partials/_analyze.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48964497">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/apps/match/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.17751479">
+          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/apps/match/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24408284">
+          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/apps/match/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.06656805">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/apps/match/templates/match/analyze.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6441718">
+          <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/view.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5291411">
-          <caret line="25" column="14" selection-start-line="9" selection-start-column="0" selection-end-line="25" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.20398773">
+          <caret line="10" column="97" selection-start-line="10" selection-start-column="82" selection-end-line="10" selection-end-column="97" />
           <folding />
         </state>
       </provider>
@@ -996,48 +992,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/templates/sidebar_page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.023006136">
-          <caret line="1" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.18404908">
+          <caret line="8" column="108" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="108" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/static/scripts/dashboard/analytics_app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/analytics.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.875">
-          <caret line="88" column="41" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enginev1/templates/base_dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.375">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state vertical-scroll-proportion="-9.666667">
+          <caret line="56" column="14" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/static/css/dashboard/db_styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33281973">
-          <caret line="228" column="49" selection-start-line="228" selection-start-column="49" selection-end-line="228" selection-end-column="49" />
+        <state vertical-scroll-proportion="-12.444445">
+          <caret line="210" column="1" selection-start-line="210" selection-start-column="1" selection-end-line="210" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/analytics.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.672">
+          <caret line="65" column="20" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
           <folding />
         </state>
       </provider>

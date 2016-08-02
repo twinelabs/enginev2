@@ -3,7 +3,6 @@
 {% load compress %}
 {% load staticfiles %}
 
-
 {% block header_block %}
     <div class="col-sm-9">
         <h2 class="headerLine">{{ label }} Analytics</h2>
@@ -25,7 +24,7 @@
     <div class="col col-md-3">
         <div class="section section-left">
 
-            <div class="title">Variables</div>
+            <div class="chartTitle">Variables</div>
 
             <ul class="typeList">
                 <li class="types" ng-repeat="t in _.getFieldTypes() track by $index">
@@ -51,21 +50,23 @@
 
         <div class="section section-right" ng-if="_.selectedView.id == 1">
 
-          <div class="title"> Chart {{ _.selectedDataField ? ' &dash; ' + _.selectedDataField : '' }}</div>
+          <div class="chartTitle"> Chart {{ _.selectedDataField ? ' &dash; ' + _.selectedDataField : '' }}</div>
 
           <div class="chart-container">
             <div ng-if="_.showGrid" class="controls">
 
               <div class="sort">
-                <span>sort: </span>
+                <span><strong>Sort</strong>:</span>
                 <div class="view" ng-repeat="c in _.chartControlSort track by c.id"
                      ng-class="{ active: c.id == _.selectedChartControlSort.id }"
                      ng-click="_.selectedChartControlSort = c"
-                ><a href="">{{ c.name }}</a></div>
+                ><a href="">
+                    {{ c.name }}
+                </a></div>
               </div>
 
               <div class="scale">
-                <span>scale: </span>
+                <span><strong>Scale</strong>:</span>
                 <div class="view" ng-repeat="c in _.chartControlScale track by c.id"
                      ng-class="{ active: c.id == _.selectedChartControlScale.id }"
                      ng-click="_.selectedChartControlScale = c"
@@ -77,7 +78,7 @@
             <div id="chart"></div>
 
             <div ng-if="_.showGrid" class="dropdown">
-              <button class="dropbtn">Export</button>
+              <button class="btn btn-primary btn-pad">Export</button>
               <div class="dropdown-content">
                 <a href="" ng-click="_.click('png', $event)">PNG</a>
                 <a href="" ng-click="_.click('pdf', $event)">PDF</a>
@@ -86,11 +87,12 @@
 
           </div>
 
+            <!--
           <div class="db-grid-container">
             <div ng-if="_.showGrid" ui-grid="_.gridOptions" class="db-grid"></div>
 
             <div ng-if="_.showGrid" class="dropdown">
-              <button class="dropbtn">Export</button>
+              <button class="btn btn-primary">Export</button>
               <div class="dropdown-content">
                 <a href="" ng-click="_.click('csv', $event)">CSV</a>
                 <a href="" ng-click="_.click('json', $event)">JSON</a>
@@ -98,6 +100,7 @@
             </div>
 
           </div>
+          -->
 
         </div>
 

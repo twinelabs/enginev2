@@ -119,6 +119,11 @@
 
 .matchTable {
     width: 100%;
+
+    tr {
+        height: 60px;
+        vertical-align: center;
+    }
 }
 
 th {
@@ -127,19 +132,22 @@ th {
 }
 
 th.colVariable {
-    width: 10%;
+    width: 20%;
+    padding-left: 20px;
 }
 
 th.colPreference {
     width: 20%;
+    padding-left: 20px;
 }
 
 th.colWeight {
     width: 10%;
+    padding-left: 20px;
 }
 
 th.colCustom {
-    width: 10%;
+    padding-left: 20px;
 }
 
 .match-preference-form {
@@ -159,5 +167,11 @@ th.colCustom {
 }
 
 .match-weight-form {
-    padding-right: 60px;
+    padding-left: 15px;
+}
+
+.match-buttons {
+    input {
+        margin-left: 15px;
+    }
 }

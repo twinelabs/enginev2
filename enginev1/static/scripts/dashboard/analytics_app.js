@@ -54,15 +54,18 @@ app.controller('dashCtrl', [ '$scope', '$timeout', function($scope, $timeout) {
   _.chartControlSort = [
     {
       id: 0,
-      name: 'desc'
+      name: 'descending',
+      url: 'img/sort/desc.png'
     },
     {
       id: 1,
-      name: 'asc'
+      name: 'ascending',
+      url: 'img/sort/asc.png'
     },
     {
       id: 2,
-      name: 'abc'
+      name: 'alphabetical',
+      url: 'img/sort/abc.png'
     }
   ];
   _.selectedChartControlSort = _.chartControlSort[0];
@@ -339,7 +342,7 @@ app.controller('dashCtrl', [ '$scope', '$timeout', function($scope, $timeout) {
         _.gridOptions.data = _.chartData;
         _.gridOptions.columnDefs = [
           { field: 'y', displayName: f },
-          { field: 'x', displayName: 'Count, %' },
+          { field: 'x', displayName: 'Pct %' },
           { field: 'count', displayName: 'Count' }
         ]
       }
@@ -645,7 +648,7 @@ function barChart(_data, selector, options){
       })
       .attr("x", function(d, i) { return x(xAccessor(d, i)) + x.rangeBand() / 2; })
       .attr("y", function(d, i) { return y(yAccessor(d, i)) + (height - y(yAccessor(d, i)) < 18 ? -2 : 13); })
-      .text(function(d){ return d.y + '%'; });
+      .text(function(d){ return (Math.round(d.y * 10) / 10) + '%'; });
 
     barLabels.exit().remove();
 
@@ -764,7 +767,7 @@ function barChart(_data, selector, options){
       .style("fill", function(d, i){ return height - y(yAccessor(d, i)) < 18 ? '#000' : "#fff"; })
       .attr("x", function(d, i) { return x(xAccessor(d, i)) + x.rangeBand() / 2; })
       .attr("y", function(d, i) { return y(yAccessor(d, i)) + (height - y(yAccessor(d, i)) < 18 ? -2 : 13); })
-      .text(function(d){ return d.y + '%'; });
+      .text(function(d){ return (Math.round(d.y * 10) / 10) + '%'; });
 
     barLabels.exit()
       .transition()
@@ -1047,7 +1050,7 @@ function horizontalBarChart(_data, selector, options){
       })
       .attr("x", function(d, i) { return x(xAccessor(d, i)) + (x(xAccessor(d, i)) < 30 ? 32 : -4); })
       .attr("y", function(d, i) { return y(yAccessor(d, i)) + y.rangeBand() / 2 + 4; })
-      .text(function(d){ return d.x + '%'; });
+      .text(function(d){ return (Math.round(d.x * 10) / 10) + '%'; });
 
     barLabels.exit().remove();
 
@@ -1165,7 +1168,7 @@ function horizontalBarChart(_data, selector, options){
       .attr("x", function(d, i) { return x(xAccessor(d, i)) + (x(xAccessor(d, i)) < 30 ? 32 : -4); })
       .attr("y", function(d, i) { return y(yAccessor(d, i)) + y.rangeBand() / 2 + 4; })
       .style("fill", function(d, i){ return x(xAccessor(d, i)) < 30 ? '#000' : "#fff"; })
-      .text(function(d){ return d.x + '%'; });
+      .text(function(d){ return (Math.round(d.x * 10) / 10) + '%'; });
 
     barLabels.exit()
       .transition()

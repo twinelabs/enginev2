@@ -35,6 +35,8 @@ def summary(request):
 def view(request, alpha_or_beta):
 
     c = request.user.client
+    alpha_label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
+    beta_label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
 
     if alpha_or_beta == 'alpha':
         label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
@@ -53,6 +55,8 @@ def view(request, alpha_or_beta):
 
     context = {
         'alpha_or_beta': alpha_or_beta,
+        'alpha_label': alpha_label,
+        'beta_label': beta_label,
         'label': label,
         'df_count': len(df),
         'df_html': df_html,
@@ -67,6 +71,8 @@ def view(request, alpha_or_beta):
 def analytics(request, alpha_or_beta):
 
     c = request.user.client
+    alpha_label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
+    beta_label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
 
     if alpha_or_beta == 'alpha':
         label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
@@ -81,6 +87,8 @@ def analytics(request, alpha_or_beta):
     dashboard_s = json.dumps(dashboard)
 
     context = {
+        'alpha_label': alpha_label,
+        'beta_label': beta_label,
         'alpha_or_beta': alpha_or_beta,
         'label': label,
         'dashboard': dashboard,
