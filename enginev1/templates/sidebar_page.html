@@ -7,7 +7,7 @@
 
             <div class="sidebar-header">
                 <a href="/welcome"><img class="sidebar-logo" src="{% static "img/logo_blackstone.jpg" %}" /></a>
-                <h5>Hello, <strong>{{ user.username }}</strong>.</h5>
+                <h5>Hello, <strong>{{ user.client.display_name }}</strong>.</h5>
             </div>
             <div class="sidebar-menu">
                 <a href="#" class="sidebar-menu-header">Data Sets<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>

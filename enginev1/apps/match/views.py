@@ -21,6 +21,36 @@ def summary(request):
     return render(request, 'match/summary.html', context)
 
 
+@login_required
+def create_match_new(request):
+
+    if request.method == 'POST':
+        match_config_form = MatchConfigForm(data=request.POST)
+
+        if match_config_form.is_valid():
+
+            client = request.user.client
+            name = match_config_form.cleaned_data['name']
+            params = {
+                'task': match_config_form.cleaned_data['task'],
+                'colnames': match_config_form.cleaned_data['colnames'],
+                'k_size': match_config_form.cleaned_data['k_size']
+            }
+
+            match_config = Config(client=client, name=name, params=params)
+            match_config.save()
+
+            return HttpResponseRedirect('/match/summary/')
+
+        else:
+            print match_config_form.errors
+
+    else:
+        match_config_form = MatchConfigForm()
+
+    context = { 'match_config_form': match_config_form }
+    return render(request, 'match/create_match_new.html', context)
+
 
 @login_required
 def create_match(request):
@@ -89,6 +119,12 @@ def view_result(request, result_id):
 
     return render(request, 'match/view_result.html', context)
 
+
+@login_required
+def results(request):
+    return render(request, 'match/results.html', {})
+
+
 @login_required
 def analyze(request):
 
@@ -97,32 +133,32 @@ def analyze(request):
     context = {
         'overview_items': [
             {
-                'img': "img/demo/match_strength.JPG",
+                'img': "img/demo/match_strength.png",
                 'title': 'Match Strength',
                 'value': '9.3 (High)'
             },
             {
-                'img': "img/demo/match_variables.JPG",
+                'img': "img/demo/match_variables.png",
                 'title': '# of Variables',
                 'value': '45'
             },
             {
-                'img': "img/demo/diversity_coefficient.JPG",
+                'img': "img/demo/diversity_coefficient.png",
                 'title': 'Diversity Score',
                 'value': '7.8'
             },
             {
-                'img': "img/demo/matched_users.JPG",
+                'img': "img/demo/matched_users.png",
                 'title': 'Matched Users',
                 'value': '1,000'
             },
             {
-                'img': "img/demo/matches_per_user.JPG",
+                'img': "img/demo/matches_per_user.png",
                 'title': 'Matches per User',
                 'value': '10'
             },
             {
-                'img': "img/demo/total_matches.JPG",
+                'img': "img/demo/total_matches.png",
                 'title': 'Total # Matches',
                 'value': '10,000'
             }

@@ -36,14 +36,9 @@
 
         .dataContainer, .matchContainer {
             margin: 0 auto;
-            background-color: $login-page;
 
-            border-color: black;
-            border-radius: 2px;
-            margin: 20px;
             padding: 10px;
             height: 250px;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.16), 0 1px 1px rgba(0,0,0,0.23);
 
             p {
                 text-align: center;
@@ -51,13 +46,12 @@
             }
 
             a {
-                margin-left: 15px;
+                margin-left: 50px;
+                margin-right: 50px;
+                margin-bottom: 20px;
             }
 
             .dataset-img, .match-img {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
                 height: 80px;
                 width: 80px;
                 margin-top: 10px;

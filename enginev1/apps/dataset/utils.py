@@ -15,6 +15,8 @@ def dataset_objects_to_pandas_df(dataset_objects):
 
     list_of_dicts = [obj.data for obj in dataset_objects]
     df = pd.DataFrame.from_dict(list_of_dicts)
+    col_order = ['First name', 'Last name', 'Email ', 'College', 'Graduation year', 'Major', 'Ethnicity', 'Gender', 'Status', 'business_offering', 'business_type', 'incorporated', 'industries', 'looking_for', 'most_help', 'phase', 'received_capital', 'revenue', 'sales_or_users', 'success', 'total_capital', 'users']
+    df = df[col_order]
 
     return df
 
@@ -29,9 +31,10 @@ def pandas_df_to_dashboard_format(df, df_id, df_name):
     colnames = df2.columns.values
     coltypes = df2.dtypes
 
-    ALLOWED_COLNAMES = ['Ethnicity', 'Gender', 'Major', 'Status',
-                        'Business Offering', 'Business Type', 'Incorporated', 'Industries',
-                        'Looking For', 'Phase', 'Grad Year', 'Revenue', 'Total Capital', 'Users']
+    ALLOWED_COLNAMES = ['Ethnicity', 'Gender', 'Status', 'Graduation year',
+                        'business_offering', 'business_type', 'incorporated', 'industries',
+                        'looking_for', 'most_help', 'phase', 'received_capital', 'revenue',
+                        'sales_or_users', 'success', 'total_capital', 'users']
 
     cols = []
     for i, coltype in enumerate(coltypes):

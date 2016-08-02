@@ -1,0 +1,45 @@
+{% extends 'sidebar_page.html' %}
+{% load staticfiles %}
+
+{% block title %}View Result{% endblock %}
+{% block header_block %}
+    <div class="col-sm-8">
+        <h2>Match Results</h2>
+    </div>
+    <div class="col-sm-4 header-buttons">
+        <a href="/match/analyze" class="header-button btn btn-info" id="analytics-button">View Analytics</a>
+    </div>
+{% endblock %}
+{% block content_block %}
+<div class="analytics-wrapper">
+    <div class="row overview-wrapper">
+        <img height="370" width="945" src="{% static "img/demo/results.png" %}" />
+    </div>
+</div>
+
+    <!--<h2>{{ result.name }}</h2>
+
+    <div class="row">
+        <h3>Clusters</h3>
+        <ol>
+            {% for cluster in clusters_with_data %}
+                <li>
+                    <ul>
+                        {% for data_item in cluster %}
+                            <li>
+                                {{ data_item }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+
+    <ul>
+        {% for k,v in items %}
+            <li>{{ k }}: {{ v }}</li>
+        {% endfor %}
+    </ul>-->
+
+{% endblock %}

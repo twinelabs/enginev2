@@ -1,0 +1,49 @@
+{% extends 'sidebar_page.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}Create Match{% endblock %}
+{% block header_block %}
+    <div class="col-sm-4">
+        <h2 class="headerLine">Create Match</h2>
+    </div>
+{% endblock %}
+{% block content_block %}
+    <form id="user_form" method="post" action="/match/create_match/" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        <div class="well match-type">
+            <h3>Match Type</h3>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="radio-teammates" value="teammates">
+                Create Teams
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="radio-partners" value="partners"> Find Ideation Partners
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="radio-mentors" value="mentors"> Assign Mentors
+            </label>
+            <label class="radio-inline">
+                <input type="radio" class="radio-pulldown" name="inlineRadioOptions" id="radio-custom" value="custom">
+                <select class="form-control custom-search-dropdown" id="custom-search">
+                    <option>July 2016 Offsite</option>
+                    <option>Founder's Match</option>
+                    <option>CTO / CEO Dinner</option>
+                </select>
+            </label>
+            <label class="radio-inline">
+                <input type="radio" class="radio-pulldown" name="inlineRadioOptions" id="radio-newcustom" value="newcustom">
+                <input type="text" id="newcustom" class="form-control" placeholder="New custom match...">
+            </label>
+        </div>
+    </form>
+        <!--<form id="user_form" method="post" action="/match/create_match/"
+            enctype="multipart/form-data" class="form">
+
+        {% csrf_token %}
+        {% bootstrap_form match_config_form %}
+
+        <input type="submit" name="submit" value="Create Match" class="btn btn-default"/>
+    </form>-->
+
+{% endblock %}

@@ -13,25 +13,25 @@
 <div class="well well-lg">
     <h3>Data Sets</h3>
     <div class="row">
-        <div class="col-sm-3 dataContainer">
+        <div class="col-sm-4 dataContainer center-block">
             <p>&nbsp; <br /> &nbsp; </p>
-            <img class="dataset-img" src="{% static "img/dataset_add.png" %}" />
-            <a href="/dataset/upload_csv" class="content-button btn btn-primary">Create New</a>
+            <img class="dataset-img center-block" src="{% static "img/dataset_add.png" %}" />
+            <a href="/dataset/upload_csv" class="btn btn-primary center-block">Create New</a>
         </div>
         {% if alphas.count > 0 %}
-            <div class="col-sm-3 dataContainer">
+            <div class="col-sm-4 dataContainer center-block">
                 <p><strong>{{ alpha_label }}</strong> <br /> (n={{ alphas.count }})</p>
-                <img class="dataset-img" src="{% static "img/dataset.png" %}" />
-                <a href="/dataset/view/alpha" class="content-button btn btn-primary">View</a>
-                <a href="/dataset/analytics/alpha" class="content-button btn btn-success">Analytics</a>
+                <img class="dataset-img center-block" src="{% static "img/dataset.png" %}" />
+                <a href="/dataset/view/alpha" class="btn btn-primary center-block">View</a>
+                <a href="/dataset/analytics/alpha" class="btn btn-info center-block">Analytics</a>
             </div>
         {% endif %}
         {% if betas.count > 0 %}
-            <div class="col-sm-3 dataContainer">
+            <div class="col-sm-4 dataContainer center-block">
                 <p><strong>{{ beta_label }}</strong> <br /> (n={{ betas.count }})</p>
-                <img class="dataset-img" src="{% static "img/dataset.png" %}" />
-                <a href="/dataset/view/beta" class="content-button btn btn-primary">View</a>
-                <a href="/dataset/analytics/beta" class="content-button btn btn-success">Analytics</a>
+                <img class="dataset-img center-block" src="{% static "img/dataset.png" %}" />
+                <a href="/dataset/view/beta" class="btn btn-primary center-block">View</a>
+                <a href="/dataset/analytics/beta" class="btn btn-info center-block">Analytics</a>
             </div>
         {% endif %}
     </div>
@@ -39,23 +39,23 @@
 <div class="well well-lg">
     <h3>Matches</h3>
     <div class="row">
-        <div class="col-sm-3 matchContainer">
+        <div class="col-sm-4 matchContainer center-block">
             <p> &nbsp; <br /> &nbsp; </p>
-            <img class="match-img" src="{% static "img/match_add.png" %}" />
-            <a href="/match/create_match" class="content-button btn btn-primary">Create Match</a>
+            <img class="match-img center-block" src="{% static "img/match_add.png" %}" />
+            <a href="/match/create_match_new" class="content-button btn btn-primary center-block">Create Match</a>
         </div>
-        <div class="col-sm-3 dataContainer">
+        <div class="col-sm-4 matchContainer center-block">
             <p><strong>Cofounder Match</strong> <br /> &nbsp; July 2016 </p>
-            <img class="match-img" src="{% static "img/match.png" %}" />
-            <a href="#" class="content-button btn btn-primary">Download Results</a>
-            <a href="/match/analyze/" class="content-button btn btn-success">View Analytics</a>
+            <img class="match-img center-block" src="{% static "img/match.png" %}" />
+            <a href="/match/results/" class="btn btn-primary center-block">View Results</a>
+            <a href="/match/analyze/" class="btn btn-info center-block">View Analytics</a>
         </div>
         {% for match in matches %}
-            <div class="col-sm-3 dataContainer">
+            <div class="col-sm-4 matchContainer center-block">
                 <p><strong>{{ match.name }}</strong> <br /> &nbsp; {{ match.created_at }} </p>
-                <img class="match-img" src="{% static "img/match.png" %}" />
-                <a href="/match/view/{{ match.id }}" class="content-button btn btn-primary">View Results</a>
-                <a href="/match/analyze/{{ match.id }}" class="content-button btn btn-success">View Analytics</a>
+                <img class="match-img center-block" src="{% static "img/match.png" %}" />
+                <a href="/match/view/{{ match.id }}" class="btn btn-primary center-block">View Results</a>
+                <a href="/match/analyze/{{ match.id }}" class="btn btn-info center-block">View Analytics</a>
             </div>
         {% endfor %}
     </div>

@@ -37,11 +37,6 @@ app.controller('dashCtrl', [ '$scope', '$timeout', function($scope, $timeout) {
       fields: [],
       open: true,
       name: 'Numeric Fields'
-    },
-    date: {
-      fields: [],
-      open: true,
-      name: 'Date Fields'
     }
   };
   _.selectedDataField;
@@ -199,7 +194,6 @@ app.controller('dashCtrl', [ '$scope', '$timeout', function($scope, $timeout) {
       if (_.data.length) {
         _.dataFieldsByType.string.fields = [];
         _.dataFieldsByType.numeric.fields = [];
-        _.dataFieldsByType.date.fields = [];
         _.dataFields = [];
 
         _.dataFields = _.selectedTable.columns.map(function(c){ return c.name; });
@@ -212,9 +206,6 @@ app.controller('dashCtrl', [ '$scope', '$timeout', function($scope, $timeout) {
           }
           if (c.type === 'number') {
             _.dataFieldsByType.numeric.fields.push(c.name);
-          }
-          if (c.type === 'date') {
-            _.dataFieldsByType.date.fields.push(c.name);
           }
         })
       }
@@ -231,7 +222,6 @@ app.controller('dashCtrl', [ '$scope', '$timeout', function($scope, $timeout) {
         if (data.length) {
           _.dataFieldsByType.string.fields = [];
           _.dataFieldsByType.numeric.fields = [];
-          _.dataFieldsByType.date.fields = [];
 
           _.dataFields = Object.keys(data[0]);
           _.dataFields.shift();
@@ -293,7 +283,7 @@ app.controller('dashCtrl', [ '$scope', '$timeout', function($scope, $timeout) {
       var col = _.selectedTable.columns.filter(function(d){ return d.name === f })[0];
 
       if (col.type === 'number') {
-        _.chartData = getHistogram(f, 8);
+        _.chartData = getHistogram(f, 6);
         _.charts.barChart = barChart(_.chartData, '#chart', chartOptions).fadeRender();
         _.gridOptions.data = _.chartData;
         _.gridOptions.columnDefs = [
@@ -328,7 +318,7 @@ app.controller('dashCtrl', [ '$scope', '$timeout', function($scope, $timeout) {
       var value = _.data[0][f];
 
       if (!isNaN(value)) {
-        _.chartData = getHistogram(f, 8);
+        _.chartData = getHistogram(f, 6);
         _.charts.barChart = barChart(_.chartData, '#chart', chartOptions).fadeRender();
         _.gridOptions.data = _.chartData;
         _.gridOptions.columnDefs = [
