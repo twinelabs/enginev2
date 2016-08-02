@@ -15,13 +15,13 @@
     <div class="row">
         <div class="col-sm-4 dataContainer center-block">
             <p>&nbsp; <br /> &nbsp; </p>
-            <img class="dataset-img center-block" src="{% static "img/dataset_add.png" %}" />
+            <img class="dataset-img center-block" src="{% static "img/dataset2_add.png" %}" />
             <a href="/dataset/upload_csv" class="btn btn-primary center-block">Create New</a>
         </div>
         {% if alphas.count > 0 %}
             <div class="col-sm-4 dataContainer center-block">
                 <p><strong>{{ alpha_label }}</strong> <br /> (n={{ alphas.count }})</p>
-                <img class="dataset-img center-block" src="{% static "img/dataset.png" %}" />
+                <img class="dataset-img center-block" src="{% static "img/dataset2.png" %}" />
                 <a href="/dataset/view/alpha" class="btn btn-primary center-block">View</a>
                 <a href="/dataset/analytics/alpha" class="btn btn-info center-block">Analytics</a>
             </div>
@@ -29,7 +29,7 @@
         {% if betas.count > 0 %}
             <div class="col-sm-4 dataContainer center-block">
                 <p><strong>{{ beta_label }}</strong> <br /> (n={{ betas.count }})</p>
-                <img class="dataset-img center-block" src="{% static "img/dataset.png" %}" />
+                <img class="dataset-img center-block" src="{% static "img/dataset2.png" %}" />
                 <a href="/dataset/view/beta" class="btn btn-primary center-block">View</a>
                 <a href="/dataset/analytics/beta" class="btn btn-info center-block">Analytics</a>
             </div>
