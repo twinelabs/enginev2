@@ -1,6 +1,6 @@
 from django import forms
 
-class MatchConfigForm(forms.Form):
+class MatchForm(forms.Form):
 
     name = forms.CharField(
         required=True,
@@ -11,6 +11,7 @@ class MatchConfigForm(forms.Form):
         ('cluster', 'Cluster/Group Objects (within one dataset)'),
         ('assign', 'Assign Objects (across two datasets)'),
     ]
+
     task = forms.ChoiceField(
         choices=CLUSTER_OR_ASSIGN,
         required = True,

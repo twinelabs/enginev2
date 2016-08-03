@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from .models import Alpha, Beta
+from .models import DataTable
 
-admin.site.register(Alpha)
-admin.site.register(Beta)
+admin.site.register(DataTable)

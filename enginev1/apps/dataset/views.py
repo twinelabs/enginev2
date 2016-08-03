@@ -8,94 +8,48 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 from .utils import *
 from .forms import UploadCSVForm
+from .models import DataTable, DataColumn
 
 
 @login_required
-def summary(request):
+def view(request, data_table_id):
 
     c = request.user.client
 
-    alpha_label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
-    beta_label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
+    data_table = DataTable.objects.get(id=data_table_id)
+    if data_table.client != c:
+        return HttpResponse("You are not permissioned.")
 
-    alphas = c.alpha_set.all()
-    betas = c.beta_set.all()
-
-    context = {
-        'alpha_label': alpha_label,
-        'beta_label': beta_label,
-        'alphas': alphas,
-        'betas': betas,
-    }
-
-    return render(request, 'dataset/summary.html', context)
-
-
-@login_required
-def view(request, alpha_or_beta):
-
-    c = request.user.client
-    alpha_label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
-    beta_label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
-
-    if alpha_or_beta == 'alpha':
-        label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
-        objs = c.alpha_set.all()
-
-    else:
-        label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
-        objs = c.beta_set.all()
-
-    df = dataset_objects_to_pandas_df(objs)
-    df_column_names = ['id'] + list(df.columns.values)
-    df_values = df.values.tolist()
-    df_values_with_index = [ [i] + vals for i, vals in enumerate(df_values) ]
-
-    df_html = df.to_html(classes=['dataset-table'])
+    data_table_columns, data_table_values = data_table_to_lists(data_table)
 
     context = {
-        'alpha_or_beta': alpha_or_beta,
-        'alpha_label': alpha_label,
-        'beta_label': beta_label,
-        'label': label,
-        'df_count': len(df),
-        'df_html': df_html,
-        'df_column_names': df_column_names,
-        'df_values_with_index': df_values_with_index
+        'data_table_columns': data_table_columns
+        'data_table_values': data_table_values
     }
 
     return render(request, 'dataset/view.html', context)
 
 
 @login_required
-def analytics(request, alpha_or_beta):
+def analytics(request, data_table_id):
 
     c = request.user.client
-    alpha_label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
-    beta_label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
 
-    if alpha_or_beta == 'alpha':
-        label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
-        objs = c.alpha_set.all()
+    data_table = DataTable.objects.get(id=data_table_id)
+    if data_table.client != c:
+        return HttpResponse("You are not permissioned.")
 
-    else:
-        label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
-        objs = c.beta_set.all()
-
-    df = dataset_objects_to_pandas_df(objs)
-    dashboard = [pandas_df_to_dashboard_format(df, 1, "my table", True)]
+    df = data_table_to_df(data_table)
+    dashboard = [df_to_dashboard(df, 1, "my table", True)]
     dashboard_s = json.dumps(dashboard)
 
     context = {
-        'alpha_label': alpha_label,
-        'beta_label': beta_label,
-        'alpha_or_beta': alpha_or_beta,
-        'label': label,
         'dashboard': dashboard,
         'dashboard_s': dashboard_s
     }
 
     return render(request, 'dataset/analytics.html', context)
+
 
 @login_required
 def upload_csv(request):
@@ -108,12 +62,10 @@ def upload_csv(request):
         if csv_form.is_valid():
 
             client = request.user.client
-            alpha_or_beta = csv_form.cleaned_data['alpha_or_beta']
             csv_file = request.FILES['csv_file']
+            data_table_id = import_csv_as_dataset(client, csv_file)
 
-            import_csv_as_dataset(client, alpha_or_beta, csv_file)
-
-            return HttpResponseRedirect('/dataset/view/' + alpha_or_beta)
+            return HttpResponseRedirect('/dataset/view/' + str(data_table_id))
 
     else:
         csv_form = UploadCSVForm()
@@ -123,19 +75,15 @@ def upload_csv(request):
 
 
 @login_required
-def export_csv(request, alpha_or_beta):
+def export_csv(request, data_table_id):
 
     c = request.user.client
 
-    if alpha_or_beta == 'alpha':
-        label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
-        objs = c.alpha_set.all()
+    data_table = DataTable.objects.get(id=data_table_id)
+    if data_table.client != c:
+        return HttpResponse("You are not permissioned.")
 
-    else:
-        label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
-        objs = c.beta_set.all()
-
-    df = dataset_objects_to_pandas_df(objs)
+    df = data_table_to_df(data_table)
     csv_header = df.columns.values.tolist()
     csv_rows = df.values.tolist()
 
@@ -149,24 +97,20 @@ def export_csv(request, alpha_or_beta):
 
 
 @login_required
-def export_xls(request, alpha_or_beta):
+def export_xls(request, data_table_id):
 
     c = request.user.client
 
-    if alpha_or_beta == 'alpha':
-        label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
-        objs = c.alpha_set.all()
+    data_table = DataTable.objects.get(id=data_table_id)
+    if data_table.client != c:
+        return HttpResponse("You are not permissioned.")
 
-    else:
-        label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
-        objs = c.beta_set.all()
-
-    df = dataset_objects_to_pandas_df(objs)
+    df = data_table_to_df(data_table)
     csv_header = df.columns.values.tolist()
     csv_rows = df.values.tolist()
 
     response = HttpResponse(content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="' + label + '.xls"'
+    response['Content-Disposition'] = 'attachment; filename="' + data_table.name + '.xls"'
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet("Data")
 
@@ -174,7 +118,7 @@ def export_xls(request, alpha_or_beta):
     font_style.font.bold = True
 
     i_row = 0
-    for i_col, colname in enumerate(df.columns.values.tolist()):
+    for i_col, colname in enumerate(csv_header):
         ws.write(i_row, i_col, colname, font_style)
         ws.col(i_col).width = 4000
 
@@ -191,18 +135,15 @@ def export_xls(request, alpha_or_beta):
 
 
 @login_required
-def delete(request, alpha_or_beta):
+def delete(request, data_table_id):
 
     c = request.user.client
 
-    if alpha_or_beta == 'alpha':
-        objs = c.alpha_set.all()
+    data_table = DataTable.objects.get(id=data_table_id)
+    if data_table.client != c:
+        return HttpResponse("You are not permissioned.")
 
-    else:
-        objs = c.beta_set.all()
-
-    objs.delete()
-
+    data_table.delete()
     context = {}
 
-    return HttpResponseRedirect('/dataset/summary/')
+    return HttpResponseRedirect('/welcome/home/')

@@ -10,14 +10,12 @@ from .models import Client
 
 class ClientUpdate(UpdateView):
     model = Client
-    fields = ['name', 'display_name', 'domain_prefix', 'alpha_label', 'beta_label', 'logo']
+    fields = ['company_name', 'first_name', 'last_name', 'logo']
     template_name_suffix = '_update_form'
     success_url = '/welcome/'
 
 
-
 def register(request):
-    # From: http://www.tangowithdjango.com/book17/chapters/login.html
 
     registered = False
 
@@ -50,7 +48,6 @@ def register(request):
 
 
 def user_login(request):
-    # From: http://www.tangowithdjango.com/book17/chapters/login.html
 
     if request.method == 'POST':
 
@@ -72,24 +69,13 @@ def user_login(request):
 @login_required
 def home(request):
 
-    u = request.user
-    c = u.client
-
-    alpha_label = c.alpha_label if c.alpha_label != '' else "Dataset #1 Items"
-    beta_label = c.beta_label if c.beta_label != '' else "Dataset #2 Items"
-
-    alphas = c.alpha_set.all()
-    betas = c.beta_set.all()
-
-    matches = c.config_set.all()
+    c = request.user.client
+    datatables = c.datatable_set.all()
+    matches = c.match_set.all()
 
     context = {
-        'u': u,
         'c': c,
-        'alpha_label': alpha_label,
-        'beta_label': beta_label,
-        'alphas': alphas,
-        'betas': betas,
+        'datatables': datatables,
         'matches': matches
     }
 

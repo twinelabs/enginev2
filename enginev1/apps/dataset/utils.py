@@ -1,6 +1,3 @@
-import json
-import xlrd
-
 import pandas as pd
 import numpy as np
 
@@ -8,35 +5,51 @@ import models
 
 """
 from enginev1.apps.welcome.models import *
-from enginev1.apps.dataset.utils import *
-c = Client.objects.all()[5]
-alphas = c.alpha_set.all()
-df = dataset_objects_to_pandas_df(alphas)
+from enginev1.apps.dataset.models import *
+dts = DataTable.objects.all()[5]
+dt = dts[0]
+df = dataset_objects_to_pandas_df(dts)
 """
 
-def dataset_objects_to_pandas_df(dataset_objects):
+def data_table_to_df(data_table):
     """
-    :param dataset_objects: list or queryset of Dataset objects
+    :param datatable: DataTable object
     :return: Pandas dataframe
     """
 
-    list_of_dicts = [obj.data for obj in dataset_objects]
-    df = pd.DataFrame.from_dict(list_of_dicts)
+    df = pd.DataFrame.from_dict(data_table.data)
 
-    colnames = list(df.columns.values)
-    desired_order = ['First name', 'Last name', 'Email ', 'College', 'Graduation year', 'Major', 'Ethnicity', 'Gender', 'Status', 'business_offering', 'business_type', 'incorporated', 'industries', 'looking_for', 'most_help', 'phase', 'received_capital', 'revenue', 'sales_or_users', 'success', 'total_capital', 'users']
+    data_columns = data_table.datacolumn_set.order_by('order_original')
 
+    column_names = [dc.name for dc in data_columns]
+    desired_order = column_names
     desired_order.reverse()
+
     for colname in desired_order:
-        if colname in colnames:
+        if colname in column_names:
             new_cols = [colname] + [x for x in colnames if x != colname]
             df = df[new_cols]
-            colnames = list(df.columns.values)
+            column_names = list(df.columns.values)
 
     return df
 
 
-def pandas_df_to_dashboard_format(df, df_id, df_name, filter_viz=False):
+def data_table_to_lists(data_table, with_index=False):
+
+    df = data_table_to_df(data_table)
+    df_header = list(df.columns.values)
+    df_values = df.values.tolist()
+
+    if with_index:
+        df_header = ['id'] + df_header
+        df_values = [ [i] + vals for i, vals in enumerate(df_values) ]
+
+    return df_header, df_values
+
+
+
+
+def df_to_dashboard(df, df_id, df_name, filter_viz=False):
     """
     :param df: Pandas dataframe
     :return: JSON object for usage in data dashboard
@@ -63,24 +76,17 @@ def pandas_df_to_dashboard_format(df, df_id, df_name, filter_viz=False):
     return res
 
 
-def import_csv_as_dataset(client, alpha_or_beta, csv_file):
+def import_csv_as_dataset(client, csv_file):
     """
     :param client: Client = owner.
     :param csv_file: File path of CSV
-    :param alpha_or_beta: Whether to save into Alpha or Beta.
     :return: True if successfully saved
     """
-
-    if alpha_or_beta == 'alpha':
-        my_model = models.Alpha
-    else:
-        my_model = models.Beta
 
     df = pd.read_csv(csv_file)
     list_of_dicts = df.to_dict(orient='records')
 
-    for dict in list_of_dicts:
-        obj = my_model(client = client, data = dict)
-        obj.save()
+    data_table = models.DataTable(client = client, data = list_of_dicts)
+    data_table.save()
 
-    return True
+    return data_table.id

@@ -5,8 +5,12 @@ from enginev1.apps.welcome.models import Client
 from django_hstore import hstore
 
 
-class GenericDatasetObject(models.Model):
+class DataTable(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=False)
+
+    n_rows = models.PositiveIntegerField()
+    n_cols = models.PositiveIntegerField()
 
     data = hstore.DictionaryField()
     objects = hstore.HStoreManager()
@@ -16,17 +20,23 @@ class GenericDatasetObject(models.Model):
         abstract = True
 
     def __str__(self):
-        obj_attrs = [k + ": " + self.data[k] for k in self.data.keys()[:3]]
-        return "Data Item [" + ", ".join(obj_attrs) + " ... ]"
+        return name
 
 
-class Alpha(GenericDatasetObject):
+class DataColumn(models.Model):
+    data_table = models.ForeignKey(DataTable, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=False)
+    custom_name = models.CharField(max_length=100)
+
+    order_original = models.PositiveIntegerField()
+    order_custom = models.PositiveIntegerField()
+
+    n_unique = models.PositiveIntegerField()
+    n_nonblank = models.PositiveIntegerField()
 
     class Meta:
-        verbose_name_plural = 'Dataset #1 Objects'
+        app_label = 'dataset'
+        abstract = True
 
-
-class Beta(GenericDatasetObject):
-
-    class Meta:
-        verbose_name_plural = 'Dataset #2 Objects'
+    def __str__(self):
+        return name
