@@ -100,3 +100,6 @@ postgres/*
 # Generated files
 logfile
 staticfiles/*
+
+/.idea/
+.idea/workspace.xml

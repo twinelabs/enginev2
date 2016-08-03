@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ad743e94-6345-467f-80f9-9f9856f94123" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/testang.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/enginev1/apps/match/templates/match/create_match_new.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/static/img/demo/Images with borders.pptx" afterPath="$PROJECT_DIR$/enginev1/static/img/demo/Images with borders.pptx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/static/img/demo/total_matches.png" afterPath="$PROJECT_DIR$/enginev1/static/img/demo/total_matches.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/summary.html" afterPath="$PROJECT_DIR$/enginev1/apps/dataset/templates/dataset/summary.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/dataset/utils.py" afterPath="$PROJECT_DIR$/enginev1/apps/dataset/utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/dataset/views.py" afterPath="$PROJECT_DIR$/enginev1/apps/dataset/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/match/templates/match/analyze.html" afterPath="$PROJECT_DIR$/enginev1/apps/match/templates/match/analyze.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/welcome/forms.py" afterPath="$PROJECT_DIR$/enginev1/apps/welcome/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/welcome/models.py" afterPath="$PROJECT_DIR$/enginev1/apps/welcome/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/home.html" afterPath="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/login.html" afterPath="$PROJECT_DIR$/enginev1/apps/welcome/templates/welcome/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/welcome/urls.py" afterPath="$PROJECT_DIR$/enginev1/apps/welcome/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/apps/welcome/views.py" afterPath="$PROJECT_DIR$/enginev1/apps/welcome/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/static/scss/partials/_analyze.scss" afterPath="$PROJECT_DIR$/enginev1/static/scss/partials/_analyze.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/static/scss/partials/_login.scss" afterPath="$PROJECT_DIR$/enginev1/static/scss/partials/_login.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/static/scss/partials/_sidebar.scss" afterPath="$PROJECT_DIR$/enginev1/static/scss/partials/_sidebar.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enginev1/templates/sidebar_page.html" afterPath="$PROJECT_DIR$/enginev1/templates/sidebar_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements/common.txt" afterPath="$PROJECT_DIR$/requirements/common.txt" />
-    </list>
+    <list default="true" id="ad743e94-6345-467f-80f9-9f9856f94123" name="Default" comment="" />
     <ignored path="enginev1.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,7 +24,7 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46597633">
+            <state vertical-scroll-proportion="1.9304733">
               <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
               <folding />
             </state>
@@ -107,7 +86,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="156" />
+    <option name="x" value="183" />
     <option name="y" value="23" />
     <option name="width" value="1085" />
     <option name="height" value="773" />
@@ -440,7 +419,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="156" y="23" width="1085" height="773" extended-state="0" />
+    <frame x="183" y="23" width="1085" height="773" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21843319" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -762,7 +741,7 @@
         <state vertical-scroll-proportion="0.15532544">
           <caret line="7" column="53" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -788,7 +767,7 @@
         <state vertical-scroll-proportion="-0.79881656">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -806,7 +785,7 @@
         <state vertical-scroll-proportion="0.3106509">
           <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -824,7 +803,7 @@
         <state vertical-scroll-proportion="0.35502958">
           <caret line="16" column="77" selection-start-line="16" selection-start-column="77" selection-end-line="16" selection-end-column="77" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -871,7 +850,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/enginev1/apps/dataset/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46597633">
+        <state vertical-scroll-proportion="1.9304733">
           <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
           <folding />
         </state>
