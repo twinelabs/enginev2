@@ -5,13 +5,13 @@ from django.contrib.auth.models import User
 
 class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, blank=True)
-    display_name = models.CharField(max_length=100, blank=True)
-    domain_prefix = models.CharField(max_length=100, blank=True)
-    alpha_label = models.CharField(max_length=100, blank=True)
-    beta_label = models.CharField(max_length=100, blank=True)
-    alpha_lastupdate = models.DateTimeField(blank=True, null=True)
-    beta_lastupdate = models.DateTimeField(blank=True, null=True)
+    company_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
+
+    prefs_color_bg = models.CharField(max_length=100, blank=True)
+    prefs_color_sidebar = models.CharField(max_length=100, blank=True)
+    prefs_color_accent = models.CharField(max_length=100, blank=True)
 
     logo = models.ImageField(blank=True, null=True)
 
