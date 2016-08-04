@@ -41,7 +41,7 @@ def create(request):
             print match_form.errors
 
     else:
-        match_form = MatchForm()
+        match_form = MatchForm(client=c)
         context = {
             'c': c,
             'data_tables': data_tables,

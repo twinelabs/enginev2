@@ -37,11 +37,17 @@
                             <label for="{{ match_form.data_tables.id_for_label }}">Select data sets:</label>
                             {% render_field match_form.data_tables class+="form-control" %}
                         </div>
+
                         <div class="fieldWrapper">
                             {{ match_form.columns.errors }}
-                            <label for="{{ match_form.colnames.id_for_label }}">Enter columns to match on (separated by commas)</label>
-                            {% render_field match_form.columns class+="form-control" %}
+                            <label for="{{ match_form.colnames.id_for_label }}">Select columns to match on:</label>
+                            {% for column in match_form.columns %}
+                                <div class="checkbox">
+                                    {{ column }}
+                                </div>
+                            {% endfor %}
                         </div>
+
                         <div class="fieldWrapper">
                             {{ match_form.k_size.errors }}
                             <label for="{{ match_form.k_size.id_for_label }}">Enter cluster size.</label>
