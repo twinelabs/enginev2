@@ -162,6 +162,8 @@ class Common(Configuration):
 
     LOGIN_URL = '/welcome/login/'
 
+    MEDIA_ROOT = './enginev1/static/'
+
 
 class Development(Common):
     """

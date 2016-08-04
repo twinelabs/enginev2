@@ -12,15 +12,14 @@ class DataTable(models.Model):
     n_rows = models.PositiveIntegerField()
     n_cols = models.PositiveIntegerField()
 
-    data = hstore.DictionaryField()
+    data = hstore.SerializedDictionaryField()
     objects = hstore.HStoreManager()
 
     class Meta:
         app_label = 'dataset'
-        abstract = True
 
     def __str__(self):
-        return name
+        return self.name
 
 
 class DataColumn(models.Model):
@@ -36,7 +35,6 @@ class DataColumn(models.Model):
 
     class Meta:
         app_label = 'dataset'
-        abstract = True
 
     def __str__(self):
         return name

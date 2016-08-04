@@ -13,10 +13,10 @@ class Client(models.Model):
     prefs_color_sidebar = models.CharField(max_length=100, blank=True)
     prefs_color_accent = models.CharField(max_length=100, blank=True)
 
-    logo = models.ImageField(blank=True, null=True)
+    logo = models.ImageField(blank=True, null=True, upload_to='./img/logos/')
 
     class Meta:
         app_label = 'welcome'
 
     def __str__(self):
-        return self.name
+        return self.company_name

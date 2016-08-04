@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from .models import Config, Result
+from .models import Match
 
-admin.site.register(Config)
-admin.site.register(Result)
+admin.site.register(Match)

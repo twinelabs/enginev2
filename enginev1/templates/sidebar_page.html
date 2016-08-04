@@ -6,29 +6,38 @@
         <div class="sidebar-content col-sm-2">
 
             <div class="sidebar-header">
-                {% if user.client.logo.name %}
-                    <a href="/welcome"><img class="sidebar-logo" src="{{ user.client.logo.path }}" /></a>
+                {% if c.logo.name %}
+                    <a href="/welcome"><img class="sidebar-logo" src="{% static c.logo.name %}" /></a>
                 {% else %}
                     <a href="/welcome"><img class="sidebar-logo" src="{% static "img/twine_logo.png" %}" /></a>
                 {% endif %}
-
-                <h5>Hello, <strong>{{ user.client.display_name }}</strong>.</h5>
+                <h5>Hello, <strong>{{ c.first_name }}</strong>.</h5>
+                <h5>{{ c.company_name }}</h5>
             </div>
             <div class="sidebar-menu">
                 <a href="#" class="sidebar-menu-header">Data Sets<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>
                 <div class="sidebar-submenu">
-                    <a href="/dataset/view/alpha" class="sidebar-menu-item">
-                        {% if alpha_label %}{{ alpha_label }}{% else %}Data Set 1{% endif %}
-                    </a>
-                    <a href="/dataset/view/beta" class="sidebar-menu-item">
-                        {% if beta_label %}{{ beta_label }}{% else %}Data Set 2{% endif %}
+                    {% for data_table in data_tables %}
+                        <a href="/dataset/view/{{ data_table.id }}" class="sidebar-menu-item">
+                            {{ data_table.name }}
+                        </a>
+                    {% endfor %}
+                    <a href="/dataset/upload_csv/" class="sidebar-menu-item">
+                        Add New Dataset
                     </a>
                 </div>
             </div>
             <div class="sidebar-menu">
                 <a href="#" class="sidebar-menu-header">Matches<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>
                 <div class="sidebar-submenu">
-                    <a href="/match/create_match" class="sidebar-menu-item">Create New Match</a>
+                    {% for match in matches %}
+                        <a href="/match/view/{{ match.id }}" class="sidebar-menu-item">
+                            {{ match.name }}
+                        </a>
+                    {% endfor %}
+                    <a href="/match/create/" class="sidebar-menu-item">
+                        Add New Match
+                    </a>
                 </div>
             </div>
 

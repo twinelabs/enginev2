@@ -11,8 +11,8 @@ from .models import Client
 class ClientUpdate(UpdateView):
     model = Client
     fields = ['company_name', 'first_name', 'last_name', 'logo']
-    template_name_suffix = '_update_form'
-    success_url = '/welcome/'
+    template_name = 'welcome/settings.html'
+    success_url = '/welcome/home'
 
 
 def register(request):
@@ -70,12 +70,12 @@ def user_login(request):
 def home(request):
 
     c = request.user.client
-    datatables = c.datatable_set.all()
+    data_tables = c.datatable_set.all()
     matches = c.match_set.all()
 
     context = {
         'c': c,
-        'datatables': datatables,
+        'data_tables': data_tables,
         'matches': matches
     }
 

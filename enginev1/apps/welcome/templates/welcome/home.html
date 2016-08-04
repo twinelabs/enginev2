@@ -1,5 +1,6 @@
 {% extends 'sidebar_page.html' %}
 {% load staticfiles %}
+
 {% block title %}Home{% endblock %}
 {% block header_block %}
     <div class="col-sm-8">
@@ -18,22 +19,33 @@
             <img class="dataset-img center-block" src="{% static "img/dataset2_add.png" %}" />
             <a href="/dataset/upload_csv" class="btn btn-primary center-block">Create New</a>
         </div>
-        {% if alphas.count > 0 %}
+        {% for data_table in data_tables %}
             <div class="col-sm-4 dataContainer center-block">
-                <p><strong>{{ alpha_label }}</strong> <br /> (n={{ alphas.count }})</p>
+                <p><strong>{{ data_table.name }}</strong> <br /> (n={{ data_table.n_rows }})</p>
                 <img class="dataset-img center-block" src="{% static "img/dataset2.png" %}" />
-                <a href="/dataset/view/alpha" class="btn btn-primary center-block">View</a>
-                <a href="/dataset/analytics/alpha" class="btn btn-info center-block">Analytics</a>
+                <a href="/dataset/view/{{ data_table.id }}" class="btn btn-primary center-block">View</a>
+                <a href="/dataset/analytics/{{ data_table.id }}" class="btn btn-info center-block">Analytics</a>
+                <button type="button" class="header-button btn btn-danger center-block" data-toggle="modal" data-target="#deleteModal{{ data_table.id }}">Delete All</button>
             </div>
-        {% endif %}
-        {% if betas.count > 0 %}
-            <div class="col-sm-4 dataContainer center-block">
-                <p><strong>{{ beta_label }}</strong> <br /> (n={{ betas.count }})</p>
-                <img class="dataset-img center-block" src="{% static "img/dataset2.png" %}" />
-                <a href="/dataset/view/beta" class="btn btn-primary center-block">View</a>
-                <a href="/dataset/analytics/beta" class="btn btn-info center-block">Analytics</a>
+            <div class="modal fade" id="deleteModal{{ data_table.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ data_table.id }}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="deleteModalLabel{{ data_table.id }}">Delete Data Set</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete the data set: {{ data_table.name }}? This action is irreversible.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <a href="/dataset/delete/{{ data_table.id  }}" type="button" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        {% endif %}
+        {% endfor %}
+
     </div>
 </div>
 <div class="well well-lg">
@@ -42,7 +54,7 @@
         <div class="col-sm-4 matchContainer center-block">
             <p> &nbsp; <br /> &nbsp; </p>
             <img class="match-img center-block" src="{% static "img/match_add.png" %}" />
-            <a href="/match/create_match" class="content-button btn btn-primary center-block">Create Match</a>
+            <a href="/match/create_match" class="btn btn-primary center-block">Create Match</a>
         </div>
         <div class="col-sm-4 matchContainer center-block">
             <p><strong>Cofounder Match</strong> <br /> &nbsp; July 2016 </p>

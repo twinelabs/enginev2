@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+import pdb
 import models
 
 """
@@ -16,8 +17,7 @@ def data_table_to_df(data_table):
     :param datatable: DataTable object
     :return: Pandas dataframe
     """
-
-    df = pd.DataFrame.from_dict(data_table.data)
+    df = pd.DataFrame.from_dict(data_table.data['data'])
 
     data_columns = data_table.datacolumn_set.order_by('order_original')
 
@@ -44,7 +44,8 @@ def data_table_to_lists(data_table, with_index=False):
         df_header = ['id'] + df_header
         df_values = [ [i] + vals for i, vals in enumerate(df_values) ]
 
-    return df_header, df_values
+    res = (df_header, df_values)
+    return res
 
 
 
@@ -76,7 +77,7 @@ def df_to_dashboard(df, df_id, df_name, filter_viz=False):
     return res
 
 
-def import_csv_as_dataset(client, csv_file):
+def import_csv_as_data_table(client, name, csv_file):
     """
     :param client: Client = owner.
     :param csv_file: File path of CSV
@@ -84,9 +85,11 @@ def import_csv_as_dataset(client, csv_file):
     """
 
     df = pd.read_csv(csv_file)
+    n_rows, n_cols = df.shape
     list_of_dicts = df.to_dict(orient='records')
 
-    data_table = models.DataTable(client = client, data = list_of_dicts)
+    data_table = models.DataTable(client = client, name = name,
+                                  data = { 'data': list_of_dicts }, n_rows = n_rows, n_cols = n_cols)
     data_table.save()
 
     return data_table.id

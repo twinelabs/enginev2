@@ -1,6 +1,7 @@
 import csv
 import xlwt
 import json
+import pdb
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -15,16 +16,23 @@ from .models import DataTable, DataColumn
 def view(request, data_table_id):
 
     c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
 
     data_table = DataTable.objects.get(id=data_table_id)
     if data_table.client != c:
         return HttpResponse("You are not permissioned.")
 
     data_table_columns, data_table_values = data_table_to_lists(data_table)
-
+    data_table_count = len(data_table_values)
     context = {
-        'data_table_columns': data_table_columns
-        'data_table_values': data_table_values
+        'c': c,
+        'data_tables': data_tables,
+        'matches': matches,
+        'data_table': data_table,
+        'data_table_columns': data_table_columns,
+        'data_table_values': data_table_values,
+        'data_table_count': data_table_count
     }
 
     return render(request, 'dataset/view.html', context)
@@ -34,6 +42,8 @@ def view(request, data_table_id):
 def analytics(request, data_table_id):
 
     c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
 
     data_table = DataTable.objects.get(id=data_table_id)
     if data_table.client != c:
@@ -44,6 +54,9 @@ def analytics(request, data_table_id):
     dashboard_s = json.dumps(dashboard)
 
     context = {
+        'c': c,
+        'data_tables': data_tables,
+        'matches': matches,
         'dashboard': dashboard,
         'dashboard_s': dashboard_s
     }
@@ -55,6 +68,8 @@ def analytics(request, data_table_id):
 def upload_csv(request):
 
     c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
 
     if request.method == 'POST':
         csv_form = UploadCSVForm(request.POST, request.FILES)
@@ -62,14 +77,20 @@ def upload_csv(request):
         if csv_form.is_valid():
 
             client = request.user.client
+            name = request.POST['name']
             csv_file = request.FILES['csv_file']
-            data_table_id = import_csv_as_dataset(client, csv_file)
+            data_table_id = import_csv_as_data_table(client, name, csv_file)
 
             return HttpResponseRedirect('/dataset/view/' + str(data_table_id))
 
     else:
         csv_form = UploadCSVForm()
-        context = { 'csv_form': csv_form }
+        context = {
+            'csv_form': csv_form,
+            'c': c,
+            'data_tables': data_tables,
+            'matches': matches
+        }
 
     return render(request, 'dataset/upload_csv.html', context)
 
@@ -78,6 +99,8 @@ def upload_csv(request):
 def export_csv(request, data_table_id):
 
     c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
 
     data_table = DataTable.objects.get(id=data_table_id)
     if data_table.client != c:
@@ -100,6 +123,8 @@ def export_csv(request, data_table_id):
 def export_xls(request, data_table_id):
 
     c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
 
     data_table = DataTable.objects.get(id=data_table_id)
     if data_table.client != c:
@@ -138,12 +163,18 @@ def export_xls(request, data_table_id):
 def delete(request, data_table_id):
 
     c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
 
     data_table = DataTable.objects.get(id=data_table_id)
     if data_table.client != c:
         return HttpResponse("You are not permissioned.")
 
     data_table.delete()
-    context = {}
+    context = {
+        'c': c,
+        'data_tables': data_tables,
+        'matches': matches
+    }
 
     return HttpResponseRedirect('/welcome/home/')
