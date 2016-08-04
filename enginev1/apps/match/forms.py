@@ -8,8 +8,8 @@ class MatchForm(forms.Form):
     )
 
     CLUSTER_OR_ASSIGN = [
-        ('cluster', 'Cluster/Group Objects (within one dataset)'),
-        ('assign', 'Assign Objects (across two datasets)'),
+        ('cluster', 'Cluster/Pair (within 1 dataset)'),
+        ('assign', 'Assign (across 2 datasets)'),
     ]
 
     task = forms.ChoiceField(

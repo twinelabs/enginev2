@@ -1,0 +1,113 @@
+{% extends 'sidebar_page.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}Create Match{% endblock %}
+{% block header_block %}
+    <div class="col-sm-4">
+        <h2 class="headerLine">Create Match</h2>
+    </div>
+{% endblock %}
+
+{% block content_block %}
+
+    <form id="user_form" method="post" action="/match/create/"
+        enctype="multipart/form-data" class="form">
+
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="well match-type">
+                    <h3>Match Setup</h3>
+
+                    {% bootstrap_form match_form %}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="well custom-search-options">
+            <div class="prefs">
+                <table class="matchTable">
+                    <thead>
+                        <tr>
+                            <th class="colVariable">Variable</th>
+                            <th class="colPreference">Preference</th>
+                            <th class="colWeight">Weight</th>
+                            <th class="colCustom">Custom Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><h4>College</h4></td>
+                            <td>
+                                <div class='match-preference-form'>
+                                    <div class='match-preference-input'>
+                                        <input type='radio' name='gender-prefs0' value='1'><label for='gender-prefs0'>Different</label>
+                                    </div>
+                                    <div class='match-preference-input'>
+                                        <input type='radio' name='gender-prefs0' value='2'><label for='gender-prefs0'>Any</label>
+                                    </div>
+                                    <div class='match-preference-input'>
+                                        <input type='radio' name='gender-prefs0' value='3'><label for='gender-prefs0'>Similar</label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class='match-weight-form'>
+                                    <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='5'>
+                                </div>
+                            </td> <td>
+                                <div class='match-custom-options'>
+                                    <select multiple class='form-control selectpicker additional-pref-select'
+                                            data-none-selected-text='Select one or more College...' id='placeholder'>
+                                        <option>University of Pennsylvania </option><option> Temple University </option><option> Drexel University </option><option> Philadelphia University </option><option> La Salle University </option><option> Boston College</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h4>Major </h4></td>
+                            <td>
+                                <div class='match-preference-form'>
+                                    <div class='match-preference-input'>
+                                        <input type='radio' name='gender-prefs1' value='1'><label for='gender-prefs1'>Different</label>
+                                    </div>
+                                    <div class='match-preference-input'>
+                                        <input type='radio' name='gender-prefs1' value='2'><label for='gender-prefs1'>Any</label>
+                                    </div>
+                                    <div class='match-preference-input'>
+                                        <input type='radio' name='gender-prefs1' value='3'><label for='gender-prefs1'>Similar</label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class='match-weight-form'>
+                                    <input type='text' name='gender-weight1' size='6' class='match-weight-input' placeholder='1-5' value='4'>
+                                </div>
+                            </td> <td>
+                                <div class='match-custom-options'>
+                                    <select multiple class='form-control selectpicker additional-pref-select'
+                                            data-none-selected-text='Select one or more Major ...' id='placeholder'>
+                                        <option>Computer Science </option><option> Mathematics </option><option> Physics </option><option> Economics </option><option> Business </option><option> Psychology </option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <input type="button" name="choose-categories" value="+ Add variable" class="btn btn-warning" />
+        </div>
+        <div class="well match-buttons">
+            <input type="button" name="save-custom-search" value="Save Search" class="btn btn-primary" />
+            <input type="submit" name="submit" value="Run Matches" class="btn btn-success"/>
+        </div>
+
+        <input type="submit" name="submit" value="Create Match" class="btn btn-default"/>
+    </form>
+
+
+
+
+{% endblock %}
