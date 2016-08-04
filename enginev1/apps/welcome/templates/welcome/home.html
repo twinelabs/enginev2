@@ -25,7 +25,7 @@
                 <img class="dataset-img center-block" src="{% static "img/dataset2.png" %}" />
                 <a href="/dataset/view/{{ data_table.id }}" class="btn btn-primary center-block">View</a>
                 <a href="/dataset/analytics/{{ data_table.id }}" class="btn btn-info center-block">Analytics</a>
-                <button type="button" class="header-button btn btn-danger center-block" data-toggle="modal" data-target="#deleteModal{{ data_table.id }}">Delete All</button>
+                <button type="button" class="btn btn-danger center-block" data-toggle="modal" data-target="#deleteModal{{ data_table.id }}">Delete All</button>
             </div>
             <div class="modal fade" id="deleteModal{{ data_table.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ data_table.id }}">
                 <div class="modal-dialog" role="document">
@@ -56,18 +56,30 @@
             <img class="match-img center-block" src="{% static "img/match_add.png" %}" />
             <a href="/match/create" class="btn btn-primary center-block">Create Match</a>
         </div>
-        <div class="col-sm-4 matchContainer center-block">
-            <p><strong>Cofounder Match</strong> <br /> &nbsp; July 2016 </p>
-            <img class="match-img center-block" src="{% static "img/match.png" %}" />
-            <a href="/match/results/" class="btn btn-primary center-block">View Results</a>
-            <a href="/match/analyze/" class="btn btn-info center-block">View Analytics</a>
-        </div>
         {% for match in matches %}
             <div class="col-sm-4 matchContainer center-block">
                 <p><strong>{{ match.name }}</strong> <br /> &nbsp; {{ match.created_at }} </p>
                 <img class="match-img center-block" src="{% static "img/match.png" %}" />
-                <a href="/match/view/{{ match.id }}" class="btn btn-primary center-block">View Results</a>
+                <a href="/match/view/{{ match.id }}" class="btn btn-primary center-block">View Match</a>
                 <a href="/match/analyze/{{ match.id }}" class="btn btn-info center-block">View Analytics</a>
+                <button type="button" class="btn btn-danger center-block" data-toggle="modal" data-target="#deleteModalMatch{{ match.id }}">Delete Match</button>
+            </div>
+            <div class="modal fade" id="deleteModalMatch{{ match.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalMatchLabel{{ match.id }}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="deleteModalMatchLabel{{ match.id }}">Delete Match</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete the match: {{ match.name }}? This action is irreversible.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <a href="/match/delete/{{ match.id }}" type="button" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>

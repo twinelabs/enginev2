@@ -1,6 +1,7 @@
 {% extends 'sidebar_page.html' %}
 
 {% load bootstrap3 %}
+{% load widget_tweaks %}
 
 {% block title %}Create Match{% endblock %}
 {% block header_block %}
@@ -19,13 +20,39 @@
             <div class="col-md-6">
                 <div class="well match-type">
                     <h3>Match Setup</h3>
-
-                    {% bootstrap_form match_form %}
-
+                    <div class="form-group">
+                        {{ match_form.non_field_errors }}
+                        <div class="fieldWrapper">
+                            {{ match_form.name.errors }}
+                            <label for="{{ match_form.name.id_for_label }}">Match name:</label>
+                            {% render_field match_form.name class+="form-control" %}
+                        </div>
+                        <div class="fieldWrapper">
+                            {{ match_form.task.errors }}
+                            <label for="{{ match_form.task.id_for_label }}">Select task:</label>
+                            {% render_field match_form.task class+="form-control" %}
+                        </div>
+                        <div class="fieldWrapper">
+                            {{ match_form.data_tables.errors }}
+                            <label for="{{ match_form.data_tables.id_for_label }}">Select data sets:</label>
+                            {% render_field match_form.data_tables class+="form-control" %}
+                        </div>
+                        <div class="fieldWrapper">
+                            {{ match_form.columns.errors }}
+                            <label for="{{ match_form.colnames.id_for_label }}">Enter columns to match on (separated by commas)</label>
+                            {% render_field match_form.columns class+="form-control" %}
+                        </div>
+                        <div class="fieldWrapper">
+                            {{ match_form.k_size.errors }}
+                            <label for="{{ match_form.k_size.id_for_label }}">Enter cluster size.</label>
+                            {% render_field match_form.k_size class+="form-control" %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!--
         <div class="well custom-search-options">
             <div class="prefs">
                 <table class="matchTable">
@@ -103,6 +130,7 @@
             <input type="button" name="save-custom-search" value="Save Search" class="btn btn-primary" />
             <input type="submit" name="submit" value="Run Matches" class="btn btn-success"/>
         </div>
+        -->
 
         <input type="submit" name="submit" value="Create Match" class="btn btn-default"/>
     </form>

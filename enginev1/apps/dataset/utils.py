@@ -27,7 +27,7 @@ def data_table_to_df(data_table):
 
     for colname in desired_order:
         if colname in column_names:
-            new_cols = [colname] + [x for x in colnames if x != colname]
+            new_cols = [colname] + [x for x in column_names if x != colname]
             df = df[new_cols]
             column_names = list(df.columns.values)
 
@@ -62,10 +62,10 @@ def df_to_dashboard(df, df_id, df_name, filter_viz=False):
 
     cols = []
     for i, coltype in enumerate(coltypes):
-        cols.append((colnames[i], "number" if coltype == np.int64 else "string"))
+        cols.append((colnames[i], "number" if (coltype == np.int64 or coltype == np.float64) else "string"))
 
     if filter_viz:
-        cols = [col for col in cols if len(df[col[0]].unique()) < 10]
+        cols = [col for col in cols if (col[1] == "number" or len(df[col[0]].unique()) < 10)]
 
     res = {
         "id": df_id,
@@ -88,8 +88,25 @@ def import_csv_as_data_table(client, name, csv_file):
     n_rows, n_cols = df.shape
     list_of_dicts = df.to_dict(orient='records')
 
+    # Save data table
     data_table = models.DataTable(client = client, name = name,
                                   data = { 'data': list_of_dicts }, n_rows = n_rows, n_cols = n_cols)
     data_table.save()
+
+    # Save columns
+    for i, column_name in enumerate(list(df.columns.values)):
+        vals = list(df[column_name])
+        n_unique = len(set(vals))
+        n_nonblank = len([x for x in vals if x != ''])
+
+        data_column = models.DataColumn(
+            data_table = data_table,
+            name = column_name,
+            order_original = i,
+            order_custom = i,
+            n_unique = n_unique,
+            n_nonblank = n_nonblank
+        )
+        data_column.save()
 
     return data_table.id

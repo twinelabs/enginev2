@@ -1,5 +1,7 @@
 from django import forms
 
+from enginev1.apps.dataset.models import DataTable, DataColumn
+
 class MatchForm(forms.Form):
 
     name = forms.CharField(
@@ -18,10 +20,12 @@ class MatchForm(forms.Form):
         label='Select matching operation.'
     )
 
-    colnames = forms.CharField(
-        required=True,
-        label="Enter columns to match on (separated by commas)",
-        initial="gender,location"
+    data_tables = forms.ModelMultipleChoiceField(
+        queryset=DataTable.objects
+    )
+
+    columns = forms.ModelMultipleChoiceField(
+        queryset=DataColumn.objects
     )
 
     k_size = forms.CharField(

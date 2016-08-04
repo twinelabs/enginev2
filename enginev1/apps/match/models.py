@@ -17,10 +17,8 @@ class Match(models.Model):
     run_end = models.DateTimeField(null=True, blank=True)
     result = hstore.DictionaryField()
 
-
     class Meta:
         app_label = 'match'
-
 
     def __str__(self):
         return self.name

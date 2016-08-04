@@ -11,8 +11,7 @@
                 {% else %}
                     <a href="/welcome"><img class="sidebar-logo" src="{% static "img/twine_logo.png" %}" /></a>
                 {% endif %}
-                <h5>Hello, <strong>{{ c.first_name }}</strong>.</h5>
-                <h5>{{ c.company_name }}</h5>
+                <h5>Hello, <strong>{{ c.first_name }}</strong> ({{ c.company_name }})</h5>
             </div>
             <div class="sidebar-menu">
                 <a href="#" class="sidebar-menu-header">Data Sets<span class="dd-icon glyphicon glyphicon-chevron-down"></span></a>

@@ -4,6 +4,7 @@ from enginev1.apps.match.models import *
 
 import numpy as np
 import time
+import json
 
 def l2(x, y):
     x2 = x if isinstance(x, list) else x.tolist()
@@ -31,7 +32,9 @@ def combine_ds(ds):
 def distance_matrix(df, params):
 
     ds = []
-    colnames = params['colnames'].split(',')
+    colnames_s = params['column_names']
+    colnames = json.loads(colnames_s)
+
     for i, colname in enumerate(colnames):
         data_row = [x[0] for x in df[[colname]].values.tolist()]
         d_i = binary_same(data_row)
@@ -41,30 +44,26 @@ def distance_matrix(df, params):
     return d
 
 
-def run_match(config):
+def run_match(match):
 
-    client = config.client
-    params = config.params
+    config = match.config
 
-    if params['task'] == "cluster":
+    if config['task'] == "cluster":
+        if len(match.data_tables.all()) > 1:
+            raise TypeError("Cannot cluster more than one data table.")
 
-        run_start = time.time()
-        dataset_objs = client.alpha_set.all()
-        df = dataset_objects_to_pandas_df(dataset_objs)
+        data_table = match.data_tables.all()[0]
+        df = data_table_to_df(data_table)
 
-        d = distance_matrix(df, params)
-        clusters = cluster_adapt(d, params)
-        run_end = time.time()
+        d = distance_matrix(df, config)
+        clusters = cluster_adapt(d, config)
 
-        result_output = {
-            'clusters': str(clusters),
-            'run_start': run_start,
-            'run_end': run_end
-        }
+        match.result = { 'clusters' : str(clusters) }
+        match.save()
 
-        return result_output
+        return True
 
-    elif params['task'] == "assign":
+    elif config['task'] == "assign":
         raise TypeError("Assign not yet built")
 
     else:

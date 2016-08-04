@@ -25,6 +25,7 @@ def view(request, data_table_id):
 
     data_table_columns, data_table_values = data_table_to_lists(data_table)
     data_table_count = len(data_table_values)
+
     context = {
         'c': c,
         'data_tables': data_tables,
@@ -57,6 +58,7 @@ def analytics(request, data_table_id):
         'c': c,
         'data_tables': data_tables,
         'matches': matches,
+        'data_table': data_table,
         'dashboard': dashboard,
         'dashboard_s': dashboard_s
     }

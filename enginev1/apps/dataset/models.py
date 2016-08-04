@@ -37,4 +37,4 @@ class DataColumn(models.Model):
         app_label = 'dataset'
 
     def __str__(self):
-        return name
+        return self.name

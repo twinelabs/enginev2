@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 import datetime
+import pdb
 
 from entwine import entwine
 from models import *
@@ -12,32 +13,42 @@ from .forms import MatchForm
 @login_required
 def create(request):
 
+    c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
+
     if request.method == 'POST':
         match_form = MatchForm(data=request.POST)
 
         if match_form.is_valid():
-
             client = request.user.client
-            data_tables = '???'
+            data_tables = match_form.cleaned_data['data_tables']
             name = match_form.cleaned_data['name']
             config = {
                 'task': match_form.cleaned_data['task'],
-                'colnames': match_form.cleaned_data['colnames'],
+                'column_names': [col.name for col in match_form.cleaned_data['columns']],
                 'k_size': match_form.cleaned_data['k_size']
             }
 
-            match = Match(client=client, data_tables=data_tables, name=name, config=config)
+            match = Match(client=client, name=name, config=config)
             match.save()
+            for data_table in data_tables:
+                match.data_tables.add(data_table)
 
-            return HttpResponseRedirect('/match/summary/')
+            return HttpResponseRedirect('/match/view/' + str(match.id))
 
         else:
             print match_form.errors
 
     else:
         match_form = MatchForm()
+        context = {
+            'c': c,
+            'data_tables': data_tables,
+            'matches': matches,
+            'match_form': match_form
+        }
 
-    context = { 'match_form': match_form }
     return render(request, 'match/create.html', context)
 
 
@@ -45,18 +56,33 @@ def create(request):
 def view(request, match_id):
 
     c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
 
     match = Match.objects.get(id=match_id)
     if match.client != c:
         return HttpResponse("You are not permissioned.")
 
-    context = {}
+    match_data_tables = match.data_tables.all()
+    match_config = match.config
 
-    return render(request, 'match/analyze.html', context)
+    match_result = match.result if match.result != {} else ''
+
+    context = {
+        'c': c,
+        'data_tables': data_tables,
+        'matches': matches,
+        'match': match,
+        'match_data_tables': match_data_tables,
+        'match_config': match_config,
+        'match_result': match_result
+    }
+
+    return render(request, 'match/view.html', context)
 
 
 @login_required
-def analyze(request, match_id):
+def run(request, match_id):
 
     c = request.user.client
 
@@ -64,7 +90,27 @@ def analyze(request, match_id):
     if match.client != c:
         return HttpResponse("You are not permissioned.")
 
+    entwine.run_match(match)
+
+    return HttpResponseRedirect('/match/view/' + str(match.id))
+
+
+
+@login_required
+def analyze(request, match_id):
+
+    c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
+
+    match = Match.objects.get(id=match_id)
+    if match.client != c:
+        return HttpResponse("You are not permissioned.")
+
     context = {
+        'c': c,
+        'data_tables': data_tables,
+        'matches': matches,
         'overview_items': [
             {
                 'img': "img/demo/match_strength.png",
@@ -113,24 +159,4 @@ def delete(request, match_id):
 
     match.delete()
 
-    return HttpResponseRedirect('/match/summary/')
-
-
-"""
-@login_required
-def run_match(request, config_id):
-
-    c = request.user.client
-    config = Config.objects.get(pk=config_id)
-
-    if config.client != c:
-        return HttpResponse("You are not permissioned.")
-
-    result_output = entwine.run_match(config)
-    result_name = config.name + ', run at ' + datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    result = Result(client = c, name = result_name, config = config, output = result_output)
-    result.save()
-
-    return HttpResponseRedirect('/match/view/' + str(config.id))
-"""
+    return HttpResponseRedirect('/welcome/home/')

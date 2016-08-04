@@ -33,6 +33,7 @@ class Common(Configuration):
 
         'django_hstore',
         'bootstrap3',
+        'widget_tweaks',
 
         'django.contrib.admin',
         'django.contrib.auth',
