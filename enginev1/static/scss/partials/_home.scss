@@ -34,24 +34,22 @@
             }
         }
 
-        .dataContainer, .matchContainer {
+        .homeContainer {
             margin: 0 auto;
 
-            padding: 10px;
-            height: 300px;
+            a {
+                margin-left: 60px;
+                margin-right: 60px;
+                margin-bottom: 10px;
+            }
 
-            p {
+            .homeContainerLabel {
+                height: 30px;
                 text-align: center;
                 font-size: 18px;
             }
 
-            a {
-                margin-left: 50px;
-                margin-right: 50px;
-                margin-bottom: 20px;
-            }
-
-            .dataset-img, .match-img {
+            img {
                 height: 80px;
                 width: 80px;
                 margin-top: 10px;
