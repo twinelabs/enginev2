@@ -1,6 +1,7 @@
 {% extends 'sidebar_page.html' %}
 
 {% load bootstrap3 %}
+{% load widget_tweaks %}
 
 {% block title %}Create Match{% endblock %}
 {% block header_block %}
@@ -12,31 +13,41 @@
 {% block content_block %}
     <form id="user_form" method="post" action="/match/create_match/" enctype="multipart/form-data" class="form">
         {% csrf_token %}
-        <div class="well match-type">
-            <h3>Match Type</h3>
+        <div class="well">
+            <h3>Select Task</h3>
             <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-teammates" value="teammates"> Create Teams
+                <input type="radio" name="inlineRadioOptions" id="radio-cluster" value="cluster">
+                Cluster: group people within 1 data set
             </label>
             <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-partners" value="partners"> Find Ideation Partners
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-mentors" value="mentors"> Assign Mentors
-            </label>
-            <label class="radio-inline">
-                <input type="radio" class="radio-pulldown" name="inlineRadioOptions" id="radio-custom" value="custom">
-                <select class="form-control custom-search-dropdown" id="custom-search">
-                    <option>July 2016 Offsite</option>
-                    <option>Founder's Match</option>
-                    <option>CTO / CEO Dinner</option>
-                </select>
-            </label>
-            <label class="radio-inline">
-                <input type="radio" class="radio-pulldown" name="inlineRadioOptions" id="radio-newcustom" value="newcustom">
-                <input type="text" id="newcustom" class="form-control" placeholder="New custom match...">
+                <input type="radio" name="inlineRadioOptions" id="radio-assign" value="assign">
+                Assign: match people across 2 data sets
             </label>
         </div>
-        <div class="well custom-search-options">
+        <div class="well">
+            <h3>Cluster Settings</h3>
+
+            <h4>Global Settings</h4>
+            <label for="{{ match_form.data_tables_single.id_for_label }}">Select data set:</label>
+            {% render_field match_form.data_tables_single class+="form-control" %}
+
+            <label for="{{ match_form.k_size.id_for_label }}">Select cluster size:</label>
+            {% render_field match_form.k_size class+="form-control" %}
+
+            <h4>Variable Selection</h4>
+            <div class="fieldWrapper">
+                {{ match_form.columns.errors }}
+                <label for="{{ match_form.colnames.id_for_label }}">Select columns to match on:</label>
+                <div class="row">
+                    {% for column in match_form.columns %}
+                        <div class="col-sm-3 checkbox">
+                            {{ column }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <h4>Define the Matching Rules</h4>
             <div class="prefs">
                 <table class="matchTable">
                     <thead>
@@ -44,86 +55,134 @@
                             <th class="colVariable">Variable</th>
                             <th class="colPreference">Preference</th>
                             <th class="colWeight">Weight</th>
-                            <th class="colCustom">Custom Options</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for column in match_form.columns %}
+                            <tr>
+                                <td>
+                                    <h4>{{ column }}</h4>
+                                </td>
+                                <td>
+                                    <div class='match-preference-form'>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='pref{{ column }}' value='1'>
+                                            <label for='pref{{ column }}'>Similar</label>
+                                        </div>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='pref{{ column }}' value='2'>
+                                            <label for='pref{{ column }}'>Different</label>
+                                        </div>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='pref{{ column }}' value='3'>
+                                            <label for='pref{{ column }}'>Maximize</label>
+                                        </div>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='pref{{ column }}' value='4'>
+                                            <label for='pref{{ column }}'>Minimize</label>
+                                        </div>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='pref{{ column }}' value='5'>
+                                            <label for='pref{{ column }}'>Custom:</label>
 
-<tr>
-    <td><h4>College</h4></td>
-    <td>
-        <div class='match-preference-form'>
-            <div class='match-preference-input'>
-                <input type='radio' name='gender-prefs0' value='1'><label for='gender-prefs0'>Different</label>
-            </div>
-            <div class='match-preference-input'>
-                <input type='radio' name='gender-prefs0' value='2'><label for='gender-prefs0'>Any</label>
-            </div>
-            <div class='match-preference-input'>
-                <input type='radio' name='gender-prefs0' value='3'><label for='gender-prefs0'>Similar</label>
-            </div>
-        </div>
-    </td>
-    <td>
-        <div class='match-weight-form'>
-            <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='5'>
-        </div>
-    </td> <td>
-        <div class='match-custom-options'>
-            <select multiple class='form-control selectpicker additional-pref-select'
-                    data-none-selected-text='Select one or more College...' id='placeholder'>
-                <option>University of Pennsylvania </option><option> Temple University </option><option> Drexel University </option><option> Philadelphia University </option><option> La Salle University </option><option> Boston College</option>
-            </select>
-        </div>
-    </td>
-</tr>
-<tr>
-    <td><h4>Major </h4></td>
-    <td>
-        <div class='match-preference-form'>
-            <div class='match-preference-input'>
-                <input type='radio' name='gender-prefs1' value='1'><label for='gender-prefs1'>Different</label>
-            </div>
-            <div class='match-preference-input'>
-                <input type='radio' name='gender-prefs1' value='2'><label for='gender-prefs1'>Any</label>
-            </div>
-            <div class='match-preference-input'>
-                <input type='radio' name='gender-prefs1' value='3'><label for='gender-prefs1'>Similar</label>
-            </div>
-        </div>
-    </td>
-    <td>
-        <div class='match-weight-form'>
-            <input type='text' name='gender-weight1' size='6' class='match-weight-input' placeholder='1-5' value='4'>
-        </div>
-    </td> <td>
-        <div class='match-custom-options'>
-            <select multiple class='form-control selectpicker additional-pref-select'
-                    data-none-selected-text='Select one or more Major ...' id='placeholder'>
-                <option>Computer Science </option><option> Mathematics </option><option> Physics </option><option> Economics </option><option> Business </option><option> Psychology </option>
-            </select>
-        </div>
-    </td>
-</tr>
+                                            <select class="form-control custom-search-dropdown" id="custom-search">
+                                                <option><</option>
+                                                <option>></option>
+                                                <option>=</option>
+                                            </select>
 
+                                            <label class="radio-inline">
+                                                <input type="text" class="form-control" placeholder="_.">
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='match-weight-form'>
+                                        <input type='text' name='weight{{ column }}' size='6' class='match-weight-input' placeholder='1-5' value='3'>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
-            <input type="button" name="choose-categories" value="+ Add variable" class="btn btn-warning" />
-        </div>
-        <div class="well match-buttons">
             <input type="button" name="save-custom-search" value="Save Search" class="btn btn-primary" />
             <input type="submit" name="submit" value="Run Matches" class="btn btn-success"/>
         </div>
-    </form>
 
-    <form id="user_form" method="post" action="/match/create/"
-        enctype="multipart/form-data" class="form">
+        <div class="well">
+            <h3>Assign Settings</h3>
 
-        {% csrf_token %}
-        {% bootstrap_form match_form %}
+            <h4>Global Settings</h4>
+            <label for="{{ match_form.data_tables_single.id_for_label }}">Select 1st data set:</label>
+            {% render_field match_form.data_tables_single class+="form-control" %}
 
-        <input type="submit" name="submit" value="Create Match" class="btn btn-default"/>
+            <label for="{{ match_form.data_tables_single.id_for_label }}">Select 2nd data set:</label>
+            {% render_field match_form.data_tables_single class+="form-control" %}
+
+            I want to match:
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="radio-cluster" value="onetomany">
+                1 A with multiple Bs
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="radio-assign" value="manytoone">
+                multiple As with 1 B
+            </label>
+
+            <br />
+            I want duplicates:
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="radio-cluster" value="yes">
+                Yes
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="radio-assign" value="no">
+                No
+            </label>
+
+            <h4>Select Columns</h4>
+            <div class="fieldWrapper">
+                {{ match_form.columns.errors }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="{{ match_form.colnames.id_for_label }}">Select columns in 1st data set:</label>
+                        {% for column in match_form.columns %}
+                            <div>
+                                <a href="#" class="btn btn-info">{{ column }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="{{ match_form.colnames.id_for_label }}">Select columns in 2nd data set:</label>
+                        {% for column in match_form.columns %}
+                            <div>
+                                <a href="#" class="btn btn-info">{{ column }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <h4>Define the Matching Rules</h4>
+            <div class="prefs">
+                <table class="matchTable">
+                    <thead>
+                        <tr>
+                            <th class="colVariable">Variable</th>
+                            <th class="colPreference">Preference</th>
+                            <th class="colWeight">Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <input type="button" name="save-custom-search" value="Save Search" class="btn btn-primary" />
+            <input type="submit" name="submit" value="Run Matches" class="btn btn-success"/>
+        </div>
     </form>
 
 {% endblock %}

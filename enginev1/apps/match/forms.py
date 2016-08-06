@@ -6,9 +6,14 @@ class MatchForm(forms.Form):
 
     def __init__(self, client, *args, **kwargs):
         super(MatchForm, self).__init__(*args, **kwargs)
-        self.fields['data_tables'] = forms.ModelMultipleChoiceField(
+
+        self.fields['data_tables_single'] = forms.ModelChoiceField(
             queryset = DataTable.objects.filter(client=client)
         )
+        self.fields['data_tables_multiple'] = forms.ModelMultipleChoiceField(
+            queryset = DataTable.objects.filter(client=client)
+        )
+
         self.fields['columns'] = forms.ModelMultipleChoiceField(
             queryset = DataColumn.objects.filter(data_table__client=client),
             widget=forms.CheckboxSelectMultiple
@@ -31,8 +36,10 @@ class MatchForm(forms.Form):
         label='Select matching operation.'
     )
 
-    k_size = forms.CharField(
+    k_size = forms.IntegerField(
         required=True,
         label="Enter cluster size.",
-        initial="5"
+        max_value=10,
+        min_value=2,
+        initial=5
     )
