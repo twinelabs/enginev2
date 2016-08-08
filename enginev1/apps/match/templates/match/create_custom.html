@@ -14,17 +14,16 @@
     <form id="user_form" method="post" action="/match/create_match/" enctype="multipart/form-data" class="form">
         {% csrf_token %}
         <div class="well">
+
             <h3>Select Task</h3>
-            <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-cluster" value="cluster">
-                Cluster: group people within 1 data set
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-assign" value="assign">
-                Assign: match people across 2 data sets
-            </label>
+            <input id="radio-task-cluster" class="toggleView" name="task" type="radio" value="cluster">
+            Cluster: group people within 1 data set
+            <br />
+            <input id="radio-task-assign" class="toggleView" name="task" type="radio" value="assign">
+            Assign: match people across 2 data sets
+
         </div>
-        <div class="well">
+        <div class="well" id="view-radio-cluster">
             <h3>Cluster Settings</h3>
 
             <h4>Global Settings</h4>
@@ -112,7 +111,7 @@
             <input type="submit" name="submit" value="Run Matches" class="btn btn-success"/>
         </div>
 
-        <div class="well">
+        <div class="well" id="view-radio-assign">
             <h3>Assign Settings</h3>
 
             <h4>Global Settings</h4>

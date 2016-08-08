@@ -33,7 +33,8 @@ class MatchForm(forms.Form):
     task = forms.ChoiceField(
         choices=CLUSTER_OR_ASSIGN,
         required = True,
-        label='Select matching operation.'
+        label='Select matching operation.',
+        widget= forms.RadioSelect
     )
 
     k_size = forms.IntegerField(
