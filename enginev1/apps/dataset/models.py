@@ -26,6 +26,7 @@ class DataColumn(models.Model):
     data_table = models.ForeignKey(DataTable, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)
     custom_name = models.CharField(max_length=100)
+    dtype = models.CharField(max_length=100)
 
     order_original = models.PositiveIntegerField()
     order_custom = models.PositiveIntegerField()

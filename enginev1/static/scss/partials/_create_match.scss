@@ -121,7 +121,7 @@
     width: 100%;
 
     tr {
-        height: 60px;
+        height: 80px;
         vertical-align: center;
     }
 }
@@ -183,4 +183,21 @@ th.colAutoWeight {
 
 .matchSection {
     margin-bottom: 30px;
+}
+
+
+.matchSectionSmall {
+    margin-bottom: 10px;
+}
+
+.btn-dummy {
+    margin-bottom: 10px;
+    background: #A0A0A0;
+    border-color: #A0A0A0;
+    width: 300px;
+    text-align: left;
+}
+
+h5 {
+    font-size: 18px;
 }

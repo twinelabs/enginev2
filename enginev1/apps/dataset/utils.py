@@ -19,17 +19,8 @@ def data_table_to_df(data_table):
     """
     df = pd.DataFrame.from_dict(data_table.data['data'])
 
-    data_columns = data_table.datacolumn_set.order_by('order_original')
-
-    column_names = [dc.name for dc in data_columns]
-    desired_order = column_names
-    desired_order.reverse()
-
-    for colname in desired_order:
-        if colname in column_names:
-            new_cols = [colname] + [x for x in column_names if x != colname]
-            df = df[new_cols]
-            column_names = list(df.columns.values)
+    colnames = [dc.name for dc in data_table.datacolumn_set.order_by('order_original')]
+    df = df[colnames]
 
     return df
 
@@ -37,6 +28,7 @@ def data_table_to_df(data_table):
 def data_table_to_lists(data_table, with_index=False):
 
     df = data_table_to_df(data_table)
+
     df_header = list(df.columns.values)
     df_values = df.values.tolist()
 
