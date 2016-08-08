@@ -19,7 +19,6 @@ class MatchForm(forms.Form):
             widget=forms.CheckboxSelectMultiple
         )
 
-
     name = forms.CharField(
         required=True,
         label="Match name"
@@ -44,3 +43,8 @@ class MatchForm(forms.Form):
         min_value=2,
         initial=5
     )
+
+
+#        self.columns_full = [
+#            (column.id, column.name, column.type) for column in DataColumn.objects.filter(data_table__client=client)
+#        ]

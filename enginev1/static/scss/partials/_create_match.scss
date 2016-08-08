@@ -135,12 +135,24 @@ th.colVariable {
     width: 20%;
 }
 
+th.colVariable1 {
+    width: 25%;
+}
+
+th.colVariable2 {
+    width: 25%;
+}
+
 th.colPreference {
-    width: 20%;
+    width: 30%;
 }
 
 th.colWeight {
-    width: 20%;
+    width: 15%;
+}
+
+th.colAutoWeight {
+    width: 5%;
 }
 
 .match-preference-form {
@@ -167,4 +179,8 @@ th.colWeight {
     input {
         margin-left: 15px;
     }
+}
+
+.matchSection {
+    margin-bottom: 30px;
 }

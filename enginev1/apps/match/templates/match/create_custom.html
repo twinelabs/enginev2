@@ -16,14 +16,19 @@
         <div class="well">
 
             <h3>Select Task</h3>
-            <input id="radio-task-cluster" class="toggleView" name="task" type="radio" value="cluster">
-            Cluster: group people within 1 data set
-            <br />
-            <input id="radio-task-assign" class="toggleView" name="task" type="radio" value="assign">
-            Assign: match people across 2 data sets
+            <div class="row">
+                <div class="col-sm-6">
+                    <input id="radio-task-cluster" class="toggleView" name="task" type="radio" value="cluster">
+                    <b>Cluster</b><br />Group people within 1 data set
+                </div>
+                <div class="col-sm-6">
+                    <input id="radio-task-assign" class="toggleView" name="task" type="radio" value="assign">
+                    <b>Assign</b><br />Match people across 2 data sets
+                </div>
+            </div>
 
         </div>
-        <div class="well" id="view-radio-cluster">
+        <div class="well" id="view-radio-cluster" style="display: none;">
             <h3>Cluster Settings</h3>
 
             <h4>Global Settings</h4>
@@ -112,73 +117,301 @@
         </div>
 
         <div class="well" id="view-radio-assign">
-            <h3>Assign Settings</h3>
-
-            <h4>Global Settings</h4>
-            <label for="{{ match_form.data_tables_single.id_for_label }}">Select 1st data set:</label>
-            {% render_field match_form.data_tables_single class+="form-control" %}
-
-            <label for="{{ match_form.data_tables_single.id_for_label }}">Select 2nd data set:</label>
-            {% render_field match_form.data_tables_single class+="form-control" %}
-
-            I want to match:
-            <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-cluster" value="onetomany">
-                1 A with multiple Bs
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-assign" value="manytoone">
-                multiple As with 1 B
-            </label>
-
-            <br />
-            I want duplicates:
-            <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-cluster" value="yes">
-                Yes
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="inlineRadioOptions" id="radio-assign" value="no">
-                No
-            </label>
-
-            <h4>Select Columns</h4>
-            <div class="fieldWrapper">
-                {{ match_form.columns.errors }}
+            <div class="matchSection">
+                <h3>Select Data</h3>
                 <div class="row">
-                    <div class="col-md-6">
-                        <label for="{{ match_form.colnames.id_for_label }}">Select columns in 1st data set:</label>
-                        {% for column in match_form.columns %}
-                            <div>
-                                <a href="#" class="btn btn-info">{{ column }}</a>
-                            </div>
-                        {% endfor %}
+                    <div class="col-sm-6">
+                        <label for="{{ match_form.data_tables_single.id_for_label }}">1st Data Set:</label>
+                        {% render_field match_form.data_tables_single class+="form-control" %}
                     </div>
-                    <div class="col-md-6">
-                        <label for="{{ match_form.colnames.id_for_label }}">Select columns in 2nd data set:</label>
-                        {% for column in match_form.columns %}
-                            <div>
-                                <a href="#" class="btn btn-info">{{ column }}</a>
-                            </div>
-                        {% endfor %}
+                    <div class="col-sm-6">
+                        <label for="{{ match_form.data_tables_single.id_for_label }}">2nd Data Set:</label>
+                        {% render_field match_form.data_tables_single class+="form-control" %}
                     </div>
                 </div>
             </div>
 
-            <h4>Define the Matching Rules</h4>
-            <div class="prefs">
-                <table class="matchTable">
-                    <thead>
-                        <tr>
-                            <th class="colVariable">Variable</th>
-                            <th class="colPreference">Preference</th>
-                            <th class="colWeight">Weight</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+            <div class="matchSection">
+                <h3>Assignment Options</h3>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-1">
+                        <div class="row">
+                            <b>Capacity</b>
+                        </div>
+                        <div class="row">
+                            <input id="radio-capacity-onetomany" class="toggleView" name="capacity" type="radio" value="onetomany">
+                            Match 1 Employee with multiple Roles
+                        </div>
+                        <div class="row">
+                            <input id="radio-capacity-manytoone" class="toggleView" name="capacity" type="radio" value="manytoone">
+                            Match multiple Employees with 1 Role
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <b>Duplicates</b>
+                        </div>
+                        <div class="row">
+                            <input id="radio-duplicates-yes" class="toggleView" name="duplicates" type="radio" value="yes">
+                            Allow duplicates
+                        </div>
+                        <div class="row">
+                            <input id="radio-duplicates-no" class="toggleView" name="duplicates" type="radio" value="no">
+                            Do not allow duplicates
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="matchSection">
+                <h3>Select Columns</h3>
+                <div class="fieldWrapper">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Select Employee columns</b>
+                            <div>
+                                <a href="#" class="btn btn-default">Highest Degree</a>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-default">Lat/Long</a>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-default">Functional Area</a>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-default">Total Experience</a>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-default">People Manager</a>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-default">ZHR BAND 1</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <b>Select Roles columns</b>
+                            <div>
+                                <a href="#" class="btn btn-default">Preferred Education Level</a>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-default">Lat/Long</a>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-default">Nielsen Organization Level 1</a>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-default">Years experience - Qualifications</a>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-default">Management experience - Qualifications</a>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-default">Salary Band</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="matchSection">
+                <h3>Define the Matching Rules</h3>
+                <div class="prefs">
+                    <table class="matchTable">
+                        <thead>
+                            <tr>
+                                <th class="colVariable1">First Column</th>
+                                <th class="colPreference">Rule</th>
+                                <th class="colVariable2">Second Column</th>
+                                <th class="colWeight">Weight (1-5)</th>
+                                <th class="colAutoWeight">(%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h4>Highest Degree</h4>
+                                </td>
+                                <td>
+                                    <div style="padding-right: 25px;">
+                                        <select class="form-control" name="rule-education">
+                                            <option value="1">Greater Than</option>
+                                            <option value="2" selected="selected">Greater Than or Equal To</option>
+                                            <option value="3">Equal To</option>
+                                            <option value="4">Less Than or Equal To</option>
+                                            <option value="5">Less Than</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h4>Preferred Education Level</h4>
+                                </td>
+                                <td>
+                                    <div class='match-weight-form'>
+                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='5'>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='match-autoweight-form'>
+                                        23%
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Lat/Long</h4>
+                                </td>
+                                <td>
+                                    <div class='match-preference-form'>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='gender-prefs0' value='1'><label for='gender-prefs0'>Closeness</label>
+                                        </div>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='gender-prefs0' value='2'><label for='gender-prefs0'>Any</label>
+                                        </div>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='gender-prefs0' value='3'><label for='gender-prefs0'>Distance</label>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h4>Lat/Long</h4>
+                                </td>
+                                <td>
+                                    <div class='match-weight-form'>
+                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='4'>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='match-autoweight-form'>
+                                        18%
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Functional Area</h4>
+                                </td>
+                                <td>
+                                    <div class='match-preference-form'>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='gender-prefs0' value='1'><label for='gender-prefs0'>Similarity</label>
+                                        </div>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='gender-prefs0' value='2'><label for='gender-prefs0'>Any</label>
+                                        </div>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='gender-prefs0' value='3'><label for='gender-prefs0'>Difference</label>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h4>Nielsen Organization Level 1</h4>
+                                </td>
+                                <td>
+                                    <div class='match-weight-form'>
+                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='2'>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='match-autoweight-form'>
+                                        9%
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Total Experience</h4>
+                                </td>
+                                <td>
+                                    <div style="padding-right: 25px;">
+                                        <select class="form-control" name="rule-education">
+                                            <option value="1">Greater Than</option>
+                                            <option value="2" selected="selected">Greater Than or Equal To</option>
+                                            <option value="3">Equal To</option>
+                                            <option value="4">Less Than or Equal To</option>
+                                            <option value="5">Less Than</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h4>Years experience - Qualifications</h4>
+                                </td>
+                                <td>
+                                    <div class='match-weight-form'>
+                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='3'>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='match-autoweight-form'>
+                                        14%
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>People Manager</h4>
+                                </td>
+                                <td>
+                                    <div class='match-preference-form'>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='gender-prefs0' value='1'><label for='gender-prefs0'>Similarity</label>
+                                        </div>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='gender-prefs0' value='2'><label for='gender-prefs0'>Any</label>
+                                        </div>
+                                        <div class='match-preference-input'>
+                                            <input type='radio' name='gender-prefs0' value='3'><label for='gender-prefs0'>Difference</label>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h4>Management experience - Qualifications</h4>
+                                </td>
+                                <td>
+                                    <div class='match-weight-form'>
+                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='3'>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='match-autoweight-form'>
+                                        14%
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>ZHR BAND 1</h4>
+                                </td>
+                                <td>
+                                    <div style="padding-right: 25px;">
+                                        <select class="form-control" name="rule-education">
+                                            <option value="1">Greater Than</option>
+                                            <option value="2" selected="selected">Greater Than or Equal To</option>
+                                            <option value="3">Equal To</option>
+                                            <option value="4">Less Than or Equal To</option>
+                                            <option value="5">Less Than</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h4>Salary Band</h4>
+                                </td>
+                                <td>
+                                    <div class='match-weight-form'>
+                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='5'>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='match-autoweight-form'>
+                                        23%
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <input type="button" name="save-custom-search" value="Save Search" class="btn btn-primary" />
             <input type="submit" name="submit" value="Run Matches" class="btn btn-success"/>
         </div>
