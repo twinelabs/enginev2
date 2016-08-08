@@ -11,7 +11,7 @@ from .forms import MatchForm
 
 
 @login_required
-def create_custom(request):
+def create(request):
 
     c = request.user.client
     data_tables = c.datatable_set.all()
@@ -48,6 +48,24 @@ def create_custom(request):
             'matches': matches,
             'match_form': match_form
         }
+
+    return render(request, 'match/create.html', context)
+
+
+@login_required
+def create_custom(request):
+
+    c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
+
+    match_form = MatchForm(client=c)
+    context = {
+        'c': c,
+        'data_tables': data_tables,
+        'matches': matches,
+        'match_form': match_form
+    }
 
     return render(request, 'match/create_custom.html', context)
 

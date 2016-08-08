@@ -38,6 +38,8 @@ def register(request):
         else:
             print user_form.errors, client_form.errors
 
+        return HttpResponseRedirect('/welcome/home')
+
     else:
         user_form = UserForm()
         client_form = ClientForm()
@@ -57,7 +59,7 @@ def user_login(request):
 
         if user:
             login(request, user)
-            return HttpResponseRedirect('/welcome/')
+            return HttpResponseRedirect('/welcome/home')
         else:
             print "Username and password not found."
             return HttpResponse("Invalid login.")

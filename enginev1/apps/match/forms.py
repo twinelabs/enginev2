@@ -7,17 +7,13 @@ class MatchForm(forms.Form):
     def __init__(self, client, *args, **kwargs):
         super(MatchForm, self).__init__(*args, **kwargs)
 
-        self.fields['data_tables_single'] = forms.ModelChoiceField(
-            queryset = DataTable.objects.filter(client=client)
-        )
-        self.fields['data_tables_multiple'] = forms.ModelMultipleChoiceField(
-            queryset = DataTable.objects.filter(client=client)
-        )
+        self.data_tables = [
+            (data_table.id, data_table.name) for data_table in DataTable.objects.filter(client=client)
+        ]
 
-        self.fields['columns'] = forms.ModelMultipleChoiceField(
-            queryset = DataColumn.objects.filter(data_table__client=client),
-            widget=forms.CheckboxSelectMultiple
-        )
+        self.data_columns = [
+            (data_column.id, data_column.name, data_column.dtype) for data_column in DataColumn.objects.filter(data_table__client=client)
+        ]
 
     name = forms.CharField(
         required=True,

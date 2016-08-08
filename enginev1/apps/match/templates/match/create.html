@@ -16,45 +16,97 @@
         enctype="multipart/form-data" class="form">
 
         {% csrf_token %}
-        <div class="row">
-            <div class="col-md-6">
-                <div class="well match-type">
-                    <h3>Match Setup</h3>
-                    <div class="form-group">
-                        {{ match_form.non_field_errors }}
-                        <div class="fieldWrapper">
-                            {{ match_form.name.errors }}
-                            <label for="{{ match_form.name.id_for_label }}">Match name:</label>
-                            {% render_field match_form.name class+="form-control" %}
-                        </div>
-                        <div class="fieldWrapper">
-                            {{ match_form.task.errors }}
-                            <label for="{{ match_form.task.id_for_label }}">Select task:</label>
-                            {% render_field match_form.task class+="form-control" %}
-                        </div>
-                        <div class="fieldWrapper">
-                            {{ match_form.data_tables.errors }}
-                            <label for="{{ match_form.data_tables.id_for_label }}">Select data sets:</label>
-                            {% render_field match_form.data_tables class+="form-control" %}
-                        </div>
+        {{ match_form.non_field_errors }}
 
-                        <div class="fieldWrapper">
-                            {{ match_form.columns.errors }}
-                            <label for="{{ match_form.colnames.id_for_label }}">Select columns to match on:</label>
-                            {% for column in match_form.columns %}
-                                <div class="checkbox">
-                                    {{ column }}
-                                </div>
-                            {% endfor %}
+        <div class="well">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <h3>1. Match Name</h3>
+                        <input id="id_name" name="name" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h3>2. Select Task</h3>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a class="btn btn-default btn-lg">
+                                <b>GROUP</b><br />items within 1 data set
+                            </a>
                         </div>
-
-                        <div class="fieldWrapper">
-                            {{ match_form.k_size.errors }}
-                            <label for="{{ match_form.k_size.id_for_label }}">Enter cluster size.</label>
-                            {% render_field match_form.k_size class+="form-control" %}
+                        <div class="col-sm-6">
+                            <a class="btn btn-default btn-lg">
+                                <b>ASSIGN</b><br />items across 2 data sets
+                            </a>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="well" id="task-group-options">
+            <h3>3. GROUP Options</h3>
+            <div class="row">
+                <div class="col-md-3 col-md-offset-1">
+                    <div class="fieldWrapper">
+                        {{ match_form.k_size.errors }}
+                        <h4>Select Group Size</h4>
+                        {% render_field match_form.k_size class+="form-control" %}
+                    </div>
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                    <div class="form-group">
+                        <div class="fieldWrapper">
+                            <h4>Select Data</h4>
+                            <select class="form-control" id="id_data_tables_single" name="data_tables_single">
+                                <option value="" selected="selected">--click to select--</option>
+                                <option value="12">Employees</option>
+                                <option value="11">Roles</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well" id="task-assign-options">
+            <h3>3. ASSIGN Options</h3>
+            <div class="row">
+                <div class="col-md-5 col-md-offset-1">
+                    <h4>Assignment Direction</h4>
+                    <div class="row matchSectionSmall">
+                        <input id="radio-capacity-onetomany" class="toggleView" name="capacity" type="radio" value="onetomany">
+                        Match each <b>Employee</b> with top <input type='text' name='onetomany_n' size='3' class='match-weight-input' placeholder='1-5' value='5'> <b>Roles</b>
+                    </div>
+                    <div class="row">
+                        <input id="radio-capacity-manytoone" class="toggleView" name="capacity" type="radio" value="manytoone">
+                        Match top <input type='text' name='manytoone_n' size='3' class='match-weight-input' placeholder='1-5' value='5'> <b>Employees</b> with each <b>Role</b>
+                    </div>
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                    <h4>Duplicates</h4>
+                    <div class="row matchSectionSmall">
+                        <input id="radio-duplicates-yes" class="toggleView" name="duplicates" type="radio" value="yes">
+                        Allow duplicates
+                    </div>
+                    <div class="row">
+                        <input id="radio-duplicates-no" class="toggleView" name="duplicates" type="radio" value="no">
+                        Do not allow duplicates
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well" id="task-group-columns">
+            <h3>4. Select Columns</h3>
+            <div class="row">
+                {% for data_column_id, data_column_name, data_column_type in match_form.data_columns %}
+                    <div class="col-md-3">
+                        <a class="btn btn-default">
+                            {{ data_column_name }}
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
 
