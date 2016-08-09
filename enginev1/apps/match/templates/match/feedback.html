@@ -1,0 +1,91 @@
+{% extends 'sidebar_page.html' %}
+
+{% load bootstrap3 %}
+{% load widget_tweaks %}
+
+{% block title %}Create Match{% endblock %}
+{% block header_block %}
+    <div class="col-sm-4">
+        <h2 class="headerLine">HR Feedback</h2>
+    </div>
+{% endblock %}
+
+{% block content_block %}
+
+    <div class="well">
+        <table class="feedbackTable">
+            <thead>
+                <tr>
+                    <th class="c1">Role</th>
+                    <th class="c2">&nbsp;</th>
+                    <th class="c3">Employee</th>
+                    <th class="c4">&nbsp;</th>
+                    <th class="c5">Feedback</th>
+                    <th class="c6">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Title</td>
+                    <td>VP, Comm</td>
+                    <td>Masked ID</td>
+                    <td>13755284</td>
+                    <td>OVERALL:</td>
+                    <td>
+                        <input name="overall" type="radio" value="good"> Good
+                        <input name="overall" type="radio" value="neutral"> Neutral
+                        <input name="overall" type="radio" value="poor"> Poor
+                    </td>
+                </tr>
+                <tr>
+                    <td>Preferred Edu</td>
+                    <td>BA/BS</td>
+                    <td>Degree</td>
+                    <td>BA</td>
+                    <td>EDUCATION:</td>
+                    <td>
+                        <input name="edu" type="radio" value="good"> Good
+                        <input name="edu" type="radio" value="neutral"> Neutral
+                        <input name="edu" type="radio" value="poor"> Poor
+                    </td>
+                </tr>
+                <tr>
+                    <td>Lat/Long</td>
+                    <td>_____</td>
+                    <td>Lat/Long</td>
+                    <td>_____</td>
+                    <td>LOCATION:</td>
+                    <td>
+                        <input name="loc" type="radio" value="good"> Good
+                        <input name="loc" type="radio" value="neutral"> Neutral
+                        <input name="loc" type="radio" value="poor"> Poor
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nielsen</td>
+                    <td>Watch+</td>
+                    <td>Group</td>
+                    <td>Watch+</td>
+                    <td>GROUP:</td>
+                    <td>
+                        <input name="group" type="radio" value="good"> Good Fit
+                        <input name="group" type="radio" value="bad"> Bad Fit
+                    </td>
+                </tr>
+                <tr>
+                    <td>Years Exp</td>
+                    <td>12+</td>
+                    <td>Total Exp</td>
+                    <td>10.6</td>
+                    <td>Exp:</td>
+                    <td>
+                        <input name="exp" type="radio" value="much"> Overqualified
+                        <input name="exp" type="radio" value="good"> Good Fit
+                        <input name="exp" type="radio" value="little"> Too Little
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

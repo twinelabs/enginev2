@@ -1,0 +1,36 @@
+.feedbackTable, th, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.feedbackTable {
+    width: 100%;
+    font-size: 18px;
+
+    tr {
+        height: 50px;
+    }
+}
+
+th {
+    text-decoration: underline;
+}
+
+th.c1 {
+    width: 12%;
+}
+th.c2 {
+    width: 12%;
+}
+th.c3 {
+    width: 12%;
+}
+th.c4 {
+    width: 12%;
+}
+th.c5 {
+    width: 15%;
+}
+th.c6 {
+    width: 37%;
+}

@@ -9,6 +9,10 @@ from entwine import entwine
 from models import *
 from .forms import MatchForm
 
+@login_required
+def feedback(request):
+    return render(request, 'match/feedback.html', {})
+
 
 @login_required
 def create(request):

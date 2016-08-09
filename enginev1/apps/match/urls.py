@@ -3,6 +3,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    url(r'^feedback/$', views.feedback, name='feedback'),
     url(r'^create/$', views.create, name='create'),
     url(r'^create_custom/$', views.create_custom, name='create_custom'),
     url(r'^view/(?P<match_id>\w+)$', views.view, name="view"),
