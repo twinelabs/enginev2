@@ -1,33 +1,99 @@
 .feedbackTable, th, td {
-    border: 1px solid black;
-    padding: 5px;
+    padding: 2px;
 }
 
 .feedbackTable {
     width: 100%;
     font-size: 14px;
 
+    th {
+        text-align: center;
+    }
+
     tr {
         height: 50px;
     }
+
+    tr > td:first-child {
+        font-weight: bold;
+    }
+
+    tr > td:first-child + td {
+        padding-right: 30px;
+    }
+
+    tr > td:first-child + td + td {
+        font-weight: bold;
+        padding-left: 10px;
+        padding-right: 20px;
+    }
+
+    th.c1 {
+        width: 10%;
+    }
+    th.c2 {
+        width: 12%;
+    }
+    th.c3 {
+        width: 14%;
+    }
+    th.c4 {
+        width: 12%;
+    }
+    th.c5 {
+        width: 52%;
+    }
+
+    td.sectionHeader {
+        font-size: 18px;
+        text-decoration: underline;
+        vertical-align: bottom;
+        padding-bottom: 10px;
+    }
+
+    td.overallRating {
+        background-color: #C0C0C0;
+        border-radius:6px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .match-preference-form {
+        text-align: center;
+    }
+
+    tr > td {
+        vertical-align: top;
+    }
 }
 
-th {
-    text-decoration: underline;
+
+
+
+
+
+.feedbackTableA {
+    width: 100%;
+    font-size: 14px;
+    padding: 5px;
+
+    th {
+        text-align: center;
+    }
+
+    th.c1 {
+        width: 20%;
+    }
+    th.c2 {
+        width: 20%;
+    }
+    th.c3 {
+        width: 60%;
+    }
+
+    border: 1px solid black;
 }
 
-th.c1 {
-    width: 8%;
-}
-th.c2 {
-    width: 8%;
-}
-th.c3 {
-    width: 8%;
-}
-th.c4 {
-    width: 8%;
-}
-th.c5 {
-    width: 68%;
-}
+
+
+
