@@ -136,33 +136,33 @@ def analyze(request, match_id):
         'overview_items': [
             {
                 'img': "img/demo/match_strength.png",
-                'title': 'Match Strength',
-                'value': '9.3 (High)'
+                'title': 'Overall Match Strength',
+                'value': '9.2 (High)'
             },
             {
                 'img': "img/demo/match_variables.png",
                 'title': '# of Variables',
-                'value': '45'
+                'value': '7'
             },
             {
                 'img': "img/demo/diversity_coefficient.png",
                 'title': 'Diversity Score',
-                'value': '7.8'
+                'value': '0.64 (employees), 0.73 (roles)'
             },
             {
                 'img': "img/demo/matched_users.png",
                 'title': 'Matched Users',
-                'value': '1,000'
+                'value': '275 Roles'
             },
             {
                 'img': "img/demo/matches_per_user.png",
-                'title': 'Matches per User',
-                'value': '10'
+                'title': 'Matches per Role',
+                'value': '5 employees per role'
             },
             {
                 'img': "img/demo/total_matches.png",
                 'title': 'Total # Matches',
-                'value': '10,000'
+                'value': '1,375 Total Suggestions Made'
             }
         ]
     }
