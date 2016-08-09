@@ -68,7 +68,7 @@
                     <strong>{{ match.name }}</strong>
                 </div>
                 <img class="match-img center-block" src="{% static "img/match.png" %}" />
-                <a href="/match/view/{{ match.id }}" class="btn btn-primary center-block">View Match</a>
+                <a href="/match/create_custom/" class="btn btn-primary center-block">Edit Match</a>
                 <a href="/match/analyze/{{ match.id }}" class="btn btn-info center-block">View Analytics</a>
                 <a href="#" class="btn btn-danger center-block" data-toggle="modal" data-target="#deleteModalMatch{{ match.id }}">Delete Match</a>
             </div>
