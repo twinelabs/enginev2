@@ -20,22 +20,30 @@
 
         <div class="well">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <div class="input-group">
                         <h3>1. Match Name</h3>
-                        <input id="id_name" name="name" type="text" class="form-control">
+                        <input id="id_name" name="name" type="text" size="100" class="form-control">
+                        <p>Pick something unique and descriptive, like "Employee/Mentor Match - July 2016"</p>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="row">
                 <div class="col-md-8">
                     <h3>2. Select Task</h3>
                     <div class="row">
                         <div class="col-sm-6">
-                            <a class="btn btn-default btn-lg">
+                            <a id="task_cluster_button" class="btn btn-default btn-lg">
+                                <input id="task_cluster" name="task" type="radio" value="cluster" style="display: none;" />
                                 <b>GROUP</b><br />items within 1 data set
                             </a>
                         </div>
                         <div class="col-sm-6">
-                            <a class="btn btn-default btn-lg">
+                            <a id="task_assign_button" class="btn btn-default btn-lg">
+                                <input id="task_assign" name="task" type="radio" value="assign" style="display: none;" />
                                 <b>ASSIGN</b><br />items across 2 data sets
                             </a>
                         </div>
@@ -44,9 +52,22 @@
             </div>
         </div>
 
-        <div class="well" id="task-group-options">
-            <h3>3. GROUP Options</h3>
+        <div class="well" id="task_cluster_options">
+            <h3>3. Match Options</h3>
             <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="fieldWrapper">
+                            <h4>Select Dataset to Group</h4>
+                            <select class="form-control" id="data_tables_single" name="data_tables_single">
+                                <option value="" selected="selected">-- click to select --</option>
+                                {% for data_table_id, data_table_name in match_form.data_tables %}
+                                    <option value="{{ data_table_id }}">{{ data_table_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-3 col-md-offset-1">
                     <div class="fieldWrapper">
                         {{ match_form.k_size.errors }}
@@ -54,55 +75,74 @@
                         {% render_field match_form.k_size class+="form-control" %}
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="well" id="task_assign_options">
+            <h3>3. Match Options</h3>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="fieldWrapper">
+                            <h4>Select Dataset #1</h4>
+                            <select class="form-control" id="data_tables_multipleA" name="data_tables_multiple">
+                                <option value="" selected="selected">-- click to select --</option>
+                                {% for data_table_id, data_table_name in match_form.data_tables %}
+                                    <option value="{{ data_table_id }}">{{ data_table_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-3 col-md-offset-1">
                     <div class="form-group">
                         <div class="fieldWrapper">
-                            <h4>Select Data</h4>
-                            <select class="form-control" id="id_data_tables_single" name="data_tables_single">
-                                <option value="" selected="selected">--click to select--</option>
-                                <option value="12">Employees</option>
-                                <option value="11">Roles</option>
+                            <h4>Select Dataset #2</h4>
+                            <select class="form-control" id="data_tables_multipleB" name="data_tables_multiple">
+                                <option value="" selected="selected">-- click to select --</option>
+                                {% for data_table_id, data_table_name in match_form.data_tables %}
+                                    <option value="{{ data_table_id }}">{{ data_table_name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="well" id="task-assign-options">
-            <h3>3. ASSIGN Options</h3>
             <div class="row">
-                <div class="col-md-5 col-md-offset-1">
+                <div class="col-md-6 col-md-offset-1">
                     <h4>Assignment Direction</h4>
+
                     <div class="row matchSectionSmall">
-                        <input id="radio-capacity-onetomany" class="toggleView" name="capacity" type="radio" value="onetomany">
-                        Match each <b>Employee</b> with top <input type='text' name='onetomany_n' size='3' class='match-weight-input' placeholder='1-5' value='5'> <b>Roles</b>
+                        <input id="id_assign_direction_0" name="assign_direction" type="radio" value="onetomany">
+                        Match each item in Dataset #1 to multiple items in Dataset #2
                     </div>
                     <div class="row">
-                        <input id="radio-capacity-manytoone" class="toggleView" name="capacity" type="radio" value="manytoone">
-                        Match top <input type='text' name='manytoone_n' size='3' class='match-weight-input' placeholder='1-5' value='5'> <b>Employees</b> with each <b>Role</b>
+                        <input id="id_assign_direction_1" name="assign_direction" type="radio" value="manytoone">
+                        Assign multiple items in Dataset #1 to each item in Dataset #2
                     </div>
                 </div>
+
                 <div class="col-md-3 col-md-offset-1">
                     <h4>Duplicates</h4>
                     <div class="row matchSectionSmall">
-                        <input id="radio-duplicates-yes" class="toggleView" name="duplicates" type="radio" value="yes">
+                        <input id="id_assign_duplicates_0" name="assign_duplicates" type="radio" value="True">
                         Allow duplicates
                     </div>
                     <div class="row">
-                        <input id="radio-duplicates-no" class="toggleView" name="duplicates" type="radio" value="no">
+                        <input id="id_assign_duplicates_1" name="assign_duplicates" type="radio" value="False">
                         Do not allow duplicates
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="well" id="task-group-columns">
+        <div class="well" id="task_cluster_columns">
             <h3>4. Select Columns</h3>
-            <div class="row">
-                {% for data_column_id, data_column_name, data_column_type in match_form.data_columns %}
-                    <div class="col-md-3">
-                        <a class="btn btn-default">
+            <div class="row columnButton">
+                {% for data_table_id, data_column_id, data_column_name, data_column_dtype in match_form.data_columns %}
+                    <div class="col-md-3" data-column="none" data-dt-id="{{ data_table_id }}">
+                        <a data-dc-id="{{ data_column_id }}" class="btn btn-default task_cluster_column_button">
+                            <input id="task_cluster_columns_checkbox_{{ data_column_id }}" name="task_cluster_columns" type="checkbox" value="{{ data_column_id }}" style="display: none;" />
                             {{ data_column_name }}
                         </a>
                     </div>
@@ -110,8 +150,40 @@
             </div>
         </div>
 
-        <!--
-        <div class="well custom-search-options">
+        <div class="well" id="task_assign_columns">
+            <h3>4. Select Columns</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Dataset #1 Columns</h4>
+                    <div class="row columnButton">
+                        {% for data_table_id, data_column_id, data_column_name, data_column_dtype in match_form.data_columns %}
+                            <div class="col-md-3" data-column="A" data-dt-id="{{ data_table_id }}">
+                                <a data-dc-id="{{ data_column_id }}" class="btn btn-default task_assignA_column_button">
+                                    <input id="task_assignA_columns_checkbox_{{ data_column_id }}" name="task_assignA_columns" type="checkbox" value="{{ data_column_id }}" style="display: none;" />
+                                    {{ data_column_name }}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Dataset #2 Columns</h4>
+                    <div class="row columnButton">
+                        {% for data_table_id, data_column_id, data_column_name, data_column_dtype in match_form.data_columns %}
+                            <div class="col-md-3" data-column="B" data-dt-id="{{ data_table_id }}">
+                                <a data-dc-id="{{ data_column_id }}" class="btn btn-default task_assignB_column_button">
+                                    <input id="task_assignB_columns_checkbox_{{ data_column_id }}" name="task_assignB_columns" type="checkbox" value="{{ data_column_id }}" style="display: none;" />
+                                    {{ data_column_name }}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="matching_rules" class="well custom-search-options">
+            <h3>5. Select Matching Rules and Weights</h3>
             <div class="prefs">
                 <table class="matchTable">
                     <thead>
@@ -119,81 +191,46 @@
                             <th class="colVariable">Variable</th>
                             <th class="colPreference">Preference</th>
                             <th class="colWeight">Weight</th>
-                            <th class="colCustom">Custom Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><h4>College</h4></td>
-                            <td>
-                                <div class='match-preference-form'>
-                                    <div class='match-preference-input'>
-                                        <input type='radio' name='gender-prefs0' value='1'><label for='gender-prefs0'>Different</label>
+                        {% for data_table_id, data_column_id, data_column_name, data_column_dtype in match_form.data_columns %}
+                            <tr id="cluster_rule_row_{{ data_column_id }}" class="matching_rule cluster_rule_for_data_table_{{ data_table_id }}">
+                                <td><h4>{{ data_column_name }}</h4></td>
+                                <td>
+                                    <div class='match-preference-form'>
+                                        {% if data_column_dtype == 'int64' %}
+                                            {% for option_value in match_form.cluster_rule_numeric_options %}
+                                                <div class='match-preference-input'>
+                                                    <input type='radio' name='cluster_rule_{{ data_column_id }}' value='{{ option_value }}'><label for='gender-prefs0'>{{ option_value }}</label>
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            {% for option_value in match_form.cluster_rule_string_options %}
+                                                <div class='match-preference-input'>
+                                                    <input type='radio' name='cluster_rule_{{ data_column_id }}' value='{{ option_value }}'><label for='gender-prefs0'>{{ option_value }}</label>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
                                     </div>
-                                    <div class='match-preference-input'>
-                                        <input type='radio' name='gender-prefs0' value='2'><label for='gender-prefs0'>Any</label>
+                                </td>
+                                <td>
+                                    <div class='match-weight-form'>
+                                        <input type='text' name='cluster_weight_{{ data_column_id }}' size='6' class='match-weight-input' placeholder='1-5' value='5'>
                                     </div>
-                                    <div class='match-preference-input'>
-                                        <input type='radio' name='gender-prefs0' value='3'><label for='gender-prefs0'>Similar</label>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class='match-weight-form'>
-                                    <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='5'>
-                                </div>
-                            </td> <td>
-                                <div class='match-custom-options'>
-                                    <select multiple class='form-control selectpicker additional-pref-select'
-                                            data-none-selected-text='Select one or more College...' id='placeholder'>
-                                        <option>University of Pennsylvania </option><option> Temple University </option><option> Drexel University </option><option> Philadelphia University </option><option> La Salle University </option><option> Boston College</option>
-                                    </select>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><h4>Major </h4></td>
-                            <td>
-                                <div class='match-preference-form'>
-                                    <div class='match-preference-input'>
-                                        <input type='radio' name='gender-prefs1' value='1'><label for='gender-prefs1'>Different</label>
-                                    </div>
-                                    <div class='match-preference-input'>
-                                        <input type='radio' name='gender-prefs1' value='2'><label for='gender-prefs1'>Any</label>
-                                    </div>
-                                    <div class='match-preference-input'>
-                                        <input type='radio' name='gender-prefs1' value='3'><label for='gender-prefs1'>Similar</label>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class='match-weight-form'>
-                                    <input type='text' name='gender-weight1' size='6' class='match-weight-input' placeholder='1-5' value='4'>
-                                </div>
-                            </td> <td>
-                                <div class='match-custom-options'>
-                                    <select multiple class='form-control selectpicker additional-pref-select'
-                                            data-none-selected-text='Select one or more Major ...' id='placeholder'>
-                                        <option>Computer Science </option><option> Mathematics </option><option> Physics </option><option> Economics </option><option> Business </option><option> Psychology </option>
-                                    </select>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
-            <input type="button" name="choose-categories" value="+ Add variable" class="btn btn-warning" />
         </div>
-        <div class="well match-buttons">
-            <input type="button" name="save-custom-search" value="Save Search" class="btn btn-primary" />
-            <input type="submit" name="submit" value="Run Matches" class="btn btn-success"/>
-        </div>
-        -->
 
-        <input type="submit" name="submit" value="Create Match" class="btn btn-default"/>
+        <div id="run_match" class="well">
+            <h3>Run Match!</h3>
+            <input type="button" name="save-custom-search" value="Save For Later" class="btn btn-primary" />
+            <input type="submit" name="submit" value="Save and Run Match" class="btn btn-success"/>
+        </div>
     </form>
-
-
-
 
 {% endblock %}

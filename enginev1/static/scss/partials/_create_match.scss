@@ -1,3 +1,11 @@
+#task_cluster_options, #task_assign_options, #task_assign_columns, #task_cluster_columns, #matching_rules, #run_match {
+    display: none;
+}
+
+.matching_rule {
+    display: none;
+}
+
 .match-type {
     select.custom-search-dropdown {
         // margin-top: 1rem;
@@ -200,4 +208,8 @@ th.colAutoWeight {
 
 h5 {
     font-size: 18px;
+}
+
+.task_cluster_column_button {
+    margin-bottom: 5px;
 }

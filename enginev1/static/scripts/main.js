@@ -140,8 +140,4 @@ $(document).ready(function(){
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    $('.toggleView').click(function() {
-        $('#view-' + $(this).attr('type') + '-' + $(this).attr('value')).toggle();
-    });
-
 });
