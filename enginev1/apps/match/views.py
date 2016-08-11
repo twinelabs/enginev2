@@ -22,21 +22,19 @@ def create(request):
     matches = c.match_set.all()
 
     if request.method == 'POST':
-        match_form = MatchForm(data=request.POST)
+        match_form = MatchForm(data=request.POST, client=c)
 
         if match_form.is_valid():
-            client = request.user.client
-            data_tables = match_form.cleaned_data['data_tables']
-            name = match_form.cleaned_data['name']
-            config = {
-                'task': match_form.cleaned_data['task'],
-                'column_names': [col.name for col in match_form.cleaned_data['columns']],
-                'k_size': match_form.cleaned_data['k_size']
-            }
 
-            match = Match(client=client, name=name, config=config)
+            name = match_form.cleaned_data['name']
+            config = match_request_to_config(request.POST)
+
+            match = Match(client=c, name=name, config=config)
             match.save()
-            for data_table in data_tables:
+
+            data_table_ids = [x['id'] for x in match_config['load']]
+            for data_table_id in data_table_ids:
+                data_table = DataTable.objects.get(data_table_id)
                 match.data_tables.add(data_table)
 
             return HttpResponseRedirect('/match/view/' + str(match.id))

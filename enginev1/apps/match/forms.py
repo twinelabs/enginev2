@@ -17,6 +17,7 @@ class MatchForm(forms.Form):
 
         self.cluster_rule_string_options = ["Different", "Any", "Similar"]
         self.cluster_rule_numeric_options = ["Maximize", "Any", "Minimize"]
+        self.cluster_algos = ["greedy", "greedy_adapt", "random"]
 
     # Name of match (object field)
     name = forms.CharField(

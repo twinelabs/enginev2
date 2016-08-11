@@ -55,7 +55,7 @@
         <div class="well" id="task_cluster_options">
             <h3>3. Match Options</h3>
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="form-group">
                         <div class="fieldWrapper">
                             <h4>Select Dataset to Group</h4>
@@ -73,6 +73,19 @@
                         {{ match_form.k_size.errors }}
                         <h4>Select Group Size</h4>
                         {% render_field match_form.k_size class+="form-control" %}
+                    </div>
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                    <div class="form-group">
+                        <div class="fieldWrapper">
+                            <h4>Select Algorithm</h4>
+                            <select class="form-control" id="cluster_algo" name="cluster_algo">
+                                <option value="" selected="selected">-- click to select --</option>
+                                {% for algo in match_form.cluster_algos %}
+                                    <option value="{{ algo }}">{{ algo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
