@@ -1,0 +1,21 @@
+load:
+  prefix  : "./tests/"
+  suffix  : ".csv"
+  mds     :
+    - filename  : "test_data_assignA"
+      type      : "csv"
+      etl       : "none"
+      desc      : "sample data A for assign methods"
+    - filename  : "test_data_assignB"
+      type      : "csv"
+      etl       : "none"
+      desc      : "sample data B for assign methods"
+match:
+  type      : "assign"
+  criteria  :
+    - col   : "f1"
+      f     : "equality"
+      wgt   : 2
+    - col   : "f2"
+      f     : "equality"
+      wgt   : 1

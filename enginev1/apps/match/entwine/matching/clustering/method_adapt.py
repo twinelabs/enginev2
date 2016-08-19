@@ -8,23 +8,18 @@ TODO: Remove or generalize cluster_goodness?
 
 import random
 import copy
+import analytics.goodness.goms
+
 import numpy as np
-
-
-def cluster_mean_distance(d, cluster):
-    """ Average distance for people in a cluster.
-    Excludes diagonal distance (same person to themself).
-    """
-    d_cluster = d[cluster,:][:,cluster]
-    d_cluster_triu = d_cluster[np.triu_indices(len(cluster), 1)]
-    cluster_mean_distance = d_cluster_triu.mean()
-    return cluster_mean_distance
-
 
 def cluster_adapt(d, params):
 
-    k_size = int(params['k_size'])
-    gom_function = cluster_mean_distance
+    k_size = params['k_size']
+
+    if 'f_gom' in params and params['f_gom'] == "cluster_mean_distance":
+        gom_function = analytics.goodness.goms.cluster_mean_distance
+    else:
+        raise TypeError("Unsupported goodness-of-match function")
 
     # first, cluster randomly
     originals = range(d.shape[0])

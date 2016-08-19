@@ -1,0 +1,19 @@
+load:
+  prefix  : "./tests/"
+  suffix  : ".csv"
+  mds     :
+    - filename  : "test_data_cluster"
+      type      : "csv"
+      etl       : "none"
+      desc      : "sample data for clustering methods"
+match:
+  type    : "cluster"
+  distance:
+    f       : "l2_norm"
+    cols    :
+      - "f1"
+      - "f2"
+  params:
+    method    : "__BLANK__"
+    k_size    : 4
+    f_gom     : "cluster_mean_distance"

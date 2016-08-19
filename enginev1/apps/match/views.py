@@ -6,7 +6,7 @@ import datetime
 import pdb
 import json
 
-from entwine import entwine
+from .entwine import entwine
 from models import *
 from .forms import MatchForm
 
@@ -121,7 +121,9 @@ def run(request, match_id):
     if match.client != c:
         return HttpResponse("You are not permissioned.")
 
-    entwine.run_match(match)
+    result = entwine.run_from_config(match.config)
+    match.result = result
+    match.save()
 
     return HttpResponseRedirect('/match/view/' + str(match.id))
 

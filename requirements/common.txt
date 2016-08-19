@@ -20,6 +20,7 @@ psycopg2==2.6.1
 python-dateutil==2.5.3
 pytz==2016.4
 PyYAML==3.11
+scipy==0.18.0
 six==1.10.0
 sqlparse==0.1.19
 xlrd==1.0.0

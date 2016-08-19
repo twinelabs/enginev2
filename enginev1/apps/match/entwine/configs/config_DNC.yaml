@@ -1,0 +1,30 @@
+load:
+  prefix  : "/Users/ns/Dropbox/twine/Customer Engagements/DNC/AlgoData/"
+  suffix  : ".csv"
+  mds     :
+    - filename  : "data/ns_special"
+      type      : "csv"
+      etl       : "none"
+      desc      : "DNC data"
+match:
+  type    : "cluster"
+  distance:
+    f       : "binary_sames"
+    cols    :
+      - "dem"
+      - "rep"
+      - "value"
+      - "pokemon"
+  params:
+    method    : "adaptive"
+    k_size    : 2
+    f_gom     : "cluster_mean_distance"
+display :
+  type  : "cluster"
+save:
+  prefix  : "/Users/ns/Dropbox/twine/Customer Engagements/DNC/AlgoData/"
+  suffix  : ".csv"
+  results :
+    - varname   : "display_results"
+      filename  : "results/results_ns_special"
+      type      : "csv"

@@ -1,0 +1,35 @@
+load :
+  - file :
+      name : data/assign_example_A.csv
+      type : csv
+  - file :
+      name : data/assign_example_B.csv
+      type : csv
+    
+match:
+  task : assign
+  
+  components  :
+    - function : equality
+      columns  : 
+        - Gender
+        - Gender
+    - function : equality
+      columns   : 
+        - Veteran
+        - Veteran
+    - function : equality
+      columns   : 
+        - Ethnicity
+        - Ethnicity
+        
+  weights :
+    - 4
+    - 2
+    - 1  
+  
+  algorithm : 
+    name : residency
+    params :
+      capacity : 5
+        

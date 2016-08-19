@@ -1,0 +1,26 @@
+load:
+  prefix  : "/Users/ns/Dropbox/twine/Customer Engagements/WAAAM/AlgoData/"
+  suffix  : ".csv"
+  mds     :
+    - filename  : "data/03-24-2016/students_trimmed"
+      type      : "csv"
+      etl       : "qualtrics"
+      desc      : "WAAAM students"
+match:
+  type    : "cluster"
+  distance:
+    f       : "d_vegas_school"
+    cols    :
+      - "School "
+  params:
+    method    : "greedy"
+    k_size    : 10
+display :
+  type  : "cluster"
+save:
+  prefix  : "/Users/ns/Dropbox/twine/Algo/__TEST/WAAAM/"
+  suffix  : ".csv"
+  results :
+    - varname   : "display_results"
+      filename  : "WAAAM_results2"
+      type      : "csv"

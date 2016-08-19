@@ -1,0 +1,29 @@
+load :
+  - file :
+      name : data/cluster_example.csv
+      type : csv
+    
+match:
+  task : cluster
+  
+  components :
+    - function : euclidean_distance
+      columns :
+        - f0
+        - f1
+        - f2
+        - f3
+        - f4
+    - function : euclidean_distance
+      columns :
+        - class
+        
+  weights :
+    - 1
+    - 2  
+  
+  algorithm : 
+    name : greedy_adaptive
+    params :
+      k_size : 10
+        

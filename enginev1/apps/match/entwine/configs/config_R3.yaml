@@ -1,0 +1,45 @@
+load:
+  prefix  : "/Users/ns/Dropbox/twine/Customer Engagements/R3/AlgoData/"
+  suffix  : ".csv"
+  mds     :
+    - filename  : "data/survey_110515(n=28)"
+      type      : "csv"
+      etl       : "qualtrics"
+      desc      : "R3 survey 1"
+      n_skip    : 8
+    - filename  : "data/survey_010816(n=41)"
+      type      : "csv"
+      etl       : "qualtrics"
+      desc      : "R3 survey 2"
+      n_skip    : 0
+    - filename  : "data/survey_012316(n=863)"
+      type      : "csv"
+      etl       : "qualtrics"
+      desc      : "R3 survey 3"
+      n_skip    : 3
+combine:
+  prefix  : '/Users/ns/Dropbox/twine/Customer Engagements/R3/AlgoData/maps/'
+  suffix  : '.csv'
+  filename: 'colnames'
+  mds :
+    - filename  : "indices_survey_110515(n=28)"
+    - filename  : "indices_survey_010816(n=41)"
+    - filename  : "indices_survey_012316(n=863)"
+match:
+  type    : "cluster"
+  distance:
+    f       : "d_vegas_school"
+    cols    :
+      - "IdealGroupSize"
+  params:
+    method    : "greedy"
+    k_size    : 12
+display :
+  type  : "cluster"
+save:
+  prefix  : "/Users/ns/Dropbox/twine/Algo/__TEST/R3/"
+  suffix  : ".csv"
+  results :
+    - varname   : "display_results"
+      filename  : "R3_results2"
+      type      : "csv"

@@ -1,0 +1,50 @@
+load:
+  prefix  : ""
+  suffix  : ".csv"
+  mds     :
+    - filename  : "test_file"
+      type      : "csv"
+      etl       : "none"
+      desc      : "For algorithms and goodness of fit testing"
+match:
+  type    : "cluster"
+  distance:
+    f       : "l2_norm"
+    cols    : ""
+  params:
+    method    : ""
+    k_size    : 10
+    num_swaps : 100
+    maximize  : 0
+evaluate:
+  distance   :
+    f   : "l2_norm"
+    cols: ""
+display :
+  type  : "cluster"
+save:
+  prefix  : ""
+  suffix  : ".csv"
+  results :
+    - varname   : "display_results"
+      filename  : "test_results"
+      type      : "csv"
+grid:
+  algos :
+    - 'random'
+    - 'greedy'
+    - 'adaptive'
+    - 'greedy_adaptive'
+  n : 
+    - 100
+    - 500
+    - 1000
+  k :
+    - 2
+    - 5
+  num_swaps :
+    - 10
+    - 100
+    - 1000
+  iter : 2
+        

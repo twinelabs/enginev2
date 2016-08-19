@@ -1,0 +1,29 @@
+load:
+  prefix  : "/Users/ns/Dropbox/twine/Customer Engagements/Cade/AlgoData/"
+  suffix  : ".csv"
+  mds     :
+    - filename  : "data/04-19-16/wed"
+      type      : "csv"
+      etl       : "none"
+      desc      : "Cade wednesday"
+match:
+  type    : "cluster"
+  distance:
+    f       : "d_exp_neg_l2_norm"
+    cols    :
+      - "f1"
+      - "f2"
+      - "f3"
+  params:
+    method    : "adaptive"
+    k_size    : 4
+    f_gom     : "cluster_mean_distance"
+display :
+  type  : "cluster"
+save:
+  prefix  : "/Users/ns/Dropbox/twine/Algo/__TEST/Cade/"
+  suffix  : ".csv"
+  results :
+    - varname   : "display_results"
+      filename  : "Cade_results2"
+      type      : "csv"

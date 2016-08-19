@@ -1,0 +1,88 @@
+load:
+  prefix  : "/Users/ns/Dropbox/twine/Customer Engagements/Nielsen/AlgoData/"
+  suffix  : ".csv"
+  mds     :
+    - filename  : "data/cleaned/candidates_full"
+      type      : "csv"
+      etl       : "none"
+      desc      : "Nielsen candidates"
+    - filename  : "data/cleaned/roles_northamerica_fulltime"
+      type      : "csv"
+      etl       : "none"
+      desc      : "Nielsen N.A. full-time roles"
+remap:
+  dicts_data:
+    prefix  : "/Users/ns/Dropbox/twine/Customer Engagements/Nielsen/AlgoData/maps/"
+    suffix  : ".csv"
+    dicts   :
+      - name      : "candidates_location"
+        filename  : "candidates_location"
+        type      : "csv"
+      - name      : "candidates_function"
+        filename  : "candidates_function"
+        type      : "csv"
+      - name      : "roles_location"
+        filename  : "roles_location"
+        type      : "csv"
+  maps:
+    -
+      - col   : "MaskedID"
+        f     : "none"
+        i     : 0
+      - col   : "Education"
+        f     : "none"
+        i     : 23
+      - col   : "Salary"
+        f     : "none"
+        i     : 50
+      - col   : "Function"
+        f     : "in_dict"
+        i     : 46
+        f_dict: "candidates_function"
+      - col   : "Location"
+        f     : "in_dict"
+        i     : 48
+        f_dict: "candidates_location"
+    -
+      - col   : "ID"
+        f     : "none"
+        i     : 1
+      - col   : "Education"
+        f     : "none"
+        i     : 12
+      - col   : "Salary"
+        f     : "trimright"
+        i     : 21
+        n     : 1
+      - col   : "Function"
+        f     : "none"
+        i     : 11
+      - col   : "Location"
+        f     : "in_dict"
+        i     : [5, 6]
+        i_s   : ", "
+        f_dict: "roles_location"
+match:
+  type      : "assign"
+  criteria  :
+    - col : "Education"
+      f   : "equality"
+      wgt : 8
+    - col : "Salary"
+      f   : "equality"
+      wgt : 4
+    - col : "Function"
+      f   : "equality"
+      wgt : 2
+    - col : "Location"
+      f   : "equality"
+      wgt : 1
+display :
+  type  : "assign"
+save:
+  prefix  : "/Users/ns/Dropbox/twine/Customer Engagements/Nielsen/AlgoData/"
+  suffix  : ".csv"
+  results :
+    - varname   : "display_results"
+      filename  : "results/Nielsen_results_1600x250_new"
+      type      : "csv"

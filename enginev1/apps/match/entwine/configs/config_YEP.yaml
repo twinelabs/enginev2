@@ -1,0 +1,195 @@
+load:
+  prefix  : "/Users/ns/Dropbox/twine/Customer Engagements/MBA Admissions (Part 1 - YEP automation)/AlgoData/"
+  suffix  : ".csv"
+  mds     :
+    - filename  : "data/03-30-2016/students"
+      type      : "csv"
+      etl       : "none"
+      desc      : "YEP students"
+    - filename  : "data/03-30-2016/alumni"
+      type      : "csv"
+      etl       : "none"
+      desc      : "YEP alumni"
+remap:
+  dicts_data:
+    prefix  : "/Users/ns/Dropbox/twine/Customer Engagements/MBA Admissions (Part 1 - YEP automation)/AlgoData/maps/"
+    suffix  : ".csv"
+    dicts   :
+      - name      : "students_industry"
+        filename  : "students_industry"
+        type      : "csv"
+      - name      : "students_location"
+        filename  : "students_location"
+        type      : "csv"
+      - name      : "students_timezone"
+        filename  : "students_timezone"
+        type      : "csv"
+      - name      : "students_ethnicity"
+        filename  : "students_ethnicity"
+        type      : "csv"
+      - name      : "alumni_ethnicity"
+        filename  : "alumni_ethnicity"
+        type      : "csv"
+      - name      : "alumni_industry"
+        filename  : "alumni_industry"
+        type      : "csv"
+      - name      : "alumni_location"
+        filename  : "alumni_location"
+        type      : "csv"
+      - name      : "alumni_timezone"
+        filename  : "alumni_timezone"
+        type      : "csv"
+      - name      : "alumninotes_location"
+        filename  : "alumninotes_location"
+        type      : "csv"
+      - name      : "alumninotes_veteran"
+        filename  : "alumninotes_veteran"
+        type      : "csv"
+  maps:
+    -
+      - col   : "Last Name"
+        f     : "none"
+        i     : 0
+      - col   : "First Name"
+        f     : "none"
+        i     : 1
+      - col   : "Email"
+        f     : "none"
+        i     : 4
+      - col   : "Mobile Phone"
+        f     : "none"
+        i     : 5
+      - col   : "Home Phone"
+        f     : "none"
+        i     : 6
+      - col   : "Female"
+        f     : "equality"
+        i     : 3
+        f_val : "F"
+      - col   : "Ethnicity"
+        f     : "in_dict"
+        i     : 17
+        f_dict: "students_ethnicity"
+      - col   : "Of Color"
+        f     : "equality"
+        i     : 10
+        f_val : "Yes"
+      - col   : "Program"
+        f     : "contains"
+        i     : 12
+        f_s       : "Health Care Management"
+        f_true    : "HCM"
+        f_false   : ""
+      - col   : "Industry"
+        f     : "in_dict"
+        i     : 13
+        f_dict: "students_industry"
+      - col   : "Locations"
+        f     : "in_dict"
+        i     : [14, 15]
+        i_s   : "+"
+        f_dict: "students_location"
+      - col   : "Time Zones"
+        f     : "in_dict"
+        i     : [14, 15]
+        i_s   : "+"
+        f_dict: "students_timezone"
+      - col   : "Veteran"
+        f     : "equality"
+        i     : 11
+        f_val : "U.S. veteran"
+    -
+      - col   : "Last Name"
+        f     : "none"
+        i     : 0
+      - col   : "First Name"
+        f     : "none"
+        i     : 1
+      - col   : "Email"
+        f     : "none"
+        i     : 2
+      - col   : "Last Name"
+        f     : "none"
+        i     : 0
+      - col   : "Female"
+        f     : "equality"
+        i     : 3
+        f_val : "Female"
+      - col   : "Ethnicity"
+        f     : "in_dict"
+        i     : 4
+        f_dict: "alumni_ethnicity"
+      - col   : "Of Color"
+        f     : "equality"
+        i     : 4
+        f_val : ["Hispanic", "African-American"]
+      - col   : "Program"
+        f     : "contains"
+        i     : 6
+        f_s       : "Health Care Management"
+        f_true    : "HCM"
+        f_false   : ""
+      - col   : "Veteran"
+        f     : "in_dict"
+        i     : 12
+        f_dict: "alumninotes_veteran"
+      - col     : "Industry"
+        f       : "concatenate_dicts"
+        i       : [8, 10]
+        f_dicts : ["alumni_industry", "alumni_industry"]
+        f_split : "+"
+      - col     : "Industry"
+        f       : "concatenate_dicts"
+        i       : [8, 10]
+        f_dicts : ["alumni_industry", "alumni_industry"]
+        f_split : "+"
+      - col     : "Locations"
+        f       : "concatenate_dicts"
+        i       : [7, 9, 12]
+        f_dicts : ["alumni_location", "alumni_location", "alumninotes_location"]
+        f_split : "+"
+      - col     : "Time Zones"
+        f       : "concatenate_dicts"
+        i       : [7, 9]
+        f_dicts : ["alumni_timezone", "alumni_timezone"]
+        f_split : "+"
+match:
+  type      : "assign"
+  criteria  :
+    - col   : "Female"
+      f     : "equality"
+      wgt   : 128
+    - col   : "Veteran"
+      f     : "equality"
+      wgt   : 64
+    - col   : "Time Zones"
+      f     : "intersect"
+      f_s   : "+"
+      wgt   : 32
+    - col   : "Ethnicity"
+      f     : "intersect"
+      f_s   : "+"
+      wgt   : 16
+    - col   : "Of Color"
+      f     : "equality"
+      wgt   : 8
+    - col   : "Locations"
+      f     : "intersect"
+      f_s   : "+"
+      wgt   : 4
+    - col   : "Program"
+      f     : "equality_nonblank"
+      wgt   : 2
+    - col   : "Industry"
+      f     : "b_contains_a"
+      f_s   : "+"
+      wgt   : 1
+display :
+  type  : "assign"
+save:
+  prefix  : "/Users/ns/Dropbox/twine/Algo/__TEST/YEP/"
+  suffix  : ".csv"
+  results :
+    - varname   : "display_results"
+      filename  : "YEP_results2"
+      type      : "csv"

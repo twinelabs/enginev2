@@ -1,0 +1,47 @@
+load:
+  prefix  : ""
+  suffix  : ".csv"
+  mds     :
+    - filename  : "test_file"
+      type      : "csv"
+      etl       : "none"
+      desc      : "For assignment 2 testing"
+match:
+  type    : "cluster"
+  distance:
+    f       : "l2_norm"
+    cols    :
+      - "f1"
+      - "f2"
+      - "f3"
+      - "f4"
+      - "f5"
+  params:
+    method    : "greedy"
+    k_size    : 4
+    maximize  : 0
+evaluate:
+  distance   :
+    f   : "l2_norm"
+    cols:
+      - "f1"
+      - "f2"
+      - "f3"
+      - "f4"
+      - "f5"
+  diversity :
+    Gender     :
+        sameness   : 0
+        num_classes: 2
+    Hair Color :
+        sameness   : 0
+        num_classes: 4
+display :
+  type  : "cluster"
+save:
+  prefix  : ""
+  suffix  : ".csv"
+  results :
+    - varname   : "display_results"
+      filename  : "test_results"
+      type      : "csv"

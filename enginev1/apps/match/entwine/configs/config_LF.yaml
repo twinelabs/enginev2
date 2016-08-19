@@ -1,0 +1,25 @@
+load:
+  prefix  : "/Users/ns/Dropbox/twine/Customer Engagements/LF/AlgoData/"
+  suffix  : ".csv"
+  mds     :
+    - filename  : "data/distances"
+      type      : "csv"
+      etl       : "none"
+      desc      : "LFs"
+match:
+  type    : "cluster"
+  distance:
+    f       : "d_exp_neg"
+    to_float: True
+  params:
+    method    : "greedy"
+    k_size    : 5
+display :
+  type  : "cluster"
+save:
+  prefix  : "/Users/ns/Dropbox/twine/Algo/__TEST/LF/"
+  suffix  : ".csv"
+  results :
+    - varname   : "display_results"
+      filename  : "LF_results2"
+      type      : "csv"
