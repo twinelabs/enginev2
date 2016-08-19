@@ -15,9 +15,12 @@ $(document).ready(function(){
         $("#task_" + taskOn + "_button").removeClass('btn-default').addClass('btn-info');
         $("#task_" + taskOff + "_button").removeClass('btn-info').addClass('btn-default');
 
-        // 3) hide/show relevant matching options
+        // 3) hide/show relevant matching options and columns divs
         document.getElementById("task_" + taskOn + "_options").style.display = 'block';
         document.getElementById("task_" + taskOff + "_options").style.display = 'none';
+
+        document.getElementById("task_" + taskOn + "_columns").style.display = 'block';
+        document.getElementById("task_" + taskOff + "_columns").style.display = 'none';
     }
 
     $('#task_cluster_button').click(function() {
@@ -82,7 +85,6 @@ $(document).ready(function(){
         var dc_id = $(this).attr("data-dc-id");
         clickColumnButton(dc_id, $(this));
     });
-
 
     // =======
     // ASSIGN - CHANGE DATASET(S)

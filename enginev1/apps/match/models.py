@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.db import models
 from enginev1.apps.welcome.models import Client
 from enginev1.apps.dataset.models import DataTable, DataColumn
@@ -12,9 +10,9 @@ class Match(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
 
-    data_tables = models.ManyToManyField(DataTable)
+    data_tables = models.ManyToManyField(DataTable, related_name='matches')
 
-    config = hstore.DictionaryField()
+    config = hstore.SerializedDictionaryField()
 
     run_start = models.DateTimeField(null=True, blank=True)
     run_end = models.DateTimeField(null=True, blank=True)
@@ -30,7 +28,7 @@ class Match(models.Model):
 def match_request_to_config(request):
     """ Converts match form into configured match object with configs.
 
-    :param match_form: match_form as passed in via match/create_match.html
+    :param request: request as passed in via match/create_match.html
     :return: match form object (unsaved)
     """
 
@@ -80,38 +78,8 @@ def match_request_to_config(request):
         "match": match_config
     }
 
+    print("==== BEFORE ====")
     print(config)
-    print(req)
 
     return config
 
-"""
-{
-    'load': [
-        {
-            'data_table': {
-                'id': 8
-            }
-        }
-    ], 
-    'match': {
-        'task': 'cluster', 
-        'weights': [5, 5], 
-        'components': [
-            {
-                'function': 'Different', 
-                'columns': ['Industries']
-            }, { 
-                'function': 'Any', 
-                'columns': ['Business Type']
-            }
-        ], 
-        'algorithm': {
-            'params': {
-                'k_size': 5
-            }, 
-            'name': 'greedy'
-        }
-    }
-}
-"""

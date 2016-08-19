@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 import datetime
 import pdb
+import json
 
 from entwine import entwine
 from models import *
@@ -27,15 +28,24 @@ def create(request):
         if match_form.is_valid():
 
             name = match_form.cleaned_data['name']
-            config = match_request_to_config(request.POST)
+            cfg = match_request_to_config(request.POST)
 
-            match = Match(client=c, name=name, config=config)
+#            print("==== AFTER ====")
+#            print(cfg)
+#
+#            pdb.set_trace()
+#            cfg['load'] = json.loads(cfg['load'])
+#            cfg['match'] = json.loads(cfg['match'])
+
+            match = Match(client=c, name=name, config=cfg)
             match.save()
 
-            data_table_ids = [x['id'] for x in match_config['load']]
+            data_table_ids = [x['data_table']['id'] for x in cfg['load']]
             for data_table_id in data_table_ids:
-                data_table = DataTable.objects.get(data_table_id)
+                data_table = DataTable.objects.get(pk=data_table_id)
                 match.data_tables.add(data_table)
+            match.save()
+
 
             return HttpResponseRedirect('/match/view/' + str(match.id))
 
@@ -95,6 +105,7 @@ def view(request, match_id):
         'match': match,
         'match_data_tables': match_data_tables,
         'match_config': match_config,
+        'match_config_pretty': json.dumps(match_config, indent=4),
         'match_result': match_result
     }
 
