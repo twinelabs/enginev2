@@ -15,8 +15,16 @@ class MatchForm(forms.Form):
             (data_column.data_table.id, data_column.id, data_column.name, data_column.dtype) for data_column in DataColumn.objects.filter(data_table__client=client)
         ]
 
-        self.cluster_rule_string_options = ["binary_diff", "euclidean_distance", "binary_same"]
-        self.cluster_rule_numeric_options = ["Maximize", "Any", "Minimize"]
+        self.cluster_rule_string_options = [
+            ("binary_diff", "By Difference"),
+            ("binary_same", "By Similarity")
+        ]
+
+        self.cluster_rule_numeric_options = [
+            ("euclidean_distance", "Maximize Distance"),
+            ("euclidean_distance", "Minimze Distance")
+        ]
+
         self.cluster_algos = ["greedy", "greedy_adaptive", "random"]
 
     # Name of match (object field)
