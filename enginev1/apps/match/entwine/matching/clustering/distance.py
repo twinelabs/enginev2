@@ -10,7 +10,7 @@ import numpy as np
 import scipy.stats as st
 import pandas as pd
 
-def create_single_matrix(df, component, zscore=True):
+def create_single_matrix(df, component, zscore=False):
     selected_cols = df[component['columns']].values
     if zscore:
         selected_cols = st.mstats.zscore(selected_cols)

@@ -33,6 +33,7 @@ def register(request):
             client.user = user
             client.save()
 
+            login(request, user)
             registered = True
 
         else:
