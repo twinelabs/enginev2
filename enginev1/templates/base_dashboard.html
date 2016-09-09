@@ -78,14 +78,10 @@
                     </div>
 
                     <div class="sidebar-footer">
-                        <ul>
-                            <li><a href="/welcome/client/{{ user.client.id }}">Settings</a></li>
-                            <li>&nbsp; &nbsp;</li>
-                            <!--<h5 class="powered-by" >Powered by <strong>Twine Labs</strong>.</h5>-->
-                            <li><img class="sidebar-twine-logo" src="{% static "img/twine_logo.png" %}" alt="Twine logo"/></li>
-                            <li>&nbsp; &nbsp;</li>
-                            <li><a href="/welcome/logout">Sign out</a></li>
-                        </ul>
+                        <div class="footer-link"><a href="/welcome/client/{{ user.client.id }}">Settings</a></div>
+                        <div class="footer-link"><a href="/welcome/logout">Sign out</a></div>
+                        <!--<h5 class="powered-by" >Powered by <strong>Twine Labs</strong>.</h5>-->
+                        <!--<li><img class="sidebar-twine-logo" src="{% static "img/twine_logo.png" %}" alt="Twine logo"/></li>-->
                     </div>
 
                 </div>

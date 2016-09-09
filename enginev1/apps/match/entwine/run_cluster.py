@@ -28,7 +28,7 @@ def load(load_config):
     if 'data_table' in d:
         data_table_id = d['data_table']['id']
         data_table = models.DataTable.objects.get(pk=data_table_id)
-        df = utils.data_table_to_df(data_table)
+        df = data_table.as_df()
 
     elif 'file' in d:
         f = d['file']['name']

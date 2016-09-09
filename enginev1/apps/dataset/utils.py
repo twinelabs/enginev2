@@ -1,16 +1,10 @@
 import pandas as pd
-import numpy as np
+import csv
+import xlwt
+
+from django.http import HttpResponse
 
 import models
-
-"""
-from enginev1.apps.welcome.models import *
-from enginev1.apps.dataset.models import *
-dts = DataTable.objects.all()[5]
-dt = dts[0]
-df = dataset_objects_to_pandas_df(dts)
-"""
-
 
 def import_csv_as_data_table(client, name, csv_file):
     """ Loads csv file into DataTable object and creates DataColumn objects.
@@ -30,14 +24,15 @@ def import_csv_as_data_table(client, name, csv_file):
 
     # Create columns
     for i, column_name in enumerate(list(df.columns.values)):
+        dtype = str(df.dtypes[i])
         vals = list(df[column_name])
         n_unique = len(set(vals))
         n_nonblank = len([x for x in vals if x != ''])
 
-        # TODO: Detect and add column type
         data_column = models.DataColumn(
             data_table = data_table,
             name = column_name,
+            dtype = dtype,
             order_original = i,
             order_custom = i,
             n_unique = n_unique,
@@ -48,56 +43,41 @@ def import_csv_as_data_table(client, name, csv_file):
     return data_table.id
 
 
-def data_table_to_df(data_table):
-    """ Converts DataTable object to pandas dataframe.
-    Uses DataColumn to restore original column ordering.
-    """
-    df = pd.DataFrame.from_dict(data_table.data['data'])
-    colnames = [dc.name for dc in data_table.datacolumn_set.order_by('order_original')]
-    df = df[colnames]
+def export_data_table_as_csv(data_table):
 
-    return df
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="' + data_table.name + ' - Export.csv"'
 
+    writer = csv.writer(response)
+    writer.writerows([data_table.header()] + data_table.values())
 
-def data_table_to_lists(data_table):
-    """ Converts DataTable object to header list and value list of lists.
-    with_index includes (arbitrary one-indexed) index
-    """
-
-    df = data_table_to_df(data_table)
-
-    df_header = list(df.columns.values)
-    df_values = df.values.tolist()
-
-    res = (df_header, df_values)
-    return res
+    return response
 
 
+def export_data_table_as_xls(data_table):
 
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="' + data_table.name + ' - Export.xls"'
 
-def df_to_dashboard(df, df_id, df_name, filter_viz=False):
-    """
-    :param df: Pandas dataframe
-    :return: JSON object for usage in data dashboard
-    """
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet("Data")
 
-    df2 = df.apply(pd.to_numeric, errors='ignore')
-    colnames = df2.columns.values
-    coltypes = df2.dtypes
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
 
-    cols = []
-    for i, coltype in enumerate(coltypes):
-        cols.append((colnames[i], "number" if (coltype == np.int64 or coltype == np.float64) else "string"))
+    i_row = 0
+    for i_col, colname in enumerate(data_table.header()):
+        ws.write(i_row, i_col, colname, font_style)
+        ws.col(i_col).width = 4000
 
-    if filter_viz:
-        cols = [col for col in cols if (col[1] == "number" or len(df[col[0]].unique()) < 10)]
+    font_style = xlwt.XFStyle()
+    font_style.alignment.wrap = 1
 
-    res = {
-        "id": df_id,
-        "name": df_name,
-        "columns": [{"name": col[0], "type": col[1]} for col in cols],
-        "data": df.to_dict(orient='records')
-    }
+    for csv_row in data_table.values():
+        i_row += 1
+        for i_col, x in enumerate(csv_row):
+            ws.write(i_row, i_col, x, font_style)
 
-    return res
+    wb.save(response)
 
+    return response

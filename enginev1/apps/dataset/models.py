@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
+import pandas as pd
 
 from django.db import models
 from enginev1.apps.welcome.models import Client
 from django_hstore import hstore
+
 
 
 class DataTable(models.Model):
@@ -22,6 +24,35 @@ class DataTable(models.Model):
 
     def __str__(self):
         return self.name
+
+    def as_df(self):
+        df = pd.DataFrame.from_dict(self.data['data'])
+        colnames = [dc.name for dc in self.datacolumn_set.order_by('order_original')]
+        df = df[colnames]
+        return df
+
+    def header(self):
+        df = self.as_df()
+        header = list(df.columns.values)
+        return header
+
+    def values(self):
+        df = self.as_df()
+        values = df.values.tolist()
+        return values
+
+    def header_analytics(self):
+        df = self.as_df()
+
+        res = []
+        for dc in self.datacolumn_set.order_by('order_original'):
+            if dc.dtype == 'int64' or dc.dtype == 'float64':
+                res.append({ "name": dc.name, "type": "number" })
+            else:
+                if dc.n_unique < 10:
+                    res.append({ "name": dc.name, "type": "string" })
+
+        return res
 
 
 class DataColumn(models.Model):

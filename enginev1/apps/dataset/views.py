@@ -1,5 +1,3 @@
-import csv
-import xlwt
 import json
 
 from django.shortcuts import render
@@ -57,9 +55,8 @@ def view(request, data_table_id):
     if data_table.client != c:
         return HttpResponse("You are not permissioned.")
 
-    # TODO: Figure out why ignores first column?
-
-    data_table_columns, data_table_values = data_table_to_lists(data_table)
+    data_table_columns = data_table.header()
+    data_table_values = data_table.values()
     data_table_count = len(data_table_values)
 
     context = {
@@ -86,21 +83,24 @@ def analytics(request, data_table_id):
     if data_table.client != c:
         return HttpResponse("You are not permissioned.")
 
-    df = data_table_to_df(data_table)
-    dashboard = [df_to_dashboard(df, 1, "my table", True)]
-    dashboard_s = json.dumps(dashboard)
+    tables_for_analytics = [{
+        "id": data_table.id,
+        "name": data_table.name,
+        "data": data_table.data['data'],
+        "columns": data_table.header_analytics()
+    }]
+    tables_for_analytics_s = json.dumps(tables_for_analytics)
 
     context = {
         'c': c,
         'data_tables': data_tables,
         'matches': matches,
         'data_table': data_table,
-        'dashboard': dashboard,
-        'dashboard_s': dashboard_s
+        'dashboard': tables_for_analytics,
+        'dashboard_s': tables_for_analytics_s
     }
 
     return render(request, 'dataset/analytics.html', context)
-
 
 
 @login_required
@@ -112,17 +112,8 @@ def export_csv(request, data_table_id):
     if data_table.client != c:
         return HttpResponse("You are not permissioned.")
 
-    df = data_table_to_df(data_table)
-    csv_header = df.columns.values.tolist()
-    csv_rows = df.values.tolist()
-
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="' + data_table.name + ' - Export.csv"'
-
-    writer = csv.writer(response)
-    writer.writerows([csv_header] + csv_rows)
-
-    return response
+    csv_response = export_data_table_as_csv(data_table)
+    return csv_response
 
 
 @login_required
@@ -134,51 +125,19 @@ def export_xls(request, data_table_id):
     if data_table.client != c:
         return HttpResponse("You are not permissioned.")
 
-    df = data_table_to_df(data_table)
-    csv_header = df.columns.values.tolist()
-    csv_rows = df.values.tolist()
-
-    response = HttpResponse(content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="' + data_table.name + ' - Export.xls"'
-    wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet("Data")
-
-    font_style = xlwt.XFStyle()
-    font_style.font.bold = True
-
-    i_row = 0
-    for i_col, colname in enumerate(csv_header):
-        ws.write(i_row, i_col, colname, font_style)
-        ws.col(i_col).width = 4000
-
-    font_style = xlwt.XFStyle()
-    font_style.alignment.wrap = 1
-
-    for csv_row in csv_rows:
-        i_row += 1
-        for i_col, x in enumerate(csv_row):
-            ws.write(i_row, i_col, x, font_style)
-
-    wb.save(response)
-    return response
+    xls_response = export_data_table_as_xls(data_table)
+    return xls_response
 
 
 @login_required
 def delete(request, data_table_id):
 
     c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
 
     data_table = DataTable.objects.get(id=data_table_id)
     if data_table.client != c:
         return HttpResponse("You are not permissioned.")
 
     data_table.delete()
-    context = {
-        'c': c,
-        'data_tables': data_tables,
-        'matches': matches
-    }
 
     return HttpResponseRedirect('/welcome/home/')
