@@ -12,7 +12,30 @@ from .forms import MatchForm
 
 @login_required
 def feedback(request):
-    return render(request, 'match/feedback.html', {})
+    c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
+
+    context = {
+        'c': c,
+        'data_tables': data_tables,
+        'matches': matches
+    }
+    return render(request, 'match/feedback.html', context)
+
+
+@login_required
+def feedback_employeerole(request):
+    c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
+
+    context = {
+        'c': c,
+        'data_tables': data_tables,
+        'matches': matches
+    }
+    return render(request, 'match/feedback_employeerole.html', context)
 
 
 @login_required
@@ -65,7 +88,7 @@ def create(request):
 
 
 @login_required
-def create_custom(request):
+def create_employeerole(request):
 
     c = request.user.client
     data_tables = c.datatable_set.all()
@@ -79,7 +102,7 @@ def create_custom(request):
         'match_form': match_form
     }
 
-    return render(request, 'match/create_custom.html', context)
+    return render(request, 'match/create_employeerole.html', context)
 
 
 @login_required

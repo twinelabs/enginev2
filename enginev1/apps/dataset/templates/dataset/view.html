@@ -1,9 +1,10 @@
 {% extends 'sidebar_page.html' %}
 
 {% block title %}My Data{% endblock %}
+
 {% block header_block %}
     <div class="col-sm-6">
-        <h2 class="headerLine">View {{ label }}</h2>
+        <h2 class="headerLine">View: {{ data_table.name }}</h2>
     </div>
 
     {% if data_table_count > 0 %}
@@ -19,7 +20,6 @@
                 <ul class="dropdown-menu">
                     <li><a href="/dataset/export_csv/{{ data_table.id }}">CSV</a></li>
                     <li><a href="/dataset/export_xls/{{ data_table.id }}">Excel</a></li>
-                    <li><a href="#">PDF</a></li>
                 </ul>
             </div>
             <button type="button" class="header-button btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete Data Set</button>

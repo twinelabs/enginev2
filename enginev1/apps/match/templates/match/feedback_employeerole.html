@@ -1,0 +1,97 @@
+{% extends 'sidebar_page.html' %}
+{% load staticfiles %}
+
+{% load bootstrap3 %}
+{% load widget_tweaks %}
+
+{% block title %}Create Match{% endblock %}
+{% block header_block %}
+    <div class="col-sm-4">
+        <img height="100" width="80" style="float:left; margin-top: 10px; margin-left: 20px; margin-right: 20px;" src="{% static "img/feedback_employeerole_p1.png" %}" />
+        <h3>Welcome Anna! <br /> <br />VP, People Analytics</h3>
+    </div>
+{% endblock %}
+
+{% block content_block %}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="well">
+            <h4>Select Internal Role:</h4>
+            <select class="form-control" name="jobrole">
+                <option value="" selected="selected">Senior Manager, Marketing Services</option>
+            </select>
+
+            <div style="margin-top: 30px;">
+                <img height="100" width="100" style="float:left; margin-left: 20px; margin-right: 20px;" src="{% static "img/feedback_employeerole_job1.png" %}" />
+                <b>Role:</b>
+                <p>Senior Manager, Marketing Services</p>
+                <b>Assigned Recruiter:</b>
+                <p>Angela Rosander</p>
+
+                <br /><br />
+                <b>Role Description:</b>
+                <p>
+                    Our Marketing Services group has an open, full-time position in Chicago for a Manager.
+                </p>
+                <p>
+                    As a Manager, you will develop marketing mix and other statistical models, and consult to Fortune 500 senior and mid-level management on their use and interpretation to quantify what drives sales and use the results to increase market share, revenue, and profit.
+                </p>
+                <b>Responsibilities:</b>
+                <ul>
+                    <li>Understand client needs for quantitative analysis of marketing effectiveness.</li>
+                    <li>Develop and test model specifications to meet client needs.</li>
+                    <li>Write SAS code to read input data and present results in business meaningful formats.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="well">
+            <h4># of Employee Suggestions Per Role</h4>
+
+            <select class="form-control" name="jobrole">
+                <option value="" selected="selected">5</option>
+            </select>
+
+            <div style="margin-top: 30px;">
+                <img height="100" width="100" style="float:left; margin-left: 20px; margin-right: 20px;" src="{% static "img/feedback_employeerole_p2.png" %}" />
+                <b>Candidate Name:</b>
+                <p>Matt Allen</p>
+                <b>Employee ID:</b>
+                <p>194753933</p>
+
+                <br /><br />
+                <b>Candidate Summary:</b>
+                <p>
+                    Matt Allen was identified as a candidate for Sr. Manager, Marketing Services.
+                </p>
+                <p>
+                    Matt was successfully matched on 17 out of 21 criteria.
+                </p>
+                <p>
+                    Matt has 9 years of work experience, including 3 years at this company. He currently works in the Strategy function in the Chicago office. Cost center: Strategic Planning. Matt's most recent HR rating was 4.
+                </p>
+                <p>
+                    Matt most recently worked at McKinsey & Co. for 2 years and got a degree in Operations Research at Cornell University.
+                </p>
+            </div>
+
+            <table class="feedbackTable">
+                <thead>
+                    <tr>
+                        <th class="c1">
+                            <a href="#" class="btn btn-primary">< previous</a>
+                            &nbsp; &nbsp;
+                            <a href="#" class="btn btn-primary">next ></a>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

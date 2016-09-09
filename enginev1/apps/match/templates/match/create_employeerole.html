@@ -6,7 +6,7 @@
 {% block title %}Create Match{% endblock %}
 {% block header_block %}
     <div class="col-sm-4">
-        <h2 class="headerLine">Create Match</h2>
+        <h2 class="headerLine">Match Employees with Roles</h2>
     </div>
 {% endblock %}
 
@@ -50,7 +50,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="row matchSectionSmall">
-                                <input id="radio-capacity-onetomany" class="toggleView" name="capacity" type="radio" value="onetomany">
+                                <input id="radio-capacity-onetomany" class="toggleView" name="capacity" type="radio" value="onetomany" checked>
                                 Match each <b>Employee</b> with top <input type='text' name='onetomany_n' size='3' class='match-weight-input' placeholder='1-5' value='5'> <b>Roles</b>
                             </div>
                             <div class="row">
@@ -72,57 +72,56 @@
                 </div>
             </div>
 
-
             <div class="matchSection">
-                <h3>Select Columns</h3>
+                <h3>Select Attributes for Matching</h3>
                 <div class="fieldWrapper">
                     <div class="row">
                         <div class="col-md-5 col-md-offset-1">
                             <h4>EMPLOYEES</h4>
                             <div>
-                                <a class="btn btn-info btn-dummy">Education Degree</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#ccddee; color:black;">Education Degree</a>
                             </div>
                             <div>
-                                <a class="btn btn-info btn-dummy">Location</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#cceedd; color:black;">Location</a>
                             </div>
                             <div>
-                                <a class="btn btn-info btn-dummy">Department</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#ccddee; color:black;">Department</a>
                             </div>
                             <div>
-                                <a class="btn btn-info btn-dummy">Years Experience</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#cceedd; color:black;">Years Experience</a>
                             </div>
                             <div>
-                                <a class="btn btn-info btn-dummy">Management Experience</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#ccddee; color:black;">Management Experience</a>
                             </div>
                             <div>
-                                <a class="btn btn-info btn-dummy">Salary</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#cceedd; color:black;">Salary</a>
                             </div>
                             <div>
-                                <a class="btn btn-default">Add Column</a>
+                                <a class="btn btn-default">Add Field</a>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <h4>ROLES</h4>
                             <div>
-                                <a class="btn btn-info btn-dummy">Required Education</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#ccddee; color:black;">Required Education</a>
                             </div>
                             <div>
-                                <a class="btn btn-info btn-dummy">Location</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#cceedd; color:black;">Location</a>
                             </div>
                             <div>
-                                <a class="btn btn-info btn-dummy">Department</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#ccddee; color:black;">Department</a>
                             </div>
                             <div>
-                                <a class="btn btn-info btn-dummy">Years Required</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#cceedd; color:black;">Years Required</a>
                             </div>
                             <div>
-                                <a class="btn btn-info btn-dummy">Management Required</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#ccddee; color:black;">Management Required</a>
                             </div>
                             <div>
-                                <a class="btn btn-info btn-dummy">Salary Range</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#cceedd; color:black;">Salary Range</a>
                             </div>
                             <div>
-                                <a class="btn btn-default">Add Column</a>
+                                <a class="btn btn-default">Add Field</a>
                             </div>
                         </div>
                     </div>
@@ -132,23 +131,23 @@
             <div class="matchSection">
                 <h3>Define Matching Rules</h3>
                 <div class="prefs">
-                    <table class="matchTable">
+                    <table class="matchTable" style="border-collapse: collapse;">
                         <thead>
-                            <tr>
-                                <th class="colVariable1">EMPLOYEES Column</th>
+                            <tr style="border-bottom: 2px solid #cccccc">
+                                <th class="colVariable1">EMPLOYEE</th>
                                 <th class="colPreference">Matching Rule</th>
-                                <th class="colVariable2">ROLES Column</th>
+                                <th class="colVariable2">ROLE</th>
                                 <th class="colWeight">Weight (1-5)</th>
                                 <th class="colAutoWeight">(%)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <h5>Education Degree</h5>
+                            <tr style="border-bottom: 2px solid #cccccc">
+                                <td style="margin-bottom: 1em;">
+                                    <h5>Degree</h5>
                                 </td>
                                 <td>
-                                    <div style="padding-right: 80px;">
+                                    <div style="padding-right: 60px;">
                                         <select class="form-control" name="rule-education">
                                             <option value="1">Greater Than</option>
                                             <option value="2" selected="selected">Greater Than or Equal To</option>
@@ -172,14 +171,14 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr style="border-bottom: 2px solid #cccccc">
                                 <td>
                                     <h4>Location</h4>
                                 </td>
                                 <td>
                                     <div class='match-preference-form'>
                                         <div class='match-preference-input'>
-                                            <input type='radio' name='match-latlong' value='1'><label for='gender-prefs0'>Closeness</label>
+                                            <input type='radio' name='match-latlong' value='1' checked><label for='gender-prefs0'>Closeness</label>
                                         </div>
                                         <div class='match-preference-input'>
                                             <input type='radio' name='match-latlong' value='2'><label for='gender-prefs0'>Any</label>
@@ -203,7 +202,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr style="border-bottom: 2px solid #cccccc">
                                 <td>
                                     <h4>Department</h4>
                                 </td>
@@ -216,7 +215,7 @@
                                             <input type='radio' name='match-func' value='2'><label for='gender-prefs0'>Any</label>
                                         </div>
                                         <div class='match-preference-input'>
-                                            <input type='radio' name='match-func' value='3'><label for='gender-prefs0'>Difference</label>
+                                            <input type='radio' name='match-func' value='3' checked><label for='gender-prefs0'>Difference</label>
                                         </div>
                                     </div>
                                 </td>
@@ -234,12 +233,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr style="border-bottom: 2px solid #cccccc">
                                 <td>
                                     <h4>Years Experience</h4>
                                 </td>
                                 <td>
-                                    <div style="padding-right: 80px;">
+                                    <div style="padding-right: 60px;">
                                         <select class="form-control" name="rule-education">
                                             <option value="1">Greater Than</option>
                                             <option value="2" selected="selected">Greater Than or Equal To</option>
@@ -263,20 +262,17 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr style="border-bottom: 2px solid #cccccc">
                                 <td>
                                     <h4>Management Experience</h4>
                                 </td>
                                 <td>
                                     <div class='match-preference-form'>
                                         <div class='match-preference-input'>
-                                            <input type='radio' name='match-mgr' value='1'><label for='gender-prefs0'>Similarity</label>
+                                            <input type='radio' name='match-mgr' value='1' checked><label for='gender-prefs0'>Require</label>
                                         </div>
                                         <div class='match-preference-input'>
-                                            <input type='radio' name='match-mgr' value='2'><label for='gender-prefs0'>Any</label>
-                                        </div>
-                                        <div class='match-preference-input'>
-                                            <input type='radio' name='match-mgr' value='3'><label for='gender-prefs0'>Difference</label>
+                                            <input type='radio' name='match-mgr' value='2'><label for='gender-prefs0'>Do Not Require</label>
                                         </div>
                                     </div>
                                 </td>
@@ -294,12 +290,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr style="border-bottom: 2px solid #cccccc">
                                 <td>
                                     <h4>Salary</h4>
                                 </td>
                                 <td>
-                                    <div style="padding-right: 80px;">
+                                    <div style="padding-right: 60px;">
                                         <select class="form-control" name="rule-education">
                                             <option value="1">Greater Than</option>
                                             <option value="2">Greater Than or Equal To</option>
@@ -323,12 +319,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr style="border-bottom: 2px solid #cccccc">
                                 <td>
                                     <h4>Employee Rating</h4>
                                 </td>
                                 <td>
-                                    <div style="padding-right: 80px;">
+                                    <div style="padding-right: 60px;">
                                         <select class="form-control" name="rule-education">
                                             <option value="1">Greater Than</option>
                                             <option value="2" selected="selected">Greater Than or Equal To</option>

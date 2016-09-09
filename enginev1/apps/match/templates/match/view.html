@@ -4,14 +4,21 @@
 
 {% block title %}View Match{% endblock %}
 
+{% block header_block %}
+    <div class="col-sm-6">
+        <h2 class="headerLine">View Match</h2>
+    </div>
+
+    <div class="col-sm-6 header-buttons">
+        <a href="/match/analytics/{{ match.id }}" class="header-button btn btn-primary" id="analytics-button">
+            &nbsp; &nbsp; &nbsp; View Analytics &nbsp; &nbsp; &nbsp;
+        </a>
+    </div>
+{% endblock %}
+
 {% block content_block %}
-
-    <h2>{{ match.name }}</h2>
-
     <div class="well">
-        <h3>Match Info</h3>
-        <p>Client: {{match.client.company_name}}</p>
-        <p>Name: {{match.name}}</p>
+        <h3>{{ match.name }}</h3>
         <p>Data Tables:
             <ul>
                 {% for data_table in match_data_tables  %}

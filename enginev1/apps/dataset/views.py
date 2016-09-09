@@ -101,8 +101,6 @@ def upload_csv(request):
 def export_csv(request, data_table_id):
 
     c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
 
     data_table = DataTable.objects.get(id=data_table_id)
     if data_table.client != c:
@@ -113,7 +111,7 @@ def export_csv(request, data_table_id):
     csv_rows = df.values.tolist()
 
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="' + label + '.csv"'
+    response['Content-Disposition'] = 'attachment; filename="' + data_table.name + ' - Export.csv"'
 
     writer = csv.writer(response)
     writer.writerows([csv_header] + csv_rows)
@@ -125,8 +123,6 @@ def export_csv(request, data_table_id):
 def export_xls(request, data_table_id):
 
     c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
 
     data_table = DataTable.objects.get(id=data_table_id)
     if data_table.client != c:
@@ -137,7 +133,7 @@ def export_xls(request, data_table_id):
     csv_rows = df.values.tolist()
 
     response = HttpResponse(content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="' + data_table.name + '.xls"'
+    response['Content-Disposition'] = 'attachment; filename="' + data_table.name + ' - Export.xls"'
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet("Data")
 
