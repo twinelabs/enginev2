@@ -8,7 +8,11 @@ from .forms import UserForm, ClientForm
 from .models import Client
 
 
+# TODO: require login before client update
+
 class ClientUpdate(UpdateView):
+    """ Page to update client data attributes.
+    """
     model = Client
     fields = ['company_name', 'first_name', 'last_name', 'logo']
     template_name = 'welcome/settings.html'
@@ -16,8 +20,8 @@ class ClientUpdate(UpdateView):
 
 
 def register(request):
-
-    registered = False
+    """ Registers new client (user object one-to-one with client object).
+    """
 
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
@@ -34,7 +38,6 @@ def register(request):
             client.save()
 
             login(request, user)
-            registered = True
 
         else:
             print user_form.errors, client_form.errors
@@ -45,12 +48,17 @@ def register(request):
         user_form = UserForm()
         client_form = ClientForm()
 
-    context = {'user_form': user_form, 'client_form': client_form, 'registered': registered}
+    context = {
+        'user_form': user_form,
+        'client_form': client_form
+    }
 
     return render(request, 'welcome/register.html', context)
 
 
 def user_login(request):
+    """ Client login page.
+    """
 
     if request.method == 'POST':
 
@@ -71,6 +79,8 @@ def user_login(request):
 
 @login_required
 def home(request):
+    """ Home page.
+    """
 
     c = request.user.client
     data_tables = c.datatable_set.all()
@@ -87,7 +97,5 @@ def home(request):
 
 @login_required
 def user_logout(request):
-
     logout(request)
-
     return HttpResponseRedirect('/welcome/login/')

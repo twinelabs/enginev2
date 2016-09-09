@@ -4,6 +4,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Client(models.Model):
+    """ Client user object. Object contains name and company name, company logo,
+    and placeholders for style preferences.
+    """
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100, blank=True)
