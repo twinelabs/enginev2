@@ -98,23 +98,12 @@
     .sidebar-footer {
         position: absolute;
         bottom: 2rem;
-        right: 0;
-        left: 0;
 
-        ul {
-            list-style-type: none;
-            li {
-                display: inline-block;
-            }
+        .footer-link {
+            margin-top: 5px;
         }
-
         a:hover {
             color: $brand-warning;
-        }
-
-        img {
-            height: 30px;
-            width: 30px;
         }
 
     }
