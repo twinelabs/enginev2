@@ -1,5 +1,7 @@
 # Created by https://www.gitignore.io
 
+.idea/workspace.xml
+
 ### OSX ###
 .DS_Store
 .AppleDouble
