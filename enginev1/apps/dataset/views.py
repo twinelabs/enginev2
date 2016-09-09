@@ -1,7 +1,6 @@
 import csv
 import xlwt
 import json
-import pdb
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -9,7 +8,42 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 from .utils import *
 from .forms import UploadCSVForm
-from .models import DataTable, DataColumn
+from .models import DataTable
+
+
+@login_required
+def upload_csv(request):
+    """ Upload CSV into DataTable object.
+    """
+
+    c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
+
+    if request.method == 'POST':
+        csv_form = UploadCSVForm(request.POST, request.FILES)
+
+        if csv_form.is_valid():
+            client = request.user.client
+            name = request.POST['name']
+            csv_file = request.FILES['csv_file']
+            data_table_id = import_csv_as_data_table(client, name, csv_file)
+
+            return HttpResponseRedirect('/dataset/view/' + str(data_table_id))
+
+        else:
+            print csv_form.errors
+
+    else:
+        csv_form = UploadCSVForm()
+        context = {
+            'csv_form': csv_form,
+            'c': c,
+            'data_tables': data_tables,
+            'matches': matches
+        }
+
+    return render(request, 'dataset/upload_csv.html', context)
 
 
 @login_required
@@ -22,6 +56,8 @@ def view(request, data_table_id):
     data_table = DataTable.objects.get(id=data_table_id)
     if data_table.client != c:
         return HttpResponse("You are not permissioned.")
+
+    # TODO: Figure out why ignores first column?
 
     data_table_columns, data_table_values = data_table_to_lists(data_table)
     data_table_count = len(data_table_values)
@@ -65,36 +101,6 @@ def analytics(request, data_table_id):
 
     return render(request, 'dataset/analytics.html', context)
 
-
-@login_required
-def upload_csv(request):
-
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
-
-    if request.method == 'POST':
-        csv_form = UploadCSVForm(request.POST, request.FILES)
-
-        if csv_form.is_valid():
-
-            client = request.user.client
-            name = request.POST['name']
-            csv_file = request.FILES['csv_file']
-            data_table_id = import_csv_as_data_table(client, name, csv_file)
-
-            return HttpResponseRedirect('/dataset/view/' + str(data_table_id))
-
-    else:
-        csv_form = UploadCSVForm()
-        context = {
-            'csv_form': csv_form,
-            'c': c,
-            'data_tables': data_tables,
-            'matches': matches
-        }
-
-    return render(request, 'dataset/upload_csv.html', context)
 
 
 @login_required

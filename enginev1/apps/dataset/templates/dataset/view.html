@@ -15,8 +15,8 @@
             <div class="btn-group">
                 <button type="button" class="btn header-button btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded
                     "false">
-                            Export as... <span class="caret"></span>
-                        </button>
+                    Export as... <span class="caret"></span>
+                </button>
                 <ul class="dropdown-menu">
                     <li><a href="/dataset/export_csv/{{ data_table.id }}">CSV</a></li>
                     <li><a href="/dataset/export_xls/{{ data_table.id }}">Excel</a></li>
@@ -47,6 +47,7 @@
 
 {% block content_block %}
     {% if data_table_count > 0 %}
+
         <div class="well">
             <table class="dataset-table nowrap table table-striped table-hover">
                 <thead>

@@ -6,6 +6,8 @@ from django_hstore import hstore
 
 
 class DataTable(models.Model):
+    """ Generic data object for matching. DataTable.data stored as JSON hstore field.
+    """
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)
 
@@ -23,6 +25,11 @@ class DataTable(models.Model):
 
 
 class DataColumn(models.Model):
+    """ Stores information on data columns within DataTable:
+    - type of data (numeric, date, string, ...)
+    - display order
+    - statistics (number unique, number blank)
+    """
     data_table = models.ForeignKey(DataTable, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)
     custom_name = models.CharField(max_length=100)

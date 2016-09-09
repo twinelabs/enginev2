@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-import pdb
 import models
 
 """
@@ -12,29 +11,63 @@ dt = dts[0]
 df = dataset_objects_to_pandas_df(dts)
 """
 
-def data_table_to_df(data_table):
+
+def import_csv_as_data_table(client, name, csv_file):
+    """ Loads csv file into DataTable object and creates DataColumn objects.
+    Returns data_table_id if successfully saved.
     """
-    :param datatable: DataTable object
-    :return: Pandas dataframe
+
+    df = pd.read_csv(csv_file)
+    n_rows, n_cols = df.shape
+    list_of_dicts = df.to_dict(orient='records')
+
+    data_table = models.DataTable(client = client,
+                                  name = name,
+                                  data = { 'data': list_of_dicts },
+                                  n_rows = n_rows,
+                                  n_cols = n_cols)
+    data_table.save()
+
+    # Create columns
+    for i, column_name in enumerate(list(df.columns.values)):
+        vals = list(df[column_name])
+        n_unique = len(set(vals))
+        n_nonblank = len([x for x in vals if x != ''])
+
+        # TODO: Detect and add column type
+        data_column = models.DataColumn(
+            data_table = data_table,
+            name = column_name,
+            order_original = i,
+            order_custom = i,
+            n_unique = n_unique,
+            n_nonblank = n_nonblank
+        )
+        data_column.save()
+
+    return data_table.id
+
+
+def data_table_to_df(data_table):
+    """ Converts DataTable object to pandas dataframe.
+    Uses DataColumn to restore original column ordering.
     """
     df = pd.DataFrame.from_dict(data_table.data['data'])
-
     colnames = [dc.name for dc in data_table.datacolumn_set.order_by('order_original')]
     df = df[colnames]
 
     return df
 
 
-def data_table_to_lists(data_table, with_index=False):
+def data_table_to_lists(data_table):
+    """ Converts DataTable object to header list and value list of lists.
+    with_index includes (arbitrary one-indexed) index
+    """
 
     df = data_table_to_df(data_table)
 
     df_header = list(df.columns.values)
     df_values = df.values.tolist()
-
-    if with_index:
-        df_header = ['id'] + df_header
-        df_values = [ [i] + vals for i, vals in enumerate(df_values) ]
 
     res = (df_header, df_values)
     return res
@@ -68,37 +101,3 @@ def df_to_dashboard(df, df_id, df_name, filter_viz=False):
 
     return res
 
-
-def import_csv_as_data_table(client, name, csv_file):
-    """
-    :param client: Client = owner.
-    :param csv_file: File path of CSV
-    :return: True if successfully saved
-    """
-
-    df = pd.read_csv(csv_file)
-    n_rows, n_cols = df.shape
-    list_of_dicts = df.to_dict(orient='records')
-
-    # Save data table
-    data_table = models.DataTable(client = client, name = name,
-                                  data = { 'data': list_of_dicts }, n_rows = n_rows, n_cols = n_cols)
-    data_table.save()
-
-    # Save columns
-    for i, column_name in enumerate(list(df.columns.values)):
-        vals = list(df[column_name])
-        n_unique = len(set(vals))
-        n_nonblank = len([x for x in vals if x != ''])
-
-        data_column = models.DataColumn(
-            data_table = data_table,
-            name = column_name,
-            order_original = i,
-            order_custom = i,
-            n_unique = n_unique,
-            n_nonblank = n_nonblank
-        )
-        data_column.save()
-
-    return data_table.id

@@ -36,10 +36,7 @@ $(document).ready(function(){
             buttons: [{
                 extend: 'colvis',
                 text: 'Select columns',
-            }],
-            columnDefs: [
-                { visible: false, targets: 0 }
-            ]
+            }]
         });
         new $.fn.dataTable.Buttons(table, {
             buttons: [{
@@ -48,19 +45,19 @@ $(document).ready(function(){
                     // Do stuff
                 },
             },
-                {
-                    text: 'Edit',
-                    action: function(e, dt, node, config) {
-                        // Do stuff
-                    },
+            {
+                text: 'Edit',
+                action: function(e, dt, node, config) {
+                    // Do stuff
                 },
-                {
-                    text: 'Delete',
-                    action: function(e, dt, node, config) {
-                        // Do stuff
-                    },
-                    className: 'btn-danger'
-                }]
+            },
+            {
+                text: 'Delete',
+                action: function(e, dt, node, config) {
+                    // Do stuff
+                },
+                className: 'btn-danger'
+            }]
         });
         table.buttons(1, null).disable();
 
