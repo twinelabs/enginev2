@@ -52,6 +52,21 @@ def evaluate(mdl, clusters, match_config, evaluate_config):
             
     return metrics
     
+def evaluate_clusters(all_cluster_types):
+    # Will always be diversity for now
+    diversity = {}
+    all_entropies = all_cluster_entropy(all_cluster_types)
+    diversity['All Cluster Entropy'] = str(all_entropies)
+    diversity['Entropies STD'] = np.std(all_entropies)
+    diversity['Population Entropy'] = population_entropy(all_cluster_types)
+    diversity['Scaled Population Entropy'] = scaled_population_entropy(all_cluster_types)
+    diversity['Multigroup Entropy'] = multigroup_entropy(all_cluster_types)
+    diversity['Random Multigroup Entropy'] = random_multigroup_entropy(all_cluster_types)
+    # Group everything into one pandas series
+    metrics = pd.Series(diversity)
+
+    return metrics
+
 
 # Ways to evaluate goodness of fit.
 

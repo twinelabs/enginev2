@@ -22,7 +22,7 @@ class MatchForm(forms.Form):
 
         self.cluster_rule_numeric_options = [
             ("euclidean_distance", "Maximize Distance"),
-            ("euclidean_distance", "Minimze Distance")
+            ("euclidean_distance", "Minimize Distance")
         ]
 
         self.cluster_algos = ["greedy", "greedy_adaptive", "random"]

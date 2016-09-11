@@ -3,10 +3,10 @@ from enginev1.apps.welcome.models import Client
 from enginev1.apps.dataset.models import DataTable, DataColumn
 from django_hstore import hstore
 
-import pdb
-import json
 
 class Match(models.Model):
+    """ Match object. Contains match configuration and results.
+    """
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
 
@@ -69,7 +69,6 @@ def match_request_to_config(request):
         match_config['components'] = components
         match_config['weights'] = weights
 
-#    elif task == 'assign':
     else:
         raise TypeError("Unsupported match TASK: " + task )
 
@@ -78,8 +77,8 @@ def match_request_to_config(request):
         "match": match_config
     }
 
-    print("==== BEFORE ====")
-    print(config)
+#    print("==== BEFORE ====")
+#    print(config)
 
     return config
 
