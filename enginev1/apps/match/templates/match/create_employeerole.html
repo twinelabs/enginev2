@@ -5,8 +5,23 @@
 
 {% block title %}Create Match{% endblock %}
 {% block header_block %}
+    <div class="col-sm-8">
+        <h2 class="headerLine">Sample Match: Employees/Roles</h2>
+    </div>
+
     <div class="col-sm-4">
-        <h2 class="headerLine">Match Employees with Roles</h2>
+        <div class="dropdown">
+            <br />
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                View Sample Matches
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="/match/create_employeerole">Employee/Role Match</a></li>
+                <li class="divider"></li>
+                <li><a href="/match/create">Create New Match</a></li>
+            </ul>
+        </div>
     </div>
 {% endblock %}
 

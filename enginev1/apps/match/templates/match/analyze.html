@@ -3,11 +3,17 @@
 
 {% block title %}View Result{% endblock %}
 {% block header_block %}
-    <div class="col-sm-8">
+    <div class="col-sm-6">
         <h2>Match Analytics</h2>
     </div>
-    <div class="col-sm-4 header-buttons">
-        <a href="/match/results/" class="header-button btn btn-info" id="analytics-button">View Results</a>
+
+    <div class="col-sm-6 header-buttons">
+        <a href="/match/view/{{ match.id }}" class="header-button btn btn-primary">
+            &nbsp; &nbsp; Results &nbsp; &nbsp;
+        </a>
+        <a href="/match/feedback/{{ match.id }}" class="header-button btn btn-success" id="feedback-button">
+            &nbsp; &nbsp; Feedback &nbsp; &nbsp;
+        </a>
     </div>
 {% endblock %}
 {% block content_block %}
@@ -36,18 +42,6 @@
             </div>
         </div>
     </div>
-    <div class="row row-eq-height">
-        <div class="col-sm-12 network-wrapper">
-            <div class="well well-lg network-diagram">
-                <div class="row">
-                    <div class="col-sm-12 block-header"><h3>Network Diagram</h3></div>
-                    <div class="col-sm-12 block-content diagram-content">
-                        <img class="diagram-img" src="{% static "img/demo/network_diagram2.png" %}" alt="Twine logo" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row recommendations-wrapper">
         <div class="col-sm-12">
             <div class="well well-lg recommendations">
@@ -62,6 +56,18 @@
                         <p>
                             The most difficult variables to match on were Location and Management Experience.
                         </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-eq-height">
+        <div class="col-sm-12 network-wrapper">
+            <div class="well well-lg network-diagram">
+                <div class="row">
+                    <div class="col-sm-12 block-header"><h3>Network Diagram</h3></div>
+                    <div class="col-sm-12 block-content diagram-content">
+                        <img class="diagram-img" src="{% static "img/demo/network_diagram2.png" %}" alt="Twine logo" />
                     </div>
                 </div>
             </div>

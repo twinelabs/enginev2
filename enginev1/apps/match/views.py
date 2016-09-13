@@ -7,19 +7,28 @@ import pdb
 import json
 
 from .entwine import entwine
-from models import *
+from .models import *
+from .utils import *
 from .forms import MatchForm
 
 @login_required
-def feedback(request):
+def feedback(request, match_id):
     c = request.user.client
     data_tables = c.datatable_set.all()
     matches = c.match_set.all()
 
+    match = Match.objects.get(id=match_id)
+    if match.client != c:
+        return HttpResponse("You are not permissioned.")
+
+    feedback = match_results_for_feedback(match)
+
     context = {
         'c': c,
         'data_tables': data_tables,
-        'matches': matches
+        'matches': matches,
+        'match': match,
+        'feedback': feedback
     }
     return render(request, 'match/feedback.html', context)
 
@@ -116,20 +125,26 @@ def view(request, match_id):
     if match.client != c:
         return HttpResponse("You are not permissioned.")
 
-    match_data_tables = match.data_tables.all()
-    match_config = match.config
-
-    match_result = match.result if match.result != {} else ''
+    has_results = match.has_results()
+    if has_results:
+        config_html = match_config_as_html(match)
+        result_html = match_results_as_html(match)
+        result_html_table = match_results_as_html_table(match)
+    else:
+        config_html = None
+        result_html = None
+        result_html_table = None
 
     context = {
         'c': c,
         'data_tables': data_tables,
         'matches': matches,
+
         'match': match,
-        'match_data_tables': match_data_tables,
-        'match_config': match_config,
-        'match_config_pretty': json.dumps(match_config, indent=4),
-        'match_result': match_result
+        'has_results': has_results,
+        'config_html': config_html,
+        'result_html': result_html,
+        'result_html_table': result_html_table
     }
 
     return render(request, 'match/view.html', context)
@@ -167,6 +182,7 @@ def analyze(request, match_id):
         'c': c,
         'data_tables': data_tables,
         'matches': matches,
+        'match': match,
         'overview_items': [
             {
                 'img': "img/demo/match_strength.png",
@@ -181,7 +197,7 @@ def analyze(request, match_id):
             {
                 'img': "img/demo/diversity_coefficient.png",
                 'title': 'Diversity Score',
-                'value': '0.64 (employees), 0.73 (roles)'
+                'value': '0.64 (low)'
             },
             {
                 'img': "img/demo/matched_users.png",
@@ -191,12 +207,12 @@ def analyze(request, match_id):
             {
                 'img': "img/demo/matches_per_user.png",
                 'title': 'Matches per Role',
-                'value': '5 employees per role'
+                'value': '5'
             },
             {
                 'img': "img/demo/total_matches.png",
                 'title': 'Total # Matches',
-                'value': '1,375 Total Suggestions Made'
+                'value': '1,375'
             }
         ]
     }

@@ -81,3 +81,4 @@ def export_data_table_as_xls(data_table):
     wb.save(response)
 
     return response
+

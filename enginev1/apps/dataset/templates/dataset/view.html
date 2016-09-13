@@ -7,7 +7,7 @@
         <h2 class="headerLine">View: {{ data_table.name }}</h2>
     </div>
 
-    {% if data_table_count > 0 %}
+    {% if dt_count > 0 %}
         <div class="col-sm-6 header-buttons">
             <a href="/dataset/analytics/{{ data_table.id }}" class="header-button btn btn-primary" id="analytics-button">
                 &nbsp; &nbsp; &nbsp; View Analytics &nbsp; &nbsp; &nbsp;
@@ -46,19 +46,18 @@
 {% endblock %}
 
 {% block content_block %}
-    {% if data_table_count > 0 %}
-
+    {% if dt_count > 0 %}
         <div class="well">
             <table class="dataset-table nowrap table table-striped table-hover">
                 <thead>
                     <tr>
-                        {% for column_name in data_table_columns %}
+                        {% for column_name in dt_header %}
                         <th>{{ column_name }}</th>
                         {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
-                    {% for row in data_table_values %}
+                    {% for row in dt_values %}
                     <tr>
                         {% for value in row %}
                         <td>{{ value }}</td>

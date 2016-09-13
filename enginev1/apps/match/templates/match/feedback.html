@@ -5,12 +5,24 @@
 
 {% block title %}Create Match{% endblock %}
 {% block header_block %}
-    <div class="col-sm-4">
-        <h2 class="headerLine">HR Feedback</h2>
+    <div class="col-sm-6">
+        <h2 class="headerLine">Feedback</h2>
     </div>
-{% endblock %}
+
+    <div class="col-sm-6 header-buttons">
+        <a href="/match/view/{{ match.id }}" class="header-button btn btn-primary" id="analytics-button">
+            &nbsp; &nbsp; Results &nbsp; &nbsp;
+        </a>
+        <a href="/match/analyze/{{ match.id }}" class="header-button btn btn-info" id="feedback-button">
+            &nbsp; &nbsp; Analytics &nbsp; &nbsp;
+        </a>
+    </div>{% endblock %}
 
 {% block content_block %}
+
+    <div class="well">
+        {{ feedback | safe }}
+    </div>
 
     <div class="well">
         <table class="feedbackTable">

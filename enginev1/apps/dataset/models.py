@@ -41,9 +41,13 @@ class DataTable(models.Model):
         values = df.values.tolist()
         return values
 
-    def header_analytics(self):
-        df = self.as_df()
+    def as_table_data(self):
+        header = self.header()
+        values = self.values()
+        count = len(values)
+        return (header, values, count)
 
+    def header_analytics(self):
         res = []
         for dc in self.datacolumn_set.order_by('order_original'):
             if dc.dtype == 'int64' or dc.dtype == 'float64':

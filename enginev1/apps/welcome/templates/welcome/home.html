@@ -68,8 +68,9 @@
                     <strong>{{ match.name }}</strong>
                 </div>
                 <img class="match-img center-block" src="{% static "img/match.png" %}" />
-                <a href="/match/view/{{ match.id }}" class="btn btn-primary center-block">Match Results</a>
+                <a href="/match/view/{{ match.id }}" class="btn btn-primary center-block">Results</a>
                 <a href="/match/analyze/{{ match.id }}" class="btn btn-info center-block">Analytics</a>
+                <a href="/match/feedback/{{ match.id }}" class="btn btn-success center-block">Feedback</a>
                 <a href="#" class="btn btn-danger center-block" data-toggle="modal" data-target="#deleteModalMatch{{ match.id }}">Delete Match</a>
             </div>
             <div class="modal fade" id="deleteModalMatch{{ match.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalMatchLabel{{ match.id }}">

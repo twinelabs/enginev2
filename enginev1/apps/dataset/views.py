@@ -55,18 +55,16 @@ def view(request, data_table_id):
     if data_table.client != c:
         return HttpResponse("You are not permissioned.")
 
-    data_table_columns = data_table.header()
-    data_table_values = data_table.values()
-    data_table_count = len(data_table_values)
+    (dt_header, dt_values, dt_count) = data_table.as_table_data()
 
     context = {
         'c': c,
         'data_tables': data_tables,
         'matches': matches,
         'data_table': data_table,
-        'data_table_columns': data_table_columns,
-        'data_table_values': data_table_values,
-        'data_table_count': data_table_count
+        'dt_header': dt_header,
+        'dt_values': dt_values,
+        'dt_count': dt_count
     }
 
     return render(request, 'dataset/view.html', context)
