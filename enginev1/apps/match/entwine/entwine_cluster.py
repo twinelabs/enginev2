@@ -59,18 +59,18 @@ def cluster(df, match_cfg):
     clusters = matching.clustering.run_new.cluster(distance_matrix, match_cfg)
     results_time = time.time()
 
-    output = {
-        'results': clusters,
-        'stats': {
-            'distance_time': distance_time - start_time,
-            'results_time': results_time - distance_time,
-            'total_time': results_time - start_time,
-            'n_rows': df.shape[0],
-            'n_cols': df.shape[1],
-            'n_components': len(match_cfg['components']),
-            'k_size': match_cfg['algorithm']['params']['k_size']
-        }
-    }
+    output = {}
+    output['results'] = clusters
+
+    stats = []
+    stats.append({ 'name': 'distance_time', 'value': distance_time - start_time })
+    stats.append({ 'name': 'results_time', 'value': results_time - distance_time })
+    stats.append({ 'name': 'total_time', 'value': results_time - start_time })
+    stats.append({ 'name': 'n_rows', 'value': df.shape[0] })
+    stats.append({ 'name': 'n_cols', 'value': df.shape[1] })
+    stats.append({ 'name': 'n_components', 'value': len(match_cfg['components']) })
+    stats.append({ 'name': 'k_size', 'value': match_cfg['algorithm']['params']['k_size'] })
+    output['stats'] = stats
 
     output['analytics'] = cluster_analytics(df, clusters)
 

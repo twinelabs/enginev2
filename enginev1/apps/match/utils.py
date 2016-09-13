@@ -137,27 +137,19 @@ def match_results_for_feedback(match):
 
 def match_analytics(match):
 
-    result = match.result
+    analytics = []
 
-    match_time = result['match_time']
-    analytics = [
-        {
-            'img': "img/demo/match_time.png",
-            'title': 'Match Run Time',
-            'value': "{0:.2f}".format(float(match_time)) + " sec"
+    stats = json.loads(match.result['stats'])
+    for stat in stats:
+        a = {
+            'img': "img/demo/match_strength.png",
+            'title': stat['name'],
+            'value': stat['value']
         }
-    ]
+        analytics.append(a)
 
-    if 'stats' in result:
-        stats = json.loads(match.result['stats'])
-
-        for stat in stats:
-            a = {
-                'img': "img/demo/match_strength.png",
-                'title': stat['name'],
-                'value': stat['result']
-            }
-            analytics.append(a)
+    # TODO: remove when stats are properly formatted
+    analytics = []
 
     analytics += [
         {
