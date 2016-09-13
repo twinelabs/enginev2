@@ -9,16 +9,20 @@ def match_config_as_html(match):
     s = ""
 
     if cfg['task'] == 'cluster':
-        s += "<br />"
-        s += "<p>Data Set: <b>" + data_tables[0].name + "</b></p>"
-        s += "<p>Group Size: <b>" + str(cfg['algorithm']['params']['k_size']) + "</b></p>"
-        s += "<p>Algorithm: <b>" + cfg['algorithm']['name'] + "</b></p>"
+        s += "<h3>" + match.name + "</h3><div class='row'>"
 
-        s += "<br />"
-        s += "<p>Match Criteria: <ol>"
+        s += "<div class='col-md-5'><h4>Configuration</h4><ul>"
+        s += "<li>Data Set: <b>" + data_tables[0].name + "</b></li>"
+        s += "<li>Group Size: <b>" + str(cfg['algorithm']['params']['k_size']) + "</b></li>"
+        s += "<li>Algorithm: <b>" + cfg['algorithm']['name'] + "</b></li>"
+        s += "</ul></div>"
+
+        s += "<div class='col-md-5 col-md-offset-1'><h4>Matching Rules</h4><ol>"
         for c, w in zip(cfg['components'], cfg['weights']):
             s += "<li><b>" + c['columns'][0] + "</b> - " + c['function'] + " (weight = " + str(w) + ")</li>"
-        s += "</ol></p>"
+        s += "</ol></div>"
+
+        s += "</div>"
 
     elif cfg['task'] == 'assign':
         s += "<p>Data Sets: <ul><li>"
@@ -89,16 +93,38 @@ def match_results_as_html_table(match):
 def match_results_for_feedback(match):
     cfg = match.config['match']
     results = json.loads(match.result['results'])
+    group_numbers = [i+1 for i in range(len(results))]
+    matched_columns = [c['columns'][0] for c in cfg['components']]
 
     s = ""
     if cfg['task'] == 'cluster':
         data_table = match.data_tables.all()[0]
-        dt_values = data_table.values()
+        dt_name = data_table.name
+        data = data_table.data['data']
 
         for i, pod in enumerate(results):
-            s += "<br />Group " + str(i+1) + ":"
-            for member in pod:
-                s += "Member " + str(member) + ", "
+            s += "<div class='feedbackGroup" + str(i+1) + " feedbackGroup' style='display:none;'>"
+            s += "<h2>Group #" + str(i+1) + " " + dt_name + "</h2>"
+            for j, member in enumerate(pod):
+                s += "<div class='row' style='margin-left: 20px; margin-top: 30px;'>"
+                s += "<div class='col-md-1'><h4>#" + str(j+1) + "</h4></div>"
+
+                s += "<div class='col-md-5'><h4>Matched Attributes</h4>"
+                s += "<table style='border-collapse: separate; border-spacing: 10px 4px;'>"
+                for col_name in matched_columns:
+                    s += "<tr><td><b>" + col_name + "</b></td><td>" + str(data[member][col_name]) + "</td>"
+                    s += "<td><a href='#'>Strong Match</a><br /><a href='#'>Weak Match</a></td></tr>"
+                s += "</table></div>"
+
+                unmatched_columns = [col for col in data[member].keys() if col not in matched_columns]
+                s += "<div class='col-md-5 col-md-offset-1'><h4>Other Attributes</h4>"
+                s += "<table style='border-collapse: separate; border-spacing: 20px 4px;'>"
+                for col_name in unmatched_columns:
+                    s += "<tr><td><b>" + col_name + "</b></td><td>" + str(data[member][col_name]) + "</td></tr>"
+                s += "</table></div>"
+
+                s += "</div>"
+            s += "</div>"
 
     elif cfg['task'] == 'assign':
         s += "<p>Assignment Table:</p>"
@@ -106,8 +132,67 @@ def match_results_for_feedback(match):
     else:
         raise TypeError("Unsupported task for match config: " + cfg['task'])
 
-    return s
+    return (group_numbers, s)
 
+
+def match_analytics(match):
+
+    result = match.result
+
+    match_time = result['match_time']
+    analytics = [
+        {
+            'img': "img/demo/match_time.png",
+            'title': 'Match Run Time',
+            'value': "{0:.2f}".format(float(match_time)) + " sec"
+        }
+    ]
+
+    if 'stats' in result:
+        stats = json.loads(match.result['stats'])
+
+        for stat in stats:
+            a = {
+                'img': "img/demo/match_strength.png",
+                'title': stat['name'],
+                'value': stat['result']
+            }
+            analytics.append(a)
+
+    analytics += [
+        {
+            'img': "img/demo/match_strength.png",
+            'title': 'Overall Match Strength',
+            'value': '9.2 (High)'
+        },
+        {
+            'img': "img/demo/match_variables.png",
+            'title': '# of Variables',
+            'value': '7'
+        },
+        {
+            'img': "img/demo/diversity_coefficient.png",
+            'title': 'Diversity Score',
+            'value': '0.64 (low)'
+        },
+        {
+            'img': "img/demo/matched_users.png",
+            'title': 'Matched Users',
+            'value': '275 Roles'
+        },
+        {
+            'img': "img/demo/matches_per_user.png",
+            'title': 'Matches per Role',
+            'value': '5'
+        },
+        {
+            'img': "img/demo/total_matches.png",
+            'title': 'Total # Matches',
+            'value': '1,375'
+        }
+    ]
+
+    return analytics
 
 def match_request_to_config(request):
     """ Converts match form into configured match object with configs.
@@ -145,7 +230,7 @@ def match_request_to_config(request):
         for column_id_s in req['task_cluster_columns']:
             column_id = int(column_id_s)
             components.append({
-                "columns": [ DataColumn.objects.get(pk=column_id).name ],
+                "columns": [ models.DataColumn.objects.get(pk=column_id).name ],
                 "function": req['cluster_rule_' + str(column_id)][0]
             })
             weights.append( int(req['cluster_weight_' + str(column_id)][0]) )

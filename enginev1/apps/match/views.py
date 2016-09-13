@@ -11,6 +11,43 @@ from .models import *
 from .utils import *
 from .forms import MatchForm
 
+
+@login_required
+def view(request, match_id):
+
+    c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
+
+    match = Match.objects.get(id=match_id)
+    if match.client != c:
+        return HttpResponse("You are not permissioned.")
+
+    config_html = match_config_as_html(match)
+
+    has_results = match.has_results()
+    if has_results:
+        result_html = match_results_as_html(match)
+        result_html_table = match_results_as_html_table(match)
+    else:
+        result_html = None
+        result_html_table = None
+
+    context = {
+        'c': c,
+        'data_tables': data_tables,
+        'matches': matches,
+
+        'match': match,
+        'has_results': has_results,
+        'config_html': config_html,
+        'result_html': result_html,
+        'result_html_table': result_html_table
+    }
+
+    return render(request, 'match/view.html', context)
+
+
 @login_required
 def feedback(request, match_id):
     c = request.user.client
@@ -21,14 +58,16 @@ def feedback(request, match_id):
     if match.client != c:
         return HttpResponse("You are not permissioned.")
 
-    feedback = match_results_for_feedback(match)
+
+    (group_numbers, feedback_s) = match_results_for_feedback(match)
 
     context = {
         'c': c,
         'data_tables': data_tables,
         'matches': matches,
         'match': match,
-        'feedback': feedback
+        'group_numbers': group_numbers,
+        'feedback_s': feedback_s
     }
     return render(request, 'match/feedback.html', context)
 
@@ -115,42 +154,6 @@ def create_employeerole(request):
 
 
 @login_required
-def view(request, match_id):
-
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
-
-    match = Match.objects.get(id=match_id)
-    if match.client != c:
-        return HttpResponse("You are not permissioned.")
-
-    has_results = match.has_results()
-    if has_results:
-        config_html = match_config_as_html(match)
-        result_html = match_results_as_html(match)
-        result_html_table = match_results_as_html_table(match)
-    else:
-        config_html = None
-        result_html = None
-        result_html_table = None
-
-    context = {
-        'c': c,
-        'data_tables': data_tables,
-        'matches': matches,
-
-        'match': match,
-        'has_results': has_results,
-        'config_html': config_html,
-        'result_html': result_html,
-        'result_html_table': result_html_table
-    }
-
-    return render(request, 'match/view.html', context)
-
-
-@login_required
 def run(request, match_id):
 
     c = request.user.client
@@ -166,7 +169,6 @@ def run(request, match_id):
     return HttpResponseRedirect('/match/view/' + str(match.id))
 
 
-
 @login_required
 def analyze(request, match_id):
 
@@ -178,43 +180,14 @@ def analyze(request, match_id):
     if match.client != c:
         return HttpResponse("You are not permissioned.")
 
+    analytics = match_analytics(match)
+
     context = {
         'c': c,
         'data_tables': data_tables,
         'matches': matches,
         'match': match,
-        'overview_items': [
-            {
-                'img': "img/demo/match_strength.png",
-                'title': 'Overall Match Strength',
-                'value': '9.2 (High)'
-            },
-            {
-                'img': "img/demo/match_variables.png",
-                'title': '# of Variables',
-                'value': '7'
-            },
-            {
-                'img': "img/demo/diversity_coefficient.png",
-                'title': 'Diversity Score',
-                'value': '0.64 (low)'
-            },
-            {
-                'img': "img/demo/matched_users.png",
-                'title': 'Matched Users',
-                'value': '275 Roles'
-            },
-            {
-                'img': "img/demo/matches_per_user.png",
-                'title': 'Matches per Role',
-                'value': '5'
-            },
-            {
-                'img': "img/demo/total_matches.png",
-                'title': 'Total # Matches',
-                'value': '1,375'
-            }
-        ]
+        'analytics': analytics
     }
 
     return render(request, 'match/analyze.html', context)
