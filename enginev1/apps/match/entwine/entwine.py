@@ -1,31 +1,37 @@
 """
-run_match
+entwine
 --------
 
-Runs matching process for specified match task.
-Currently supports clustering and assignment.
+Executes matching for specified match task.
+Runs from config dictionary or from file.
 """
 
 import sys
 import yaml
-import run_cluster
-import run_assign
-import pdb
+
+from entwine_cluster import entwine_cluster
+from entwine_assign import entwine_assign
 
 def run_from_config(config):
+    """ Run matching process from config dictionary specifying match parameters.
+    """
     output = None
     if config['match']['task'] == 'cluster':
-        output = run_cluster.run_from_config(config)
+        output = entwine_cluster(config)
     elif config['match']['task'] == 'assign':
-        output = run_assign.run_from_config(config)
+        output = entwine_assign(config)
     else:
-        print('Unsupported match task. Config file should specify match or assign.')
+        print('Unsupported or missing task type in match config. (in config[match][task])')
     return output
+
+
+# ===
+# COMMAND LINE SUPPORT (internal use)
+# ===
 
 if __name__ == '__main__':
 
     if len(sys.argv) > 1:
-
         config_file = sys.argv[1]
 
         with open(config_file, 'r') as f:

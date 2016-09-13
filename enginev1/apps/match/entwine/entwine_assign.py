@@ -38,36 +38,20 @@ def load(load_config):
                   
     return dfs
 
+
 # Runs assignment
-def match(dfs, match_config):
-    utility_matrix = matching.assign.utility.utility_matrix(dfs, match_config)
-    # Assume that we always run the residency algorithm, for now
-    results = matching.assign.run_new.residency(utility_matrix, match_config)        
+def assign(dfs, match_cfg):
+    utility_matrix = matching.assign.utility.utility_matrix(dfs, match_cfg)
+    results = matching.assign.run_new.residency(utility_matrix, match_cfg)
     return results
 
-def run_from_config(config):
-    # All final output goes into one dictionary
-    output = {}
-    # Load data into a pandas dataframe
-    output['df'] = load(config['load'])
-    # Matching
-    start_time = time.time()
-    output['results'] = match(output['df'], config['match'])
-    stop_time = time.time()
-    output['match_time'] = stop_time - start_time
-    # Return the entire output
+
+def entwine_assign(config):
+    """ Loads data objects and match config, runs assignment.
+    """
+
+    dfs = load(config['load'])
+    match_cfg = config['match']
+    output = assign(dfs, match_cfg)
+
     return output
-
-if __name__ == '__main__':
-
-    if len(sys.argv) > 1:
-
-        config_file = sys.argv[1]
-
-        with open(config_file, 'r') as f:
-            config = yaml.load(f)
-
-        output = run_from_config(config)
-
-    else:
-        print('Please provide a configuration file.')
