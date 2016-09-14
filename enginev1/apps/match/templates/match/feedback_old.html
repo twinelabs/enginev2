@@ -1,0 +1,88 @@
+{% extends 'sidebar_page.html' %}
+
+{% load bootstrap3 %}
+{% load widget_tweaks %}
+
+{% block title %}Create Match{% endblock %}
+{% block header_block %}
+    <div class="col-sm-4">
+        <h2 class="headerLine">HR Feedback</h2>
+    </div>
+{% endblock %}
+
+{% block content_block %}
+
+    <div class="well">
+        <table class="feedbackTable">
+            <thead>
+                <tr>
+                    <th class="c1">
+                        Role<br />
+                        <a href="#" class="btn btn-primary btn-sm">< prev</a>
+                        <a href="#" class="btn btn-primary btn-sm">next ></a>
+                    </th>
+                    <th class="c2">&nbsp;</th>
+                    <th class="c3">
+                        Employee<br />
+                        <a href="#" class="btn btn-primary btn-sm">< prev</a>
+                        <a href="#" class="btn btn-primary btn-sm">next ></a>
+                    </th>
+                    <th class="c4">&nbsp;</th>
+                    <th class="c5">Feedback</th>
+                </tr>
+            </thead>
+            <tbody>
+<tr><td></td><td></td><td></td><td></td>
+    <td class="overallRating">
+        <div class='match-preference-form'>
+            <b>Overall Rating: &nbsp; &nbsp; </b>
+            <div class='match-preference-input'>
+                <input name='vx' type='radio' value='Good fit '>
+                <label>Strong Fit</label>
+            </div>
+            <div class='match-preference-input'>
+                <input name='vx' type='radio' value=' Educational level too high '>
+                <label>Medium Fit</label>
+            </div>
+            <div class='match-preference-input'>
+                <input name='vx' type='radio' value=' Educational level too low'>
+                <label>Weak Fit</label>
+            </div>
+        </div>
+    </td>
+</tr>
+<tr><td class="sectionHeader" colspan="5">Match Variables</td></tr>
+<tr><td>Title</td><td>VP, Digital Platform Group</td><td>MaskedID</td><td>1439618</td><td></td></tr>
+<tr><td>Preferred Educational Level</td><td>BA / BS</td><td>Highest degree attained</td><td>Bachelor's Degree</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v4' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v4' type='radio' value=' Educational level too high '><label> Educational level too high </label></div><div class='match-preference-input'><input name='v4' type='radio' value=' Educational level too low'><label> Educational level too low</label></div></div></td></tr>
+<tr><td>Latitude/Longitude</td><td>40.7, 74.1</td><td>Latitude/Longitude</td><td>40.7, 74.1</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v5' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v5' type='radio' value=' Location too far '><label> Location too far </label></div><div class='match-preference-input'><input name='v5' type='radio' value=' Location too close '><label> Location too close </label></div><div class='match-preference-input'><input name='v5' type='radio' value=' Bad fit (other)'><label> Bad fit (other)</label></div></div></td></tr>
+<tr><td>Functional Area Name</td><td>Watch+</td><td>Functional Area Name</td><td>Watch+</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v6' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v6' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+<tr><td>Years Experience Required</td><td>7 - 12 years</td><td>Total Years Work Experience</td><td>8.4 years</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v7' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v7' type='radio' value=' Too much experience '><label> Too much experience </label></div><div class='match-preference-input'><input name='v7' type='radio' value=' Too little experience'><label> Too little experience</label></div></div></td></tr>
+<tr><td>Management Experience Required</td><td>Yes</td><td>Management Experience</td><td>Yes</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v8' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v8' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+<tr><td>HR Band</td><td>4</td><td>HR Band</td><td>5</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v9' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v9' type='radio' value=' Band too high '><label> Band too high </label></div><div class='match-preference-input'><input name='v9' type='radio' value=' Band too low'><label> Band too low</label></div></div></td></tr>
+<tr><td class="sectionHeader" colspan="2">Other Information</td><td style="font-weight: bold;" class="sectionHeader" colspan="2">Location</td><td></td></tr>
+<tr><td>Region</td><td>North America</td><td>Office location</td><td>US-Offsite</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v12' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v12' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+<tr><td>Country</td><td>United States</td><td>Top Talent</td><td>Yes</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v13' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v13' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+<tr><td>State/Province</td><td>New York</td><td>HR Rating</td><td>4</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v14' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v14' type='radio' value=' Rating too high '><label> Rating too high </label></div><div class='match-preference-input'><input name='v14' type='radio' value=' Rating too low'><label> Rating too low</label></div></div></td></tr>
+<tr><td>City</td><td>New York</td><td>Cost Center Name</td><td>GBS PL - NA-US (Strategic Clients)</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v15' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v15' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+<tr><td>Primary Office Location</td><td>New York</td><td></td><td></td><td></td></tr>
+<tr><td>Req. Posting Date</td><td>January 14, 2016</td><td style="font-weight: bold;" class="sectionHeader" colspan="2">Professional Experience</td><td></td></tr>
+<tr><td>Req. Identifier</td><td>1522603</td><td>Employer1</td><td>Alexian Bonaventure House</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v18' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v18' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+<tr><td>Role description</td><td></td><td>Years at Employer 1</td><td>3.2 years</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v19' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v19' type='radio' value=' Tenure too long '><label> Tenure too long </label></div><div class='match-preference-input'><input name='v19' type='radio' value=' Tenure too short'><label> Tenure too short</label></div></div></td></tr>
+<tr><td>Role qualifications</td><td></td><td>Employer2</td><td>Chicago Transit Authority</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v20' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v20' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+<tr><td>Req. Job Schedule</td><td>Full-time</td><td>Years at Employer2</td><td>2.2 years</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v21' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v21' type='radio' value=' Tenure too long '><label> Tenure too long </label></div><div class='match-preference-input'><input name='v21' type='radio' value=' Tenure too short'><label> Tenure too short</label></div></div></td></tr>
+<tr><td>Req. Job Shift</td><td>Day</td><td>Employer3</td><td>Warped Sportz</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v22' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v22' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+<tr><td>Req. Job Type</td><td>Regular</td><td>Years at Employer3</td><td>3 years</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v23' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v23' type='radio' value=' Tenure too long '><label> Tenure too long </label></div><div class='match-preference-input'><input name='v23' type='radio' value=' Tenure too short'><label> Tenure too short</label></div></div></td></tr>
+<tr><td>Required Travel</td><td></td><td>Employer4</td><td>Organizational Strategies</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v24' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v24' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+<tr><td>Weekly Working Hours</td><td>40 hrs M-F</td><td>Years at Employer4</td><td>0.1 year</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v25' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v25' type='radio' value=' Tenure too long '><label> Tenure too long </label></div><div class='match-preference-input'><input name='v25' type='radio' value=' Tenure too short'><label> Tenure too short</label></div></div></td></tr>
+<tr><td>Relocation Approved</td><td>No</td><td>Total number of jobs</td><td>4</td><td></td></tr>
+<tr><td></td><td></td><td>Average tenure</td><td>2.1 years</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v27' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v27' type='radio' value=' Average tenure too long '><label> Average tenure too long </label></div><div class='match-preference-input'><input name='v27' type='radio' value=' Average tenure too short '><label> Average tenure too short </label></div></div></td></tr>
+<tr><td></td><td></td><td style="font-weight: bold;" class="sectionHeader" colspan="2">Education</td><td></td></tr>
+<tr><td></td><td></td><td>Educational Institution 1</td><td>Northwestern University</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v31' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v31' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+<tr><td></td><td></td><td>Area of Study </td><td>Learning and Organizational Change</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v32' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v32' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+<tr><td></td><td></td><td>Degree</td><td>Bachelor's Degree</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v33' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v33' type='radio' value=' Educational level too high '><label> Educational level too high </label></div><div class='match-preference-input'><input name='v33' type='radio' value=' Educational level too low'><label> Educational level too low</label></div></div></td></tr>
+<tr><td></td><td></td><td>Educational Institution 2</td><td>Moraine Valley Community College</td><td><div class='match-preference-form'><div class='match-preference-input'><input name='v34' type='radio' value='Good fit '><label>Good fit </label></div><div class='match-preference-input'><input name='v34' type='radio' value=' Bad fit'><label> Bad fit</label></div></div></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

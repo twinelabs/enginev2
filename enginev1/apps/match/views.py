@@ -81,6 +81,19 @@ def feedback(request, match_id):
 
 
 @login_required
+def feedback_old(request):
+    c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
+
+    context = {
+        'c': c,
+        'data_tables': data_tables,
+        'matches': matches
+    }
+    return render(request, 'match/feedback_old.html', context)
+
+@login_required
 def feedback_employeerole(request):
     c = request.user.client
     data_tables = c.datatable_set.all()

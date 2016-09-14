@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^view/(?P<match_id>\w+)$', views.view, name="view"),
     url(r'^analyze/(?P<match_id>\w+)$', views.analyze, name="analyze"),
     url(r'^feedback/(?P<match_id>\w+)$', views.feedback, name='feedback'),
+    url(r'^feedback_old/$', views.feedback_old, name='feedback_old'),
     url(r'^feedback_employeerole/$', views.feedback_employeerole, name='feedback_employeerole'),
     url(r'^run/(?P<match_id>\w+)$', views.run, name="run"),
     url(r'^delete/(?P<match_id>\w+)$', views.delete, name="delete"),
