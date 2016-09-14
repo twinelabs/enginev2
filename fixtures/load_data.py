@@ -45,26 +45,13 @@ for client_args in clients:
 
 client = Client.objects.filter(company_name = 'Demo')[0]
 
+csv_roles = './fixtures/roles.csv'
+dt_roles_id = import_csv_as_data_table(client, 'Open Roles', csv_roles)
+dt_roles = DataTable.objects.get(pk=dt_roles_id)
+
 csv_employees = './fixtures/employees.csv'
 dt_employees_id = import_csv_as_data_table(client, 'Employees', csv_employees)
 dt_employees = DataTable.objects.get(pk=dt_employees_id)
-
-csv_roles = './fixtures/roles.csv'
-dt_roles_id = import_csv_as_data_table(client, 'Roles', csv_roles)
-dt_roles = DataTable.objects.get(pk=dt_roles_id)
-
-
-# ====
-# CREATE MATCH (GROUP)
-# ====
-
-group_name = 'Diverse Employee Teams'
-group_cfg = json.loads('./fixtures/match_cfg_group.json')
-group_match = Match(client=client, name=group_name, config=group_cfg)
-group_match.save()
-
-group_match.data_tables.add(dt_employees)
-group_match.save()
 
 
 # ====
@@ -72,10 +59,31 @@ group_match.save()
 # ====
 
 assign_name = 'Internal Mobility'
-assign_cfg = json.loads('./fixtures/match_cfg_assign.json')
+
+with open('./fixtures/match_cfg_assign.json') as f:
+  assign_cfg = json.load(f, strict=False)
+
 assign_match = Match(client=client, name=assign_name, config=assign_cfg)
 assign_match.save()
 
 assign_match.data_tables.add(dt_employees)
 assign_match.data_tables.add(dt_roles)
 assign_match.save()
+
+
+# ====
+# CREATE MATCH (GROUP)
+# ====
+
+group_name = 'Diverse Employee Teams'
+
+with open('./fixtures/match_cfg_group.json') as f:
+  group_cfg = json.load(f, strict=False)
+
+group_match = Match(client=client, name=group_name, config=group_cfg)
+group_match.save()
+
+group_match.data_tables.add(dt_employees)
+group_match.save()
+
+

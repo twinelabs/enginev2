@@ -19,6 +19,9 @@ def get_matching_criteria(components_config):
         if component['function'] == "equality":
             f_crit = lambda a, b: a == b
 
+        elif component['function'] == "inequality":
+            f_crit = lambda a, b: a != b
+
         elif component['function'] == "equality_nonblank":
             f_crit = lambda a, b: a == b if (a != "" or b != "") else False
 

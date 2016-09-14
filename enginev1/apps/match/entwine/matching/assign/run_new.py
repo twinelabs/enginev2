@@ -16,9 +16,8 @@ def residency(utility_matrix, match_config, verbose=False):
     :return: Assignments [(a_1, score, desc), (a_2, score, desc), ..., (a_N, score, desc)] for each individual, with a_i in [1, 2, ... M].
     """
     a_s = {}
-    n,m = utility_matrix.shape
+    n, m = utility_matrix.shape
     capacity = match_config['algorithm']['params']['capacity']
-    # For now, let all capacities be the same as the given capacity
     capacities = [capacity] * m
     
     for i in range(n):
@@ -71,7 +70,8 @@ def residency(utility_matrix, match_config, verbose=False):
     assignments = [b_s[i]['matches'] for i in range(m)]
 
     return assignments
-    
+
+
 def residency_mod(utility_matrix, match_config, verbose=False):
     """ Solves residency matching program with symmetric utilities and multiple capacity.
 

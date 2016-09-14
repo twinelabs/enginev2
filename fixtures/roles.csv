@@ -1,51 +1,51 @@
-Job ID,Location,Position,Department,Required Education,Req. Job Schedule, Salary ,Management Experience
-455373,New York,Analyst,Sales,Bachelor's Degree,Full-time," 50,000 ",No
-455414,Chicago,Associate,Marketing,Bachelor's Degree,Full-time," 50,000 ",No
-455374,New York,VP,Engineering,Bachelor's Degree,Full-time," 45,300 ",No
-455374,Philadelphia,Director,Management,Bachelor's Degree,Full-time," 45,300 ",No
-455374,New York,Analyst,Sales,Bachelor's Degree,Full-time," 45,300 ",No
-455376,San Francisco,Associate,Marketing,Bachelor's Degree,Full-time," 49,400 ",No
-455416,New York,VP,Engineering,Bachelor's Degree,Full-time," 49,400 ",No
-455420,Chicago,Director,Management,Bachelor's Degree,Full-time," 49,500 ",No
-455418,New York,Analyst,Sales,Bachelor's Degree,Full-time," 49,400 ",No
-455422,Philadelphia,Associate,Marketing,Bachelor's Degree,Full-time," 49,500 ",No
-455424,New York,VP,Engineering,Bachelor's Degree,Full-time," 49,500 ",No
-455502,San Francisco,Director,Management,Bachelor's Degree,Full-time," 85,000 ",Yes
-455502,New York,Analyst,Sales,Bachelor's Degree,Full-time," 85,000 ",Yes
-455502,Chicago,Associate,Marketing,Bachelor's Degree,Full-time," 85,000 ",No
-457536,New York,VP,Engineering,Bachelor's Degree,Full-time," 81,000 ",No
-458419,Philadelphia,Director,Management,Bachelor's Degree,Full-time," 69,000 ",No
-458424,New York,Analyst,Sales,Bachelor's Degree,Full-time," 69,000 ",No
-458418,San Francisco,Associate,Marketing,Bachelor's Degree,Full-time," 81,000 ",No
-459148,New York,VP,Engineering,Bachelor's Degree,Full-time," 87,000 ",Yes
-459319,Chicago,Director,Management,Bachelor's Degree,Full-time," 81,000 ",Yes
-450270,New York,Analyst,Sales,High School Diploma/GED,Full-time," 35,000 ",No
-450306,Philadelphia,Associate,Marketing,High School Diploma/GED,Full-time," 69,000 ",No
-450306,New York,VP,Engineering,High School Diploma/GED,Full-time," 69,000 ",No
-450669,San Francisco,Director,Management,Bachelor's Degree,Full-time," 81,000 ",No
-450702,New York,Analyst,Sales,High School Diploma/GED,Full-time," 35,000 ",No
-458351,Chicago,Associate,Marketing,High School Diploma/GED,Full-time," 35,000 ",No
-450422,New York,VP,Engineering,High School Diploma/GED,Full-time," 87,000 ",Yes
-450422,Philadelphia,Director,Management,High School Diploma/GED,Full-time," 87,000 ",Yes
-450422,New York,Analyst,Sales,High School Diploma/GED,Full-time," 87,000 ",Yes
-450699,San Francisco,Associate,Marketing,High School Diploma/GED,Full-time," 35,000 ",No
-451228,New York,VP,Engineering,High School Diploma/GED,Full-time," 21,600 ",No
-451425,Chicago,Director,Management,Bachelor's Degree,Full-time," 87,000 ",No
-451121,New York,Analyst,Sales,High School Diploma/GED,Full-time," 35,000 ",No
-452665,Philadelphia,Associate,Marketing,High School Diploma/GED,Full-time," 35,000 ",No
-452666,New York,VP,Engineering,High School Diploma/GED,Full-time," 35,000 ",No
-452528,San Francisco,Director,Management,Bachelor's Degree,Full-time," 38,000 ",No
-452300,New York,Analyst,Sales,Bachelor's Degree,Full-time," 35,000 ",No
-452698,Chicago,Associate,Marketing,Bachelor's Degree,Full-time," 81,000 ",No
-452475,New York,VP,Engineering,Bachelor's Degree,Full-time," 69,000 ",No
-450219,Philadelphia,Director,Management,Bachelor's Degree,Part-time," 49,000 ",No
-450291,New York,Analyst,Sales,High School Diploma/GED,Part-time," 21,000 ",No
-452603,San Francisco,Associate,Marketing,High School Diploma/GED,Part-time," 122,000 ",No
-450232,New York,VP,Engineering,High School Diploma/GED,Part-time," 35,000 ",No
-450845,Chicago,Director,Management,High School Diploma/GED,Part-time," 52,000 ",No
-451229,New York,Analyst,Sales,Bachelor's Degree,Part-time," 69,000 ",No
-450858,Philadelphia,Associate,Marketing,High School Diploma/GED,Part-time," 52,000 ",No
-452175,New York,VP,Engineering,High School Diploma/GED,Part-time," 34,000 ",No
-452195,San Francisco,Director,Management,High School Diploma/GED,Part-time," 35,000 ",No
-451318,New York,Analyst,Sales,Bachelor's Degree,Part-time," 69,000 ",Yes
-451772,Chicago,Associate,Marketing,Bachelor's Degree,Part-time," 69,000 ",Yes
+Job ID,Department,Position,Location,Required Education,Req. Job Schedule, Salary ,Management Experience
+45556,Sales,Analyst,New York,Bachelor's Degree,Full-time,"50,000",No
+45583,Marketing,Associate,Chicago,Bachelor's Degree,Full-time,"50,000",No
+45610,Engineering,VP,New York,Bachelor's Degree,Full-time,"45,300",No
+45637,Management,Director,Philadelphia,Bachelor's Degree,Full-time,"45,300",No
+45664,Sales,Analyst,New York,Bachelor's Degree,Full-time,"45,300",No
+45691,Marketing,Associate,San Francisco,Bachelor's Degree,Full-time,"49,400",No
+45718,Engineering,VP,New York,Bachelor's Degree,Full-time,"49,400",No
+45745,Management,Director,Chicago,Bachelor's Degree,Full-time,"49,500",No
+45772,Sales,Analyst,New York,Bachelor's Degree,Full-time,"49,400",No
+45799,Marketing,Associate,Philadelphia,Bachelor's Degree,Full-time,"49,500",No
+45826,Engineering,VP,New York,Bachelor's Degree,Full-time,"49,500",No
+45853,Management,Director,San Francisco,Bachelor's Degree,Full-time,"85,000",Yes
+45880,Sales,Analyst,New York,Bachelor's Degree,Full-time,"85,000",Yes
+45907,Marketing,Associate,Chicago,Bachelor's Degree,Full-time,"85,000",No
+45934,Engineering,VP,New York,Bachelor's Degree,Full-time,"81,000",No
+45961,Management,Director,Philadelphia,Bachelor's Degree,Full-time,"69,000",No
+45988,Sales,Analyst,New York,Bachelor's Degree,Full-time,"69,000",No
+46015,Marketing,Associate,San Francisco,Bachelor's Degree,Full-time,"81,000",No
+46042,Engineering,VP,New York,Bachelor's Degree,Full-time,"87,000",Yes
+46069,Management,Director,Chicago,Bachelor's Degree,Full-time,"81,000",Yes
+46096,Sales,Analyst,New York,High School Diploma/GED,Full-time,"35,000",No
+46123,Marketing,Associate,Philadelphia,High School Diploma/GED,Full-time,"69,000",No
+46150,Engineering,VP,New York,High School Diploma/GED,Full-time,"69,000",No
+46177,Management,Director,San Francisco,Bachelor's Degree,Full-time,"81,000",No
+46204,Sales,Analyst,New York,High School Diploma/GED,Full-time,"35,000",No
+46231,Marketing,Associate,Chicago,High School Diploma/GED,Full-time,"35,000",No
+46258,Engineering,VP,New York,High School Diploma/GED,Full-time,"87,000",Yes
+46285,Management,Director,Philadelphia,High School Diploma/GED,Full-time,"87,000",Yes
+46312,Sales,Analyst,New York,High School Diploma/GED,Full-time,"87,000",Yes
+46339,Marketing,Associate,San Francisco,High School Diploma/GED,Full-time,"35,000",No
+46366,Engineering,VP,New York,High School Diploma/GED,Full-time,"21,600",No
+46393,Management,Director,Chicago,Bachelor's Degree,Full-time,"87,000",No
+46420,Sales,Analyst,New York,High School Diploma/GED,Full-time,"35,000",No
+46447,Marketing,Associate,Philadelphia,High School Diploma/GED,Full-time,"35,000",No
+46474,Engineering,VP,New York,High School Diploma/GED,Full-time,"35,000",No
+46501,Management,Director,San Francisco,Bachelor's Degree,Full-time,"38,000",No
+46528,Sales,Analyst,New York,Bachelor's Degree,Full-time,"35,000",No
+46555,Marketing,Associate,Chicago,Bachelor's Degree,Full-time,"81,000",No
+46582,Engineering,VP,New York,Bachelor's Degree,Full-time,"69,000",No
+46609,Management,Director,Philadelphia,Bachelor's Degree,Part-time,"49,000",No
+46636,Sales,Analyst,New York,High School Diploma/GED,Part-time,"21,000",No
+46663,Marketing,Associate,San Francisco,High School Diploma/GED,Part-time,"122,000",No
+46690,Engineering,VP,New York,High School Diploma/GED,Part-time,"35,000",No
+46717,Management,Director,Chicago,High School Diploma/GED,Part-time,"52,000",No
+46744,Sales,Analyst,New York,Bachelor's Degree,Part-time,"69,000",No
+46771,Marketing,Associate,Philadelphia,High School Diploma/GED,Part-time,"52,000",No
+46798,Engineering,VP,New York,High School Diploma/GED,Part-time,"34,000",No
+46825,Management,Director,San Francisco,High School Diploma/GED,Part-time,"35,000",No
+46852,Sales,Analyst,New York,Bachelor's Degree,Part-time,"69,000",Yes
+46879,Marketing,Associate,Chicago,Bachelor's Degree,Part-time,"69,000",Yes

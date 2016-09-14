@@ -1,29 +1,36 @@
 {
-  'load': [
+  "load": [
     {
-      'data_table': {
-        'id': 12
+      "data_table": {
+        "id": 2
       }
     }
   ],
-  'match': {
-	'task': 'cluster',
-    'weights': [
-      5
+  "match": {
+	"task": "cluster",
+    "weights": [
+      5,
+      4
     ],
-    'components': [
+    "components": [
       {
-        'function': 'binary_same',
-        'columns': [
-          'Degree'
+        "function": "binary_same",
+        "columns": [
+          "Gender"
+        ]
+      },
+      {
+        "function": "binary_diff",
+        "columns": [
+          "Department"
         ]
       }
     ],
-    'algorithm': {
-      'params': {
-        'k_size': 5
+    "algorithm": {
+      "params": {
+        "k_size": 5
       },
-      'name': 'random'
+      "name": "greedy_adaptive"
     }
   }
 }

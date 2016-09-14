@@ -1,4 +1,5 @@
 import json
+import pdb
 
 import models
 
@@ -71,12 +72,12 @@ def match_results_as_html(match):
         s += "</table>"
 
     elif cfg['task'] == 'assign':
-        n_lim = 5
+        n_lim = 4
 
-        dt_A = match.data_tables.all()[0]
-        dt_A_values = dt_A.values()
-        dt_B = match.data_tables.all()[1]
+        dt_B = match.data_tables.all()[0]
         dt_B_values = dt_B.values()
+        dt_A = match.data_tables.all()[1]
+        dt_A_values = dt_A.values()
 
         header = dt_B.header()[:n_lim] + [""] + dt_A.header()[:n_lim]
 
@@ -90,7 +91,7 @@ def match_results_as_html(match):
             elem_B = dt_B_values[i]
 
             for j, member in enumerate(pod):
-                elem_A = dt_A_values[j]
+                elem_A = dt_A_values[member]
                 vals = elem_B[:n_lim] + ["<->"] + elem_A[:n_lim]
                 s += "<tr><td>"
                 s += "</td><td>".join([ str(val) for val in vals])

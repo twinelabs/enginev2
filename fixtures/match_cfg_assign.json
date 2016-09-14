@@ -1,31 +1,39 @@
 {
-  'load': [
+  "load": [
     {
-      'data_table': {
-        'id': 12
+      "data_table": {
+        "id": 2
       }
     }, {
-      'data_table': {
-        'id': 13
+      "data_table": {
+        "id": 1
       }
     }
   ],
-  'match': {
-    'task': 'assign',
-    'weights': [
-      5
+  "match": {
+    "task": "assign",
+    "weights": [
+      5,
+      4
     ],
-    'algorithm': {
-      'params': {
-        'capacity': 5
+    "algorithm": {
+      "params": {
+        "capacity": 3
       }
     },
-    'components': [
+    "components": [
       {
-        'function': 'equality',
-        'columns': [
-          'Department',
-          'Department'
+        "function": "equality",
+        "columns": [
+          "Position",
+          "Position"
+        ]
+      },
+      {
+        "function": "inequality",
+        "columns": [
+          "Department",
+          "Department"
         ]
       }
     ]

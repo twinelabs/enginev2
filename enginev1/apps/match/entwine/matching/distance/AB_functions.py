@@ -23,6 +23,9 @@ def criteria_and_weights(criteria_config):
         if crit_config['f'] == "equality":
             f_crit = lambda a, b: a == b
 
+        elif crit_config['f'] == "inequality":
+            f_crit = lambda a, b: a != b
+
         elif crit_config['f'] == "equality_nonblank":
             f_crit = lambda a, b: a == b if (a != "" or b != "") else False
 

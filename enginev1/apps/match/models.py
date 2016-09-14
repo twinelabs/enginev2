@@ -3,6 +3,7 @@ from enginev1.apps.welcome.models import Client
 from enginev1.apps.dataset.models import DataTable, DataColumn
 from django_hstore import hstore
 
+from .entwine import entwine
 
 class Match(models.Model):
     """ Match object. Contains match configuration and results.
@@ -24,6 +25,11 @@ class Match(models.Model):
     def __str__(self):
         return self.name
 
+
+    def run(self):
+        result = entwine.run_from_config(self.config)
+        self.result = result
+        self.save()
 
     def has_results(self):
         return(not(self.result == {}))
