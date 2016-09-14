@@ -6,12 +6,11 @@ def match_config_as_html(match):
 
     cfg = match.config['match']
     data_tables = match.data_tables.all()
-    s = ""
+
+    s = "<h3>" + match.name + "</h3><div class='row'>"
+    s += "<div class='col-md-5'><h4>Configuration</h4><ul>"
 
     if cfg['task'] == 'cluster':
-        s += "<h3>" + match.name + "</h3><div class='row'>"
-
-        s += "<div class='col-md-5'><h4>Configuration</h4><ul>"
         s += "<li>Data Set: <b>" + data_tables[0].name + "</b></li>"
         s += "<li>Group Size: <b>" + str(cfg['algorithm']['params']['k_size']) + "</b></li>"
         s += "<li>Algorithm: <b>" + cfg['algorithm']['name'] + "</b></li>"
@@ -22,38 +21,26 @@ def match_config_as_html(match):
             s += "<li><b>" + c['columns'][0] + "</b> - " + c['function'] + " (weight = " + str(w) + ")</li>"
         s += "</ol></div>"
 
-        s += "</div>"
-
     elif cfg['task'] == 'assign':
-        s += "<p>Data Sets: <ul><li>"
-        s += "</li><li>".join([ d.name for d in data_tables])
-        s += "</li></ul></p>"
+        s += "<li>Data Sets: <b>" + ", ".join([ d.name for d in data_tables ]) + "</b></li>"
+        s += "<li>Capacity: <b>" + str(cfg['algorithm']['params']['capacity']) + "</b></li>"
+        s += "<li>Algorithm: <b>NRMP</b></li>"
+        s += "</ul></div>"
+
+        s += "<div class='col-md-5 col-md-offset-1'><h4>Matching Rules</h4><ol>"
+        for c, w in zip(cfg['components'], cfg['weights']):
+            s += "<li><b>" + c['columns'][0] + "</b> with <b>" + c['columns'][1] + "</b> - " + c['function'] + " (weight = " + str(w) + ")</li>"
+        s += "</ol></div>"
 
     else:
         raise TypeError("Unsupported task for match config: " + cfg['task'])
 
+    s += "</div>"
+
     return s
+
 
 def match_results_as_html(match):
-    cfg = match.config['match']
-    results = json.loads(match.result['results'])
-    s = ""
-
-    if cfg['task'] == 'cluster':
-        for i, pod in enumerate(results):
-            s += "<ul><b>Group " + str(i+1) + "</b>: "
-            s += ", ".join([ str(m) for m in pod ])
-            s += "</ul>"
-
-    elif cfg['task'] == 'assign':
-        s += "<p>Assignments:</p>"
-
-    else:
-        raise TypeError("Unsupported task for match config: " + cfg['task'])
-
-    return s
-
-def match_results_as_html_table(match):
     cfg = match.config['match']
     results = json.loads(match.result['results'])
 
@@ -70,6 +57,7 @@ def match_results_as_html_table(match):
         dt_header = ['Group #'] +  dt_header
         dt_values = [ ["Group " + str(groups[i])] + row for i, row in enumerate(dt_values) ]
 
+        s += "<table class='dataset-table nowrap table table-striped table-hover'>"
         s += "<thead><tr><th>"
         s += "</th><th>".join([ column_name for column_name in dt_header ])
         s += "</th></tr></thead>"
@@ -80,9 +68,35 @@ def match_results_as_html_table(match):
             s += "</td><td>".join([ str(val) for val in row])
             s += "</tr>"
         s += "</tbody>"
+        s += "</table>"
 
     elif cfg['task'] == 'assign':
-        s += "<p>Assignment Table:</p>"
+        n_lim = 5
+
+        dt_A = match.data_tables.all()[0]
+        dt_A_values = dt_A.values()
+        dt_B = match.data_tables.all()[1]
+        dt_B_values = dt_B.values()
+
+        header = dt_B.header()[:n_lim] + [""] + dt_A.header()[:n_lim]
+
+        s += "<table class='dataset-table nowrap table table-striped table-hover'>"
+        s += "<thead><tr><th>"
+        s += "</th><th>".join([ str(val) for val in header])
+        s += "</th></tr></thead>"
+
+        s += "<tbody>"
+        for i, pod in enumerate(results):
+            elem_B = dt_B_values[i]
+
+            for j, member in enumerate(pod):
+                elem_A = dt_A_values[j]
+                vals = elem_B[:n_lim] + ["<->"] + elem_A[:n_lim]
+                s += "<tr><td>"
+                s += "</td><td>".join([ str(val) for val in vals])
+                s += "</td></tr>"
+        s += "</tbody>"
+        s += "</table>"
 
     else:
         raise TypeError("Unsupported task for match config: " + cfg['task'])
@@ -94,16 +108,16 @@ def match_results_for_feedback(match):
     cfg = match.config['match']
     results = json.loads(match.result['results'])
     group_numbers = [i+1 for i in range(len(results))]
-    matched_columns = [c['columns'][0] for c in cfg['components']]
 
     s = ""
     if cfg['task'] == 'cluster':
+        matched_columns = [c['columns'][0] for c in cfg['components']]
         data_table = match.data_tables.all()[0]
         dt_name = data_table.name
         data = data_table.data['data']
 
         for i, pod in enumerate(results):
-            s += "<div class='feedbackGroup" + str(i+1) + " feedbackGroup' style='display:none;'>"
+            s += "<div class='feedbackGroup" + str(i+1) + " feedbackGroup well' style='display:none;'>"
             s += "<h2>Group #" + str(i+1) + " " + dt_name + "</h2>"
             for j, member in enumerate(pod):
                 s += "<div class='row' style='margin-left: 20px; margin-top: 30px;'>"
@@ -127,7 +141,40 @@ def match_results_for_feedback(match):
             s += "</div>"
 
     elif cfg['task'] == 'assign':
-        s += "<p>Assignment Table:</p>"
+        dt_A = match.data_tables.all()[0]
+        data_A = dt_A.data['data']
+        matched_columns_A = [c['columns'][0] for c in cfg['components']]
+
+        dt_B = match.data_tables.all()[1]
+        data_B = dt_B.data['data']
+
+        for i, pod in enumerate(results):
+            s += "<div class='feedbackGroup" + str(i+1) + " feedbackGroup' style='display:none;'>"
+            s += "<div class='row'>"
+            s += "<div class='col-md-6'><div class='well'>"
+            s += "<h3>" + dt_B.name + " #" + str(i+1) + "</h3>"
+
+            s += "<table style='border-collapse: separate; border-spacing: 10px 4px;'>"
+            for col_name in data_B[i]:
+                s += "<tr><td><b>" + col_name + "</b></td><td>" + str(data_B[i][col_name]) + "</td></tr>"
+            s += "</table></div></div>"
+
+            s += "<div class='col-md-6'><div class='well'>"
+            for j, member in enumerate(pod):
+                s += "<h3>Matched " + dt_A.name + " #" + str(j+1) + "</h3>"
+
+                s += "<table style='border-collapse: separate; border-spacing: 10px 4px;'>"
+                for col_name in matched_columns_A:
+                    s += "<tr><td><b>" + col_name + "</b></td><td>" + str(data_A[j][col_name]) + "</td>"
+                    s += "<td><a href='#'>Strong Match</a><br /><a href='#'>Weak Match</a></td></tr>"
+
+                unmatched_columns_A = [col for col in data_A[j].keys() if col not in matched_columns_A]
+                for col_name in unmatched_columns_A:
+                    s += "<tr><td><b>" + col_name + "</b></td><td>" + str(data_A[j][col_name]) + "</td></tr>"
+                s += "</table>"
+
+            s += "</div></div>"
+            s += "</div></div>"
 
     else:
         raise TypeError("Unsupported task for match config: " + cfg['task'])
@@ -206,6 +253,8 @@ def match_request_to_config(request):
     match_config = {
         "task": task
     }
+
+    print(req)
 
     if task == 'cluster':
         match_config['algorithm'] = {

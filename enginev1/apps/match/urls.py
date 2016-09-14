@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^feedback_employeerole/$', views.feedback_employeerole, name='feedback_employeerole'),
     url(r'^run/(?P<match_id>\w+)$', views.run, name="run"),
     url(r'^delete/(?P<match_id>\w+)$', views.delete, name="delete"),
+    url(r'^ajax/data_table_columns/$', views.data_table_columns, name='data_table_columns')
 ]

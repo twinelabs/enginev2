@@ -1,0 +1,33 @@
+{
+  'load': [
+    {
+      'data_table': {
+        'id': 12
+      }
+    }, {
+      'data_table': {
+        'id': 13
+      }
+    }
+  ],
+  'match': {
+    'task': 'assign',
+    'weights': [
+      5
+    ],
+    'algorithm': {
+      'params': {
+        'capacity': 5
+      }
+    },
+    'components': [
+      {
+        'function': 'equality',
+        'columns': [
+          'Department',
+          'Department'
+        ]
+      }
+    ]
+  }
+}

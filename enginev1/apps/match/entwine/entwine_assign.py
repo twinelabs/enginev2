@@ -1,56 +1,70 @@
 """
-run_assign
+entwine_assign
 --------
 
-Runs matching process for assignment.
+Runs matching process for assignment task.
 """
 
 import time
-import yaml
-import sys
-
-import pandas as pd
 
 import matching.assign.utility
 import matching.assign.run_new
+import etl.load
 
-# Loads data or a file. Returns a pandas dataframe.
-def load(load_config):
-    if len(load_config) != 2:
-        print('Should specify two files for assignment task.')
-        return None
-    dfs = []
-    for d in load_config:
-        if 'data_table' in d:
-            obj = d['data']['obj']
-            if d['data']['type'] == 'json':
-                dfs.append(pd.read_json(obj))
-            else:
-                print('Please provide a valid data type.')
-        elif 'file' in d:
-            f = d['file']['name']
-            if d['file']['type'] == 'csv':
-                dfs.append(pd.DataFrame.from_csv(f))
-            else:
-                print('Please provide a valid file type.')
-        else:
-            print('Please provide data or file.')
-                  
+
+def load(load_cfg):
+    """ Loads 2 data frames for assignment.
+    """
+
+    if len(load_cfg) != 2:
+        raise ValueError('Should load only two files for assignment task.')
+
+    dfs = etl.load.load_from_config(load_cfg)
     return dfs
 
 
-# Runs assignment
+def assign_analytics(dfs, assignments):
+    return None
+
+
 def assign(dfs, match_cfg):
+    """ Runs assignment using match configuration parameters.
+    Returns results, simple statistics, and analytics.
+    """
+
+    start_time = time.time()
+
     utility_matrix = matching.assign.utility.utility_matrix(dfs, match_cfg)
-    results = matching.assign.run_new.residency(utility_matrix, match_cfg)
-    return results
+    utility_time = time.time()
+
+    assignments = matching.assign.run_new.residency(utility_matrix, match_cfg)
+    results_time = time.time()
+
+    output = {}
+    output['results'] = assignments
+
+    stats = [
+        { 'name': 'utility_time', 'value': utility_time - start_time },
+        { 'name': 'results_time', 'value': results_time - utility_time },
+        { 'name': 'total_time', 'value': results_time - start_time },
+        { 'name': 'n_A', 'value': dfs[0].shape[0] },
+        { 'name': 'n_B', 'value': dfs[1].shape[0] },
+        { 'name': 'n_components', 'value': len(match_cfg['components']) }
+    ]
+    output['stats'] = stats
+
+    output['analytics'] = assign_analytics(dfs, assignments)
+
+    return output
 
 
 def entwine_assign(config):
     """ Loads data objects and match config, runs assignment.
     """
 
-    dfs = load(config['load'])
+    load_cfg = config['load']
+    dfs = load(load_cfg)
+
     match_cfg = config['match']
     output = assign(dfs, match_cfg)
 

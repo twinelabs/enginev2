@@ -6,39 +6,21 @@ Runs matching process for clustering task.
 """
 
 import time
-import pandas as pd
 
 import matching.clustering.distance
 import matching.clustering.run_new
+import etl.load
 
-from enginev1.apps.dataset import models
 
-
-def load(load_config):
-    """ Loads data object from DataTable or file.
-    Stores as (or converts to) pandas dataframe.
+def load(load_cfg):
+    """ Loads data frame for clustering.
     """
 
-    if len(load_config) != 1:
-        raise ValueError('Should only specify one file for clustering task.')
+    if len(load_cfg) != 1:
+        raise ValueError('Should load only one file for clustering task.')
 
-    d = load_config[0]
-
-    if 'data_table' in d:
-        data_table_id = d['data_table']['id']
-        data_table = models.DataTable.objects.get(pk=data_table_id)
-        df = data_table.as_df()
-
-    elif 'file' in d:
-        f = d['file']['name']
-        if d['file']['type'] == 'csv':
-            df = pd.DataFrame.from_csv(f)
-        else:
-            raise TypeError('Unsupported or missing file type. (in config[load][file][type])')
-
-    else:
-        raise TypeError('Unsupported or missing load data. (in config[load]')
-    
+    dfs = etl.load.load_from_config(load_cfg)
+    df = dfs[0]
     return df
 
 
@@ -81,7 +63,9 @@ def entwine_cluster(config):
     """ Loads data and match config, runs clustering.
     """
 
-    df = load(config['load'])
+    load_cfg = config['load']
+    df = load(load_cfg)
+
     match_cfg = config['match']
     output = cluster(df, match_cfg)
 

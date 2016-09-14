@@ -1,0 +1,29 @@
+{
+  'load': [
+    {
+      'data_table': {
+        'id': 12
+      }
+    }
+  ],
+  'match': {
+	'task': 'cluster',
+    'weights': [
+      5
+    ],
+    'components': [
+      {
+        'function': 'binary_same',
+        'columns': [
+          'Degree'
+        ]
+      }
+    ],
+    'algorithm': {
+      'params': {
+        'k_size': 5
+      },
+      'name': 'random'
+    }
+  }
+}

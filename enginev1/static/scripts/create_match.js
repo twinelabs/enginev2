@@ -50,9 +50,23 @@ $(document).ready(function(){
         });
     }
 
+    function displayColumns(data_table_id) {
+        $.ajax({
+            url: '/match/ajax/data_table_columns',
+            data: {
+                'data_table_id': data_table_id
+            },
+            dataType: 'json',
+            success: function(data) {
+                alert(data.message);
+            }
+        });
+    }
+
     $('#data_tables_single').change( function() {
         data_table_id = $(this).val();
         changeSingleDataSet(data_table_id);
+//        displayColumns(data_table_id);
     });
 
 

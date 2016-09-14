@@ -27,9 +27,7 @@
     <div class="well">
         {% if has_results %}
             <h3>Match Results</h3>
-            <table class="dataset-table nowrap table table-striped table-hover">
-                {{ result_html_table | safe }}
-            </table>
+            {{ result_html | safe }}
         {% else %}
             <a href="/match/run/{{ match.id }}" class="btn btn-primary">Run Match</a>
         {% endif %}

@@ -5,6 +5,7 @@ matching.assign.utility
 Generate a utility matrix from two data sets. Used for assignment.
 """
 
+import pdb
 import numpy as np
 
 def intersect(a, b):

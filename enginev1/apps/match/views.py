@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 
 import datetime
@@ -10,6 +10,18 @@ from .entwine import entwine
 from .models import *
 from .utils import *
 from .forms import MatchForm
+
+
+def data_table_columns(request):
+    data_table_id = request.GET.get('data_table_id', None)
+    data_table = DataTable.objects.get(pk=data_table_id)
+    data_columns = DataColumn.objects.filter(data_table=data_table)
+    column_names = [ c.name for c in data_columns]
+    message = ", ".join(column_names)
+    data = {
+        'message': message
+    }
+    return JsonResponse(data)
 
 
 @login_required
@@ -28,10 +40,8 @@ def view(request, match_id):
     has_results = match.has_results()
     if has_results:
         result_html = match_results_as_html(match)
-        result_html_table = match_results_as_html_table(match)
     else:
         result_html = None
-        result_html_table = None
 
     context = {
         'c': c,
@@ -42,7 +52,6 @@ def view(request, match_id):
         'has_results': has_results,
         'config_html': config_html,
         'result_html': result_html,
-        'result_html_table': result_html_table
     }
 
     return render(request, 'match/view.html', context)
@@ -101,12 +110,7 @@ def create(request):
             name = match_form.cleaned_data['name']
             cfg = match_request_to_config(request.POST)
 
-#            print("==== AFTER ====")
-#            print(cfg)
-#
-#            pdb.set_trace()
-#            cfg['load'] = json.loads(cfg['load'])
-#            cfg['match'] = json.loads(cfg['match'])
+            # cfg = {u'load': [{u'data_table': {u'id': 12}}, {u'data_table': {u'id': 13}}], u'match': {u'task': u'assign', u'weights': [5], u'algorithm': {u'params': {u'capacity': 5}}, u'components': [{u'function': u'equality', u'columns': [u'Department', u'Department']}]}}
 
             match = Match(client=c, name=name, config=cfg)
             match.save()
