@@ -14,7 +14,8 @@ from enginev1.apps.dataset.utils import import_csv_as_data_table
 # username, password, superuser, staff
 users = [
     ['twineadmin', 'twineadmin', True, True],
-    ['demo', 'demo', False, False]
+    ['demo', 'demo', False, False],
+    ['demo_nielsen', 'demo_nielsen', False, False]
 ]
 
 for username, pw, superuser, staff in users:
@@ -24,7 +25,6 @@ for username, pw, superuser, staff in users:
     u.is_staff = staff
     u.save()
 
-
 # ====
 # CREATE CLIENTS
 # ====
@@ -32,6 +32,7 @@ for username, pw, superuser, staff in users:
 clients = [
     { 'user_id': 1, 'company_name': 'Twine Admin', 'first_name': 'Twine', 'last_name': 'Admin' },
     { 'user_id': 2, 'company_name': 'Demo', 'first_name': 'User', 'last_name': 'User' },
+    { 'user_id': 3, 'company_name': 'Nielsen', 'first_name': 'Chris', 'last_name': 'Louie' },
 ]
 
 for client_args in clients:
@@ -39,11 +40,11 @@ for client_args in clients:
     c.save()
 
 
-# ====
+company_name = 'Demo'
+
 # CREATE DATA SETS
 # ====
-
-client = Client.objects.filter(company_name = 'Demo')[0]
+client = Client.objects.filter(company_name = company_name)[0]
 
 csv_roles = './fixtures/roles.csv'
 dt_roles_id = import_csv_as_data_table(client, 'Open Roles', csv_roles)
@@ -53,15 +54,12 @@ csv_employees = './fixtures/employees.csv'
 dt_employees_id = import_csv_as_data_table(client, 'Employees', csv_employees)
 dt_employees = DataTable.objects.get(pk=dt_employees_id)
 
-
-# ====
 # CREATE MATCH (ASSIGN)
 # ====
-
 assign_name = 'Internal Mobility'
 
 with open('./fixtures/match_cfg_assign.json') as f:
-  assign_cfg = json.load(f, strict=False)
+    assign_cfg = json.load(f, strict=False)
 
 assign_match = Match(client=client, name=assign_name, config=assign_cfg)
 assign_match.save()
@@ -70,15 +68,13 @@ assign_match.data_tables.add(dt_employees)
 assign_match.data_tables.add(dt_roles)
 assign_match.save()
 
-
-# ====
 # CREATE MATCH (GROUP)
 # ====
 
 group_name = 'Diverse Employee Teams'
 
 with open('./fixtures/match_cfg_group.json') as f:
-  group_cfg = json.load(f, strict=False)
+    group_cfg = json.load(f, strict=False)
 
 group_match = Match(client=client, name=group_name, config=group_cfg)
 group_match.save()

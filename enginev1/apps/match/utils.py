@@ -56,7 +56,7 @@ def match_results_as_html(match):
                 groups[member] = i
 
         dt_header = ['Group #'] +  dt_header
-        dt_values = [ ["Group " + str(groups[i])] + row for i, row in enumerate(dt_values) ]
+        dt_values = [ [ groups[i] ] + row for i, row in enumerate(dt_values) ]
 
         s += "<table class='dataset-table nowrap table table-striped table-hover'>"
         s += "<thead><tr><th>"
