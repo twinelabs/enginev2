@@ -6,12 +6,26 @@
     width: 100%;
     font-size: 14px;
 
+    thead > tr {
+        height: 60px;
+    }
+
+    tbody > tr {
+        height: 120px;
+    }
+
     th {
         text-align: center;
     }
 
     tr {
-        height: 90px;
+        border-radius:10px;
+        padding-top: 20px;
+    }
+
+    tr > td {
+        vertical-align: middle;
+        border-top: 2px solid #E0E0E0;
     }
 
     tr > td:first-child {
@@ -19,14 +33,44 @@
         padding-right: 20px;
     }
 
+    tr:first-child > th:first-child {
+        border-right: 1px solid #C0C0C0;
+    }
+
+    tr:first-child > th:first-child + th {
+        border-right: 1px solid #C0C0C0;
+    }
+
+    tr:first-child + tr > th:first-child + th {
+        border-right: 1px solid #C0C0C0;
+    }
+
+    tr:first-child + tr > th:first-child + th + th + th {
+        border-right: 1px solid #C0C0C0;
+    }
+
     tr > td:first-child + td {
         padding-right: 30px;
+        border-right: 1px solid #C0C0C0;
     }
 
     tr > td:first-child + td + td {
         font-weight: bold;
         padding-left: 10px;
         padding-right: 20px;
+    }
+
+    tr > td:last-child {
+        border-left: 1px solid #C0C0C0;
+        padding-left: 20px;
+    }
+
+    tr > td:last-child > div > div:first-child {
+        float: left;
+    }
+
+    tr > td:last-child > div > div:last-child {
+        float: right;
     }
 
     th.c1 {
@@ -62,39 +106,5 @@
     .match-preference-form {
         text-align: center;
     }
-
-    tr > td {
-        vertical-align: top;
-    }
 }
-
-
-
-
-
-
-.feedbackTableA {
-    width: 100%;
-    font-size: 14px;
-    padding: 5px;
-
-    th {
-        text-align: center;
-    }
-
-    th.c1 {
-        width: 20%;
-    }
-    th.c2 {
-        width: 20%;
-    }
-    th.c3 {
-        width: 60%;
-    }
-
-    border: 1px solid black;
-}
-
-
-
 
