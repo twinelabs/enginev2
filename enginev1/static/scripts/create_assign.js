@@ -9,11 +9,25 @@ $(document).ready(function(){
     document.getElementById('match_create').style.display = 'none';
 
     // =======
+    // SHOW DIRECTION HELP
+    // =======
+
+    $('#id_direction').change( function() {
+        var direction = $(this).val();
+        var directionHelp = document.getElementById('direction_help');
+        if (direction == "onetomany") {
+            directionHelp.innerHTML = "<b>Each</b> element from 1st dataset matched with<br /><b>multiple</b> elements from 2nd dataset.";
+        } else {
+            directionHelp.innerHTML = "<b>Multiple</b> elements from 1st dataset<br />matched with <b>each</b> element from 2nd dataset.";
+        }
+    });
+
+    // =======
     // ON SELECTING NEW DATA TABLE:
     //
     // - show/hide #match_columns and #match_rules
-    // - clear #match_columns
-    // - populate columns for selected data table into #match_columns
+    // - clear #match_columns_[A/B]
+    // - populate columns for selected data table into #match_columns_[A/B]
     // =======
 
     function getDataTableColumns(data_table_id, onSuccess) {

@@ -42,8 +42,8 @@ class MatchAssignForm(forms.Form):
 
     # Direction for assignment. In config: 'assign_direction'
     DIRECTION_CHOICES = [
-        ('onetomany', 'One item Dataset #1 <> many items in Dataset #2'),
-        ('manytoone', 'Many  items in Dataset #1 <> one item in Dataset #2'),
+        ('onetomany', 'One to Many'),
+        ('manytoone', 'Many to One'),
     ]
 
     direction = forms.ChoiceField(
