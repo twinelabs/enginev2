@@ -19,7 +19,7 @@ class MatchGroupForm(forms.Form):
         choices = ALGO_CHOICES,
         required = True,
         label = 'Select algorithm.',
-        widget= forms.RadioSelect
+        widget= forms.Select
     )
 
     # Size of cluster/assign group

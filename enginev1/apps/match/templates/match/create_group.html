@@ -48,33 +48,29 @@
         <div class="well" id="match_options">
             <h3>2. Match Options</h3>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <div class="fieldWrapper">
                             <h4>Select Dataset</h4>
                             <select class="form-control" id="data_table" name="data_table">
                                 <option value="" selected="selected">-- click to select --</option>
-                                {% for data_table_id, data_table_name in data_tables %}
-                                    <option value="{{ data_table_id }}">{{ data_table_name }}</option>
+                                {% for data_table in data_tables %}
+                                    <option value="{{ data_table.id }}">{{ data_table.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-md-offset-1">
+                <div class="col-md-4 col-md-offset-2">
                     <div class="fieldWrapper">
                         {{ match_group_form.k_size.errors }}
                         <h4>Select Group Size</h4>
                         {% render_field match_group_form.k_size class+="form-control" %}
                     </div>
-                </div>
-                <div class="col-md-3 col-md-offset-1">
-                    <div class="form-group">
-                        <div class="fieldWrapper">
-                            {{ match_group_form.algo.errors }}
-                            <h4>Select Algorithm</h4>
-                            {% render_field match_group_form.algo %}
-                        </div>
+                    <div class="fieldWrapper">
+                        {{ match_group_form.algo.errors }}
+                        <h4>Select Algorithm</h4>
+                        {% render_field match_group_form.algo class+="form-control" %}
                     </div>
                 </div>
             </div>
@@ -100,10 +96,11 @@
             <h3>4. Select Matching Rules and Weights</h3>
             <div class="prefs">
                 <table class="matchTable" id="match_rules_table">
-                    <thead>
+                    <thead id="match_rules_table_head">
                         <tr>
-                            <th class="colVariable">Variable</th>
-                            <th class="colPreference">Preference</th>
+                            <th class="colAttribute">Attribute</th>
+                            <th class="colRule">Rule</th>
+                            <th class="colImportance">Importance</th>
                             <th class="colWeight">Weight</th>
                         </tr>
                     </thead>

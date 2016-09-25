@@ -74,7 +74,7 @@ $(document).ready(function(){
     // - populate/hide rule for selected column into #match_rules
     // =======
 
-    function matchPreferenceFormDiv(column_data) {
+    function matchRuleFormDiv(column_data) {
         var stringOptions  = [
             ["binary_diff", "Diverse"],
             ["binary_same", "Similar"]
@@ -94,7 +94,7 @@ $(document).ready(function(){
         for (i = 0; i < options.length; i++) {
             var option = options[i];
             var res = $('<div/>', {
-                    'class': 'match-preference-input'
+                    'class': 'match-rule-input'
                 }
             ).append( $('<input/>', {
                     'type': 'radio',
@@ -111,21 +111,35 @@ $(document).ready(function(){
         return formDiv
     }
 
-    function matchWeightFormDiv(column_data) {
+    function matchImportanceFormDiv(column_data) {
         var res = $('<div/>', {
-            'class': 'match-weight-form'
+            'class': 'match-importance-form'
         }).append(
             $('<input/>', {
                 'type': 'text',
-                'name': 'match_weight_' + column_data[0],
-                'size': '6',
-                'class': 'match-weight-input',
-                'placeholder': '1-5'
-            })
+                'name': 'match_importance_' + column_data[0],
+                'width': '50',
+                'placeholder': '1-5',
+                'class': 'match-importance-input',
+                'data-column-id': column_data[0]
+            }).on('input', function() { changeImportance(this) })
         );
         return res
     }
 
+    function matchWeightDiv(column_data) {
+        var res = $('<div/>', {
+            'class': 'match-weight'
+        }).append(
+            $('<span/>', {
+                'type': 'text',
+                'id': 'match_weight_' + column_data[0],
+                'name': 'match_weight_' + column_data[0],
+                'class': 'match-weight'
+            })
+        );
+        return res
+    }
 
     function getDataColumn(data_column_id, onSuccess) {
         $.ajax({
@@ -154,17 +168,20 @@ $(document).ready(function(){
                     )
                 ).append(
                     $('<td/>').append(
-                        matchPreferenceFormDiv(column_data)
+                        matchRuleFormDiv(column_data)
                     )
                 ).append(
                     $('<td/>').append(
-                        matchWeightFormDiv(column_data)
+                        matchImportanceFormDiv(column_data)
+                    )
+                ).append(
+                    $('<td/>').append(
+                        matchWeightDiv(column_data)
                     )
                 )
             )
         });
     }
-
 
     clickColumnButton = function(elem) {
         var button = $(elem);
@@ -185,6 +202,31 @@ $(document).ready(function(){
             var goneDiv = document.getElementById('match_rules_table_row_' + data_column_id);
             goneDiv.parentNode.removeChild(goneDiv);
         }
+    }
+
+
+    // =======
+    // ON CHANGE IMPORTANCE:
+    //
+    // - recalc weights
+    // =======
+
+    changeImportance = function(elem) {
+
+        var sumImportance = 0;
+
+        $('.match-importance-input').each(function(i) {
+            sumImportance += +$(this).val();
+        });
+
+        $('.match-importance-input').each(function(i) {
+            var importance = +$(this).val();
+            var weight = importance / sumImportance;
+            var weightPct = (weight * 100).toFixed(1) + "%";
+
+            data_column_id = $(this)[0].getAttribute('data-column-id');
+            $('#match_weight_' + data_column_id)[0].innerHTML = weightPct;
+        });
     }
 
 });

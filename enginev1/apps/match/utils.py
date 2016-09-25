@@ -255,7 +255,7 @@ def create_group_request_to_config(request):
         "match": {
             "task": "cluster",
             "algorithm": {
-                "name": req['algo_name'][0],
+                "name": req['algo'][0],
                 "params": {
                     "k_size": int(req['k_size'][0])
                 }
@@ -263,20 +263,17 @@ def create_group_request_to_config(request):
         }
     }
 
-#    for key in req:
-#        if key[:10] == 'match_rule_':
-
     components = []
     weights = []
-
-
-    for column_id_s in req['match_columns']:
-        column_id = int(column_id_s)
-        components.append({
-            "columns": [models.DataColumn.objects.get(pk=column_id).name],
-            "function": req['match_rule_' + str(column_id)][0]
-        })
-        weights.append(int(req['match_weight_' + str(column_id)][0]))
+    
+    for key in req:
+        if key[:11] == 'match_rule_':
+            column_id = int(key[11:])
+            components.append({
+                "columns": [models.DataColumn.objects.get(pk=column_id).name],
+                "function": req['match_rule_' + str(column_id)][0]
+            })
+            weights.append(int(req['match_importance_' + str(column_id)][0]))
 
     config['match']['components'] = components
     config['match']['weights'] = weights

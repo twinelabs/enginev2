@@ -1,10 +1,56 @@
-#task_cluster_options, #task_assign_options, #task_assign_columns, #task_cluster_columns, #matching_rules {
-    display: none;
+
+.match_column_button {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-.matching_rule {
-    display: none;
+.matchTable {
+    width: 100%;
+
+    tr {
+        vertical-align: center;
+        border: 1px solid #C0C0C0;
+    }
+
+    thead tr {
+        height: 50px;
+    }
+
+    tbody tr {
+        height: 80px;
+    }
+
+    th.colAttribute {
+        width: 30%;
+    }
+
+    th.colRule {
+        width: 30%;
+    }
+
+    th.colImportance {
+        width: 20%;
+    }
+
+    th.colWeight {
+        width: 20%;
+    }
+
+    tr th {
+        padding-left: 10px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    tr td {
+        padding-left: 20px;
+    }
+
 }
+
+
+
+// OLD
 
 .match-type {
     select.custom-search-dropdown {
@@ -125,47 +171,9 @@
 
 //////////
 
-.matchTable {
-    width: 100%;
+.match-rule-form {
 
-    tr {
-        height: 80px;
-        vertical-align: center;
-    }
-}
-
-th {
-    font-weight: bold;
-    font-size: 18px;
-}
-
-th.colVariable {
-    width: 20%;
-}
-
-th.colVariable1 {
-    width: 25%;
-}
-
-th.colVariable2 {
-    width: 25%;
-}
-
-th.colPreference {
-    width: 30%;
-}
-
-th.colWeight {
-    width: 15%;
-}
-
-th.colAutoWeight {
-    width: 5%;
-}
-
-.match-preference-form {
-
-    .match-preference-input {
+    .match-rule-input {
 
         display: inline-block;
         text-align: center;
@@ -177,10 +185,6 @@ th.colAutoWeight {
             font-weight: normal;
         }
     }
-}
-
-.match-weight-form {
-    padding-left: 15px;
 }
 
 .match-buttons {

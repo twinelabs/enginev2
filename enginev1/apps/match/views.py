@@ -102,9 +102,7 @@ def create_group(request):
     matches = c.match_set.all()
 
     if request.method == 'POST':
-        match_form = MatchGroupForm(data=request.POST)
-
-        name = match_form.cleaned_data['name']
+        name = request.POST['name']
         cfg = create_group_request_to_config(request.POST)
 
         try:
