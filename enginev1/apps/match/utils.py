@@ -234,59 +234,52 @@ def match_analytics(match):
 
     return analytics
 
-def match_request_to_config(request):
-    """ Converts match form into configured match object with configs.
+def create_group_request_to_config(request):
+    """ Converts create group form into match object with configs.
 
     :param request: request as passed in via match/create_match.html
     :return: match form object (unsaved)
     """
 
     req = dict(request.iterlists())
-
-    task = req['task'][0]
-    if task == 'cluster':
-        load_config = [{ "data_table" : { "id": int(req['data_tables_single'][0]) } }]
-    elif task == 'assign':
-        load_config = [{ "data_table" : { "id": int(id) } } for id in req['data_tables_multiple']]
-    else:
-        raise TypeError("Unsupported match TASK: " + task )
-
-    match_config = {
-        "task": task
-    }
-
     print(req)
 
-    if task == 'cluster':
-        match_config['algorithm'] = {
-            'name': req['cluster_algo'][0],
-            'params': {
-                'k_size': int(req['k_size'][0])
+    config = {
+        "load": [
+            {
+                "data_table": {
+                    "id": int(req['data_table'][0])
+                }
+            }
+        ],
+        "match": {
+            "task": "cluster",
+            "algorithm": {
+                "name": req['algo_name'][0],
+                "params": {
+                    "k_size": int(req['k_size'][0])
+                }
             }
         }
-
-        components = []
-        weights = []
-
-
-        for column_id_s in req['task_cluster_columns']:
-            column_id = int(column_id_s)
-            components.append({
-                "columns": [ models.DataColumn.objects.get(pk=column_id).name ],
-                "function": req['cluster_rule_' + str(column_id)][0]
-            })
-            weights.append( int(req['cluster_weight_' + str(column_id)][0]) )
-
-        match_config['components'] = components
-        match_config['weights'] = weights
-
-    else:
-        raise TypeError("Unsupported match TASK: " + task )
-
-    config = {
-        "load": load_config,
-        "match": match_config
     }
+
+#    for key in req:
+#        if key[:10] == 'match_rule_':
+
+    components = []
+    weights = []
+
+
+    for column_id_s in req['match_columns']:
+        column_id = int(column_id_s)
+        components.append({
+            "columns": [models.DataColumn.objects.get(pk=column_id).name],
+            "function": req['match_rule_' + str(column_id)][0]
+        })
+        weights.append(int(req['match_weight_' + str(column_id)][0]))
+
+    config['match']['components'] = components
+    config['match']['weights'] = weights
 
     return config
 

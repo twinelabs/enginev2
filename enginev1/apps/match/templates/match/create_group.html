@@ -1,0 +1,150 @@
+{% extends 'sidebar_page.html' %}
+
+{% load bootstrap3 %}
+{% load widget_tweaks %}
+
+{% block title %}Create Match - Group{% endblock %}
+{% block header_block %}
+    <div class="col-sm-8">
+        <h2 class="headerLine">Create Match - Group</h2>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="dropdown">
+            <br />
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                View Sample Groupings
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="/match/create_employeerole">Employee/Role Match</a></li>
+                <li class="divider"></li>
+                <li><a href="/match/create">Create New Match</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content_block %}
+
+    <form id="user_form" method="post" action="/match/create_group/"
+        enctype="multipart/form-data" class="form">
+
+        {% csrf_token %}
+        {{ match_group_form.non_field_errors }}
+
+        <div class="well" id="match_name">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="input-group">
+                        <h3>1. Match Name</h3>
+                        <input name="name" type="text" size="100" class="form-control">
+                        <p>Pick something unique and descriptive, like "Employee/Mentor Match - July 2016"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well" id="match_options">
+            <h3>2. Match Options</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="fieldWrapper">
+                            <h4>Select Dataset</h4>
+                            <select class="form-control" id="data_table" name="data_table">
+                                <option value="" selected="selected">-- click to select --</option>
+                                {% for data_table_id, data_table_name in data_tables %}
+                                    <option value="{{ data_table_id }}">{{ data_table_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                    <div class="fieldWrapper">
+                        {{ match_group_form.k_size.errors }}
+                        <h4>Select Group Size</h4>
+                        {% render_field match_group_form.k_size class+="form-control" %}
+                    </div>
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                    <div class="form-group">
+                        <div class="fieldWrapper">
+                            {{ match_group_form.algo.errors }}
+                            <h4>Select Algorithm</h4>
+                            {% render_field match_group_form.algo %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well" id="match_columns">
+            <h3>3. Select Columns</h3>
+            <div class="row columnButton" id="match_columns_select">
+<!--
+    {% for data_table_id, data_column_id, data_column_name, data_column_dtype in match_group_form.data_columns %}
+        <div class="col-md-3" data-column="none" data-dt-id="{{ data_table_id }}">
+            <a data-dc-id="{{ data_column_id }}" class="btn btn-default match_column_button">
+                <input id="match_columns_checkbox_{{ data_column_id }}" name="match_columns" type="checkbox" value="{{ data_column_id }}" style="display: none;" />
+                {{ data_column_name }}
+            </a>
+        </div>
+    {% endfor %}
+-->
+            </div>
+        </div>
+
+        <div class="well custom-search-options" id="match_rules">
+            <h3>4. Select Matching Rules and Weights</h3>
+            <div class="prefs">
+                <table class="matchTable" id="match_rules_table">
+                    <thead>
+                        <tr>
+                            <th class="colVariable">Variable</th>
+                            <th class="colPreference">Preference</th>
+                            <th class="colWeight">Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody id="match_rules_table_body">
+<!--                        {% for data_table_id, data_column_id, data_column_name, data_column_dtype in match_group_form.data_columns %}
+                            <tr id="cluster_rule_row_{{ data_column_id }}" class="matchinXg_rule clusterX_rule_for_data_table_{{ data_table_id }}">
+                                <td><h4>{{ data_column_name }}</h4></td>
+                                <td>
+                                    <div class='match-preference-form'>
+                                        {% if data_column_dtype == 'int64' %}
+                                            {% for option_value, display_string in match_group_form.cluster_rule_numeric_options %}
+                                                <div class='match-preference-input'>
+                                                    <input type='radio' name='cluster_rule_{{ data_column_id }}' value='{{ option_value }}'><label for='gender-prefs0'>{{ display_string }}</label>
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            {% for option_value, display_string in match_group_form.cluster_rule_string_options %}
+                                                <div class='match-preference-input'>
+                                                    <input type='radio' name='cluster_rule_{{ data_column_id }}' value='{{ option_value }}'><label for='gender-prefs0'>{{ display_string }}</label>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='match-weight-form'>
+                                        <input type='text' name='cluster_weight_{{ data_column_id }}' size='6' class='match-weight-input' placeholder='1-5' value='5'>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="well" id="match_create">
+            <h3>Create Match</h3>
+            <input type="submit" name="submit" value="Create Match" class="btn btn-success"/>
+        </div>
+    </form>
+
+{% endblock %}

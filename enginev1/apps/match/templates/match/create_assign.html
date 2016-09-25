@@ -210,7 +210,52 @@
             </div>
         </div>
 
-        <div id="matching_rules" class="well custom-search-options">
+        <div id="task_cluster_rules" class="well custom-search-options">
+            <h3>5. Select Matching Rules and Weights</h3>
+            <div class="prefs">
+                <table class="matchTable">
+                    <thead>
+                        <tr>
+                            <th class="colVariable">Variable</th>
+                            <th class="colPreference">Preference</th>
+                            <th class="colWeight">Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data_table_id, data_column_id, data_column_name, data_column_dtype in match_form.data_columns %}
+                            <tr id="cluster_rule_row_{{ data_column_id }}" class="matching_rule cluster_rule_for_data_table_{{ data_table_id }}">
+                                <td><h4>{{ data_column_name }}</h4></td>
+                                <td>
+                                    <div class='match-preference-form'>
+                                        {% if data_column_dtype == 'int64' %}
+                                            {% for option_value, display_string in match_form.cluster_rule_numeric_options %}
+                                                <div class='match-preference-input'>
+                                                    <input type='radio' name='cluster_rule_{{ data_column_id }}' value='{{ option_value }}'><label for='gender-prefs0'>{{ display_string }}</label>
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            {% for option_value, display_string in match_form.cluster_rule_string_options %}
+                                                <div class='match-preference-input'>
+                                                    <input type='radio' name='cluster_rule_{{ data_column_id }}' value='{{ option_value }}'><label for='gender-prefs0'>{{ display_string }}</label>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='match-weight-form'>
+                                        <input type='text' name='cluster_weight_{{ data_column_id }}' size='6' class='match-weight-input' placeholder='1-5' value='5'>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div id="task_assign_rules" class="well custom-search-options">
             <h3>5. Select Matching Rules and Weights</h3>
             <div class="prefs">
                 <table class="matchTable">

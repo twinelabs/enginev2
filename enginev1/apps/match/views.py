@@ -8,19 +8,7 @@ import json
 
 from .models import *
 from .utils import *
-from .forms import MatchForm
-
-
-def data_table_columns(request):
-    data_table_id = request.GET.get('data_table_id', None)
-    data_table = DataTable.objects.get(pk=data_table_id)
-    data_columns = DataColumn.objects.filter(data_table=data_table)
-    column_names = [ c.name for c in data_columns]
-    message = ", ".join(column_names)
-    data = {
-        'message': message
-    }
-    return JsonResponse(data)
+from .forms import MatchGroupForm
 
 
 @login_required
@@ -66,7 +54,6 @@ def feedback(request, match_id):
     if match.client != c:
         return HttpResponse("You are not permissioned.")
 
-
     (group_numbers, feedback_s) = match_results_for_feedback(match)
 
     context = {
@@ -108,7 +95,47 @@ def feedback_employeerole(request):
 
 
 @login_required
-def create(request):
+def create_group(request):
+
+    c = request.user.client
+    data_tables = c.datatable_set.all()
+    matches = c.match_set.all()
+
+    if request.method == 'POST':
+        match_form = MatchGroupForm(data=request.POST)
+
+        name = match_form.cleaned_data['name']
+        cfg = create_group_request_to_config(request.POST)
+
+        try:
+            match = Match(client=c, name=name, config=cfg)
+            match.save()
+
+            data_table_id = cfg['load'][0]['data_table']['id']
+            data_table = DataTable.objects.get(pk=data_table_id)
+            match.data_tables.add(data_table)
+            match.save()
+
+            return HttpResponseRedirect('/match/view/' + str(match.id))
+
+        except:
+            return HttpResponse("Improper match parameters")
+
+
+    else:
+        match_group_form = MatchGroupForm()
+        context = {
+            'c': c,
+            'data_tables': data_tables,
+            'matches': matches,
+            'match_group_form': match_group_form
+        }
+
+    return render(request, 'match/create_group.html', context)
+
+
+@login_required
+def create_assign(request):
 
     c = request.user.client
     data_tables = c.datatable_set.all()
@@ -120,9 +147,7 @@ def create(request):
         if match_form.is_valid():
 
             name = match_form.cleaned_data['name']
-            cfg = match_request_to_config(request.POST)
-
-            # cfg = {u'load': [{u'data_table': {u'id': 12}}, {u'data_table': {u'id': 13}}], u'match': {u'task': u'assign', u'weights': [5], u'algorithm': {u'params': {u'capacity': 5}}, u'components': [{u'function': u'equality', u'columns': [u'Department', u'Department']}]}}
+            cfg = create_assign_request_to_config(request.POST)
 
             match = Match(client=c, name=name, config=cfg)
             match.save()
@@ -132,7 +157,6 @@ def create(request):
                 data_table = DataTable.objects.get(pk=data_table_id)
                 match.data_tables.add(data_table)
             match.save()
-
 
             return HttpResponseRedirect('/match/view/' + str(match.id))
 
@@ -148,7 +172,7 @@ def create(request):
             'match_form': match_form
         }
 
-    return render(request, 'match/create.html', context)
+    return render(request, 'match/create_assign.html', context)
 
 
 @login_required

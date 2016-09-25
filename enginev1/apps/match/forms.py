@@ -1,31 +1,6 @@
 from django import forms
 
-from enginev1.apps.dataset.models import DataTable, DataColumn
-
-class MatchForm(forms.Form):
-
-    def __init__(self, client, *args, **kwargs):
-        super(MatchForm, self).__init__(*args, **kwargs)
-
-        self.data_tables = [
-            (data_table.id, data_table.name) for data_table in DataTable.objects.filter(client=client)
-        ]
-
-        self.data_columns = [
-            (data_column.data_table.id, data_column.id, data_column.name, data_column.dtype) for data_column in DataColumn.objects.filter(data_table__client=client)
-        ]
-
-        self.cluster_rule_string_options = [
-            ("binary_diff", "By Difference"),
-            ("binary_same", "By Similarity")
-        ]
-
-        self.cluster_rule_numeric_options = [
-            ("euclidean_distance", "Maximize Distance"),
-            ("euclidean_distance", "Minimize Distance")
-        ]
-
-        self.cluster_algos = ["greedy", "greedy_adaptive", "random"]
+class MatchGroupForm(forms.Form):
 
     # Name of match (object field)
     name = forms.CharField(
@@ -33,49 +8,59 @@ class MatchForm(forms.Form):
         label="Match name"
     )
 
-    # Matching task. In config: 'task'
-    TASK_CHOICES = [
-        ('cluster', 'Cluster/Pair (within 1 dataset)'),
-        ('assign', 'Assign (across 2 datasets) - NOT YET IMPLEMENTED'),
+    # Cluster algorithm
+    ALGO_CHOICES = [
+        ('greedy', 'Quick and simple result'),
+        ('greedy_adaptive', 'Thorough search'),
+        ('random', 'Ignore rules - random assignment')
     ]
 
-    task = forms.ChoiceField(
-        choices=TASK_CHOICES,
+    algo = forms.ChoiceField(
+        choices = ALGO_CHOICES,
         required = True,
-        label='Select matching operation.',
+        label = 'Select algorithm.',
         widget= forms.RadioSelect
     )
 
-    # Size of cluster/assign group. In config: 'k_size'
+    # Size of cluster/assign group
     k_size = forms.IntegerField(
+        required = True,
+        label = "Enter group size",
+        max_value = 10,
+        min_value = 1,
+        initial = 5
+    )
+
+
+class MatchAssignForm(forms.Form):
+
+    # Name of match (object field)
+    name = forms.CharField(
         required=True,
-        label="Enter cluster size.",
-        max_value=10,
-        min_value=1,
-        initial=5
+        label="Match name"
     )
 
     # Direction for assignment. In config: 'assign_direction'
-    ASSIGN_DIRECTION_CHOICES = [
+    DIRECTION_CHOICES = [
         ('onetomany', 'Match each item in Dataset #1 to multiple items in Dataset #2'),
         ('manytoone', 'Match multiple items in Dataset #1 to each item in Dataset #2'),
     ]
 
-    assign_direction = forms.ChoiceField(
-        choices=ASSIGN_DIRECTION_CHOICES,
+    direction = forms.ChoiceField(
+        choices=DIRECTION_CHOICES,
         required = False,
         label='Select direction for assignment.',
         widget= forms.RadioSelect
     )
 
     # T/F duplicates for assignment. In config: 'assign_duplicates'
-    ASSIGN_DUPLICATES_CHOICES = [
+    DUPLICATES_CHOICES = [
         (True, 'Allow duplicates.'),
         (False, 'Do not allow duplicates'),
     ]
 
-    assign_duplicates = forms.ChoiceField(
-        choices=ASSIGN_DUPLICATES_CHOICES,
+    duplicates = forms.ChoiceField(
+        choices=DUPLICATES_CHOICES,
         required = False,
         label='Are duplicates allowed in assignment?',
         widget= forms.RadioSelect
