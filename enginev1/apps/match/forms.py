@@ -42,20 +42,20 @@ class MatchAssignForm(forms.Form):
 
     # Direction for assignment. In config: 'assign_direction'
     DIRECTION_CHOICES = [
-        ('onetomany', 'Match each item in Dataset #1 to multiple items in Dataset #2'),
-        ('manytoone', 'Match multiple items in Dataset #1 to each item in Dataset #2'),
+        ('onetomany', 'One item Dataset #1 <> many items in Dataset #2'),
+        ('manytoone', 'Many  items in Dataset #1 <> one item in Dataset #2'),
     ]
 
     direction = forms.ChoiceField(
         choices=DIRECTION_CHOICES,
         required = False,
         label='Select direction for assignment.',
-        widget= forms.RadioSelect
+        widget= forms.Select
     )
 
     # T/F duplicates for assignment. In config: 'assign_duplicates'
     DUPLICATES_CHOICES = [
-        (True, 'Allow duplicates.'),
+        (True, 'Allow duplicates'),
         (False, 'Do not allow duplicates'),
     ]
 
@@ -63,7 +63,7 @@ class MatchAssignForm(forms.Form):
         choices=DUPLICATES_CHOICES,
         required = False,
         label='Are duplicates allowed in assignment?',
-        widget= forms.RadioSelect
+        widget= forms.Select
     )
 
 

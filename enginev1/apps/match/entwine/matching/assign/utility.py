@@ -82,7 +82,7 @@ def utility_matrix(dfs, match_config):
     n = len(df_A)
     m = len(df_B)
 
-    utilities = np.zeros((n,m))
+    utilities = np.zeros((n, m))
     for i in range(n):
         for j in range(m):
             sm = submatches(matching_criteria)

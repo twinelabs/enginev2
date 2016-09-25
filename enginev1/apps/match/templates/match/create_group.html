@@ -4,6 +4,10 @@
 {% load widget_tweaks %}
 
 {% block title %}Create Match - Group{% endblock %}
+{% block additional_js %}
+    <script src="/static/scripts/create_group.js"></script>
+{% endblock %}
+
 {% block header_block %}
     <div class="col-sm-8">
         <h2 class="headerLine">Create Match - Group</h2>
@@ -79,16 +83,6 @@
         <div class="well" id="match_columns">
             <h3>3. Select Columns</h3>
             <div class="row columnButton" id="match_columns_select">
-<!--
-    {% for data_table_id, data_column_id, data_column_name, data_column_dtype in match_group_form.data_columns %}
-        <div class="col-md-3" data-column="none" data-dt-id="{{ data_table_id }}">
-            <a data-dc-id="{{ data_column_id }}" class="btn btn-default match_column_button">
-                <input id="match_columns_checkbox_{{ data_column_id }}" name="match_columns" type="checkbox" value="{{ data_column_id }}" style="display: none;" />
-                {{ data_column_name }}
-            </a>
-        </div>
-    {% endfor %}
--->
             </div>
         </div>
 
@@ -105,41 +99,12 @@
                         </tr>
                     </thead>
                     <tbody id="match_rules_table_body">
-<!--                        {% for data_table_id, data_column_id, data_column_name, data_column_dtype in match_group_form.data_columns %}
-                            <tr id="cluster_rule_row_{{ data_column_id }}" class="matchinXg_rule clusterX_rule_for_data_table_{{ data_table_id }}">
-                                <td><h4>{{ data_column_name }}</h4></td>
-                                <td>
-                                    <div class='match-preference-form'>
-                                        {% if data_column_dtype == 'int64' %}
-                                            {% for option_value, display_string in match_group_form.cluster_rule_numeric_options %}
-                                                <div class='match-preference-input'>
-                                                    <input type='radio' name='cluster_rule_{{ data_column_id }}' value='{{ option_value }}'><label for='gender-prefs0'>{{ display_string }}</label>
-                                                </div>
-                                            {% endfor %}
-                                        {% else %}
-                                            {% for option_value, display_string in match_group_form.cluster_rule_string_options %}
-                                                <div class='match-preference-input'>
-                                                    <input type='radio' name='cluster_rule_{{ data_column_id }}' value='{{ option_value }}'><label for='gender-prefs0'>{{ display_string }}</label>
-                                                </div>
-                                            {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class='match-weight-form'>
-                                        <input type='text' name='cluster_weight_{{ data_column_id }}' size='6' class='match-weight-input' placeholder='1-5' value='5'>
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
--->
                     </tbody>
                 </table>
             </div>
         </div>
 
         <div class="well" id="match_create">
-            <h3>Create Match</h3>
             <input type="submit" name="submit" value="Create Match" class="btn btn-success"/>
         </div>
     </form>

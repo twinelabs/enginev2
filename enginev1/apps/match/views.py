@@ -8,7 +8,7 @@ import json
 
 from .models import *
 from .utils import *
-from .forms import MatchGroupForm
+from .forms import MatchGroupForm, MatchAssignForm
 
 
 @login_required
@@ -140,34 +140,30 @@ def create_assign(request):
     matches = c.match_set.all()
 
     if request.method == 'POST':
-        match_form = MatchForm(data=request.POST, client=c)
+        name = request.POST['name']
+        cfg = create_assign_request_to_config(request.POST)
 
-        if match_form.is_valid():
-
-            name = match_form.cleaned_data['name']
-            cfg = create_assign_request_to_config(request.POST)
-
+        try:
             match = Match(client=c, name=name, config=cfg)
             match.save()
 
-            data_table_ids = [x['data_table']['id'] for x in cfg['load']]
-            for data_table_id in data_table_ids:
-                data_table = DataTable.objects.get(pk=data_table_id)
-                match.data_tables.add(data_table)
+            data_table_id = cfg['load'][0]['data_table']['id']
+            data_table = DataTable.objects.get(pk=data_table_id)
+            match.data_tables.add(data_table)
             match.save()
 
             return HttpResponseRedirect('/match/view/' + str(match.id))
 
-        else:
-            print match_form.errors
+        except:
+            return HttpResponse("Improper match parameters")
 
     else:
-        match_form = MatchForm(client=c)
+        match_assign_form = MatchAssignForm()
         context = {
             'c': c,
             'data_tables': data_tables,
             'matches': matches,
-            'match_form': match_form
+            'match_assign_form': match_assign_form
         }
 
     return render(request, 'match/create_assign.html', context)

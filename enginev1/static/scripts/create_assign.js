@@ -27,13 +27,13 @@ $(document).ready(function(){
         });
     }
 
-    function populateSelectedColumns(data_table_id) {
+    function populateSelectedColumns(data_table_id, prefix) {
         getDataTableColumns(data_table_id, function(columns_data) {
-            var parentDiv = $(document.getElementById('match_columns_select'));
+            var parentDiv = $(document.getElementById('match_columns_select' + prefix));
             for (i = 0; i < columns_data.length; i++) {
                 var column = columns_data[i];
                 parentDiv.append(
-                    $('<div/>', {'class': 'col-md-3'}).append(
+                    $('<div/>', {'class': 'col-md-4'}).append(
                         $('<a/>', {
                             'class': 'btn btn-default match_column_button',
                             'click': function() { clickColumnButton(this) },
@@ -46,9 +46,8 @@ $(document).ready(function(){
         });
     }
 
-    function changeDataTable(data_table_id) {
-
-        document.getElementById('match_columns_select').innerHTML = '';
+    function changeDataTable(data_table_id, prefix) {
+        document.getElementById('match_columns_select' + prefix).innerHTML = '';
         document.getElementById('match_rules').style.display = 'none';
         var tableBodyDiv = $(document.getElementById('match_rules_table_body'));
         tableBodyDiv.innerHTML = '';
@@ -57,15 +56,19 @@ $(document).ready(function(){
             document.getElementById('match_columns').style.display = 'none';
         } else {
             document.getElementById('match_columns').style.display = 'block';
-            populateSelectedColumns(data_table_id);
+            populateSelectedColumns(data_table_id, prefix);
         }
     }
 
-    $('#data_table').change( function() {
+    $('#data_table_A').change( function() {
         data_table_id = $(this).val();
-        changeDataTable(data_table_id);
+        changeDataTable(data_table_id, '_A');
     });
 
+    $('#data_table_B').change( function() {
+        data_table_id = $(this).val();
+        changeDataTable(data_table_id, '_B');
+    });
 
     // =======
     // ON SELECT/DESELECT COLUMN:

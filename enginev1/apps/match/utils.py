@@ -234,11 +234,9 @@ def match_analytics(match):
 
     return analytics
 
+
 def create_group_request_to_config(request):
     """ Converts create group form into match object with configs.
-
-    :param request: request as passed in via match/create_match.html
-    :return: match form object (unsaved)
     """
 
     req = dict(request.iterlists())
@@ -265,15 +263,64 @@ def create_group_request_to_config(request):
 
     components = []
     weights = []
-    
+
     for key in req:
         if key[:11] == 'match_rule_':
             column_id = int(key[11:])
             components.append({
                 "columns": [models.DataColumn.objects.get(pk=column_id).name],
-                "function": req['match_rule_' + str(column_id)][0]
+                "function": req[key][0]
             })
             weights.append(int(req['match_importance_' + str(column_id)][0]))
+
+    config['match']['components'] = components
+    config['match']['weights'] = weights
+
+    return config
+
+
+def create_assign_request_to_config(request):
+    """ Converts create assign form into match object with configs.
+    """
+
+    req = dict(request.iterlists())
+    print(req)
+
+    config = {
+        "load": [
+            {
+                "data_table": {
+                    "id": int(req['data_table_A'][0])
+                }
+            },
+            {
+                "data_table": {
+                    "id": int(req['data_table_B'][0])
+                }
+            }
+        ],
+        "match": {
+            "task": "assign"
+        }
+    }
+
+    components = []
+    weights = []
+
+    for key in req:
+        if key[:11] == 'match_rule_':
+
+            column_id_A, column_id_B = key[11:].split('_')
+            column_id_A, column_id_B = int(column_id_A), int(column_id_B)
+
+            column_name_A = models.DataColumn.objects.get(pk=column_id_A).name
+            column_name_B = models.DataColumn.objects.get(pk=column_id_B).name
+
+            components.append({
+                "columns": [column_name_A, column_name_B],
+                "function": req[key][0]
+            })
+            weights.append(int(req['match_importance_' + key[11:]][0]))
 
     config['match']['components'] = components
     config['match']['weights'] = weights
