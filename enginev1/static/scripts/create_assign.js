@@ -1,12 +1,23 @@
 $(document).ready(function(){
 
     // =======
-    // HIDE/SHOW INITIAL
+    // HIDE/SHOW/SET INITIAL
     // =======
 
     document.getElementById('match_columns').style.display = 'none';
     document.getElementById('match_rules').style.display = 'none';
     document.getElementById('match_create').style.display = 'none';
+
+    var sel_AorB = null,
+        sel_id = null,
+        colors = ['#a0a0a0', '#b0b0b0', '#c0c0c0', '#d0d0d0'],
+        colorIndex = 0;
+
+    function clearPairings() {
+        sel_AorB = null;
+        sel_id = null;
+        colorIndex = 0;
+    }
 
     // =======
     // SHOW DIRECTION HELP
@@ -26,6 +37,7 @@ $(document).ready(function(){
     // ON SELECTING NEW DATA TABLE:
     //
     // - show/hide #match_columns and #match_rules
+    // - populate data_table_name_[A/B] header
     // - clear #match_columns_[A/B]
     // - populate columns for selected data table into #match_columns_[A/B]
     // =======
@@ -41,17 +53,19 @@ $(document).ready(function(){
         });
     }
 
-    function populateSelectedColumns(data_table_id, prefix) {
+    function populateSelectedColumns(data_table_id, AorB) {
         getDataTableColumns(data_table_id, function(columns_data) {
-            var parentDiv = $(document.getElementById('match_columns_select' + prefix));
+            var parentDiv = $(document.getElementById('match_columns_select_' + AorB));
             for (i = 0; i < columns_data.length; i++) {
                 var column = columns_data[i];
                 parentDiv.append(
                     $('<div/>', {'class': 'col-md-4'}).append(
                         $('<a/>', {
-                            'class': 'btn btn-default match_column_button',
+                            'id': 'match_column_button_' + AorB + '_' + column[0],
+                            'class': 'btn btn-default match_column_button match_column_button' + AorB,
                             'click': function() { clickColumnButton(this) },
-                            'data-checked': false,
+                            'data-pair-id': null,
+                            'data-aorb': AorB,
                             'data-dc-id': column[0]
                         }).append($('<span/>', {text: column[1]}))
                     )
@@ -60,8 +74,11 @@ $(document).ready(function(){
         });
     }
 
-    function changeDataTable(data_table_id, prefix) {
-        document.getElementById('match_columns_select' + prefix).innerHTML = '';
+    function changeDataTable(elem, AorB) {
+        data_table_id = elem.val();
+        data_table_name = elem[0].options[elem[0].selectedIndex].innerHTML;
+
+        document.getElementById('match_columns_select_' + AorB).innerHTML = '';
         document.getElementById('match_rules').style.display = 'none';
         var tableBodyDiv = $(document.getElementById('match_rules_table_body'));
         tableBodyDiv.innerHTML = '';
@@ -70,28 +87,29 @@ $(document).ready(function(){
             document.getElementById('match_columns').style.display = 'none';
         } else {
             document.getElementById('match_columns').style.display = 'block';
-            populateSelectedColumns(data_table_id, prefix);
+            document.getElementById('data_table_name_' + AorB).innerHTML = data_table_name;
+            populateSelectedColumns(data_table_id, AorB);
         }
     }
 
     $('#data_table_A').change( function() {
-        data_table_id = $(this).val();
-        changeDataTable(data_table_id, '_A');
+        changeDataTable($(this), 'A');
     });
 
     $('#data_table_B').change( function() {
-        data_table_id = $(this).val();
-        changeDataTable(data_table_id, '_B');
+        changeDataTable($(this), 'B');
     });
 
     // =======
     // ON SELECT/DESELECT COLUMN:
     //
-    // - show/hide #match_rules and #match_create
+    // - mark as selected/deselected
+    // - pair & lock with corresponding column (if selected)
     // - populate/hide rule for selected column into #match_rules
+    // - show/hide #match_rules and #match_create
     // =======
 
-    function matchRuleFormDiv(column_data) {
+    function matchRuleFormDiv(column_data_A, column_data_B, pairID) {
         var stringOptions  = [
             ["binary_diff", "Diverse"],
             ["binary_same", "Similar"]
@@ -101,7 +119,7 @@ $(document).ready(function(){
             ["euclidean_distance", "Min Distance"]
         ];
 
-        if (column_data[2] == 'int64') {
+        if (column_data_A[2] == 'int64') {
             var options = numericOptions;
         } else {
             var options = stringOptions;
@@ -115,8 +133,8 @@ $(document).ready(function(){
                 }
             ).append( $('<input/>', {
                     'type': 'radio',
-                    'name': 'match_rule_' + column_data[0],
-                    'data-column-id': column_data[0],
+                    'name': 'match_rule_' + pairID,
+                    'data-column-id': pairID,
                     'value': option[0]
                 })
             ).append(
@@ -128,96 +146,173 @@ $(document).ready(function(){
         return formDiv
     }
 
-    function matchImportanceFormDiv(column_data) {
+    function matchImportanceFormDiv(pairID) {
         var res = $('<div/>', {
             'class': 'match-importance-form'
         }).append(
             $('<input/>', {
                 'type': 'text',
-                'name': 'match_importance_' + column_data[0],
+                'name': 'match_importance_' + pairID,
                 'width': '50',
                 'placeholder': '1-5',
                 'class': 'match-importance-input',
-                'data-column-id': column_data[0]
+                'pair-id': pairID
             }).on('input', function() { changeImportance(this) })
         );
         return res
     }
 
-    function matchWeightDiv(column_data) {
+    function matchWeightDiv(pairID) {
         var res = $('<div/>', {
             'class': 'match-weight'
         }).append(
             $('<span/>', {
                 'type': 'text',
-                'id': 'match_weight_' + column_data[0],
-                'name': 'match_weight_' + column_data[0],
+                'id': 'match_weight_' + pairID,
+                'name': 'match_weight_' + pairID,
                 'class': 'match-weight'
             })
         );
         return res
     }
 
-    function getDataColumn(data_column_id, onSuccess) {
+    function getTwoDataColumns(data_column_ids, onSuccess) {
         $.ajax({
-            url: '/match/a/get_data_column',
+            url: '/match/a/get_two_data_columns',
             data: {
-                'data_column_id': data_column_id
+                'data_column_ids': data_column_ids
             },
             dataType: 'json',
             success: onSuccess
         });
     }
 
-    function createColumnRule(data_column_id) {
-        getDataColumn(data_column_id, function(column_data) {
-            var column_id = column_data[0],
-                column_name = column_data[1];
+    function createPairRule(data_column_ids_A_B) {
+        getTwoDataColumns(data_column_ids_A_B, function(column_data_A_B) {
+            var column_data_A = column_data_A_B[0],
+                column_data_B = column_data_A_B[1];
+            var pairID = 'A' + column_data_A[0] + '_B' + column_data_B[0];
 
             var tableBodyDiv = $(document.getElementById('match_rules_table_body'));
 
             tableBodyDiv.append( $('<tr/>', {
-                    'id': 'match_rules_table_row_' + column_id,
+                    'id': 'match_rules_table_row_' + pairID,
                     'class': 'match_rules_table_row'
                 }).append(
                     $('<td/>').append(
-                        $('<h4/>').append( $('<span/>', {text: column_name}) )
+                        $('<h4/>').append( $('<span/>', {text: column_data_A[1]}) )
                     )
                 ).append(
                     $('<td/>').append(
-                        matchRuleFormDiv(column_data)
+                        matchRuleFormDiv(column_data_A, column_data_B, pairID)
                     )
                 ).append(
                     $('<td/>').append(
-                        matchImportanceFormDiv(column_data)
+                        $('<h4/>').append( $('<span/>', {text: column_data_B[1]}) )
                     )
                 ).append(
                     $('<td/>').append(
-                        matchWeightDiv(column_data)
+                        matchImportanceFormDiv(pairID)
+                    )
+                ).append(
+                    $('<td/>').append(
+                        matchWeightDiv(pairID)
                     )
                 )
             )
         });
     }
 
+    function addPair(AorB, my_id, BorA, pair_id) {
+        p1 = $(document.getElementById('match_column_button_' + AorB + '_' + my_id));
+        p2 = $(document.getElementById('match_column_button_' + BorA + '_' + pair_id));
+
+        pair = document.getElementById('match_column_button_' + BorA + '_' + sel_id);
+        p1.data('pair-id', pair_id);
+        p2.data('pair-id', my_id);
+        p1.removeClass('btn-default').addClass('btn-success');
+        p2.removeClass('btn-info').addClass('btn-success');
+
+        sel_id = null;
+        sel_AorB = null;
+
+        var data_column_ids_A_B = (AorB == 'A') ? [my_id, pair_id] : [pair_id, my_id];
+        createPairRule(data_column_ids_A_B);
+    }
+
+
+    function removePair(AorB, my_id, BorA, pair_id) {
+        p1 = $(document.getElementById('match_column_button_' + AorB + '_' + my_id));
+        p2 = $(document.getElementById('match_column_button_' + BorA + '_' + pair_id));
+        p1.data('pair-id', null);
+        p2.data('pair-id', null);
+        p1.removeClass('btn-success').addClass('btn-default');
+        p2.removeClass('btn-success').addClass('btn-default');
+
+        var orderedDesc = (AorB == 'A') ? AorB + my_id + BorA + pair_id : BorA + pair_id + AorB + my_id;
+        var goneDiv = document.getElementById('match_rules_table_row_' + orderedDesc);
+        goneDiv.parentNode.removeChild(goneDiv);
+    }
+
+    function whisper(verbose, s) {
+        if (verbose) {
+            console.log(s);
+        }
+    }
+
+    // NONE = btn-default, SELECTED = btn-info, PAIRED = btn-success
+
     clickColumnButton = function(elem) {
         var button = $(elem);
-        var data_column_id = button.data("dc-id");
-        var is_checked = button.data("checked");
+        var my_id = button.data("dc-id"),
+            pair_id = button.data("pair-id"),
+            AorB = button.data("aorb");
+        var BorA = (AorB == 'A') ? 'B' : 'A';
 
-        if (!is_checked) {
-            button.data("checked", true);
+        var verbose = true;
+        whisper(verbose, 'CLICKED - my_id: ' + my_id + ', pair_id: ' + pair_id + ', AorB: ' + AorB + ', BorA: ' + BorA);
+
+        // if paired: unpair self and partner
+        if (pair_id != null) {
+            whisper(verbose, 'UNPAIRED - my_id: ' + my_id + ', pair_id: ' + pair_id + ', AorB: ' + AorB + ', BorA: ' + BorA);
+
+            removePair(AorB, my_id, BorA, pair_id);
+
+        // if something selected ...
+        } else if (sel_id != null) {
+
+            // ... if it's me: unselect
+            if (sel_id == my_id) {
+                sel_id = null;
+                sel_AorB = null;
+                button.removeClass('btn-info').addClass('btn-default');
+
+            // ... within the same data set: change to me
+            } else if (sel_AorB == AorB) {
+                whisper(verbose, 'CHANGING - my_id: ' + my_id + ', AorB: ' + AorB);
+
+                old = document.getElementById('match_column_button_' + AorB + '_' + sel_id);
+                $(old).removeClass('btn-info').addClass('btn-default');
+                button.removeClass('btn-default').addClass('btn-info');
+                sel_id = my_id;
+
+            // in the other data set: pair
+            } else {
+                whisper(verbose, 'PAIRING - my_id: ' + my_id + ', AorB: ' + AorB + ', other_id: ' + sel_id + ', BorA: ' + sel_AorB);
+
+                addPair(AorB, my_id, BorA, pair_id);
+            }
+
+        // if nothing selected: select
+        } else {
+            whisper(verbose, 'SELECTING - my_id: ' + my_id + ', AorB: ' + AorB);
+
+            sel_id = my_id;
+            sel_AorB = AorB;
             button.removeClass('btn-default').addClass('btn-info');
-            createColumnRule(data_column_id);
 
             document.getElementById('match_rules').style.display = 'block';
             document.getElementById('match_create').style.display = 'block';
-        } else {
-            button.data("checked", false);
-            button.removeClass('btn-info').addClass('btn-default');
-
-            var goneDiv = document.getElementById('match_rules_table_row_' + data_column_id);
-            goneDiv.parentNode.removeChild(goneDiv);
         }
     }
 

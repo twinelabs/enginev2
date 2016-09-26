@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^delete/(?P<match_id>\w+)$', views.delete, name="delete"),
 
     url(r'^a/get_data_table_columns/$', views_ajax.get_data_table_columns, name='get_data_table_columns'),
-    url(r'^a/get_data_column/$', views_ajax.get_data_column, name='get_data_column')
+    url(r'^a/get_data_column/$', views_ajax.get_data_column, name='get_data_column'),
+    url(r'^a/get_two_data_columns/$', views_ajax.get_two_data_columns, name='get_two_data_columns')
 ]

@@ -66,7 +66,3 @@ class MatchAssignForm(forms.Form):
         widget= forms.Select
     )
 
-
-
-
-
