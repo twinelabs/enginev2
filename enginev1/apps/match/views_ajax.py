@@ -2,6 +2,8 @@ from django.http import JsonResponse
 
 from .models import *
 
+import pdb
+
 
 def get_data_table_columns(request):
 
@@ -27,12 +29,12 @@ def get_data_column(request):
 
 def get_two_data_columns(request):
 
-    data_column_ids = request.GET.get('data_column_ids', None)
-
-    d1 = DataColumn.objects.get(pk=data_column_ids[0])
+    id_A = request.GET.get('id_A', None)
+    d1 = DataColumn.objects.get(pk=id_A)
     c1 = [d1.id, d1.name, d1.dtype]
 
-    d2 = DataColumn.objects.get(pk=data_column_ids[1])
+    id_B = request.GET.get('id_B', None)
+    d2 = DataColumn.objects.get(pk=id_B)
     c2 = [d2.id, d2.name, d2.dtype]
 
     column_data = [c1, c2]

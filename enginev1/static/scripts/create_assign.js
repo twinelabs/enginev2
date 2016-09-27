@@ -176,19 +176,20 @@ $(document).ready(function(){
         return res
     }
 
-    function getTwoDataColumns(data_column_ids, onSuccess) {
+    function getTwoDataColumns(id_A, id_B, onSuccess) {
         $.ajax({
             url: '/match/a/get_two_data_columns',
             data: {
-                'data_column_ids': data_column_ids
+                'id_A': id_A,
+                'id_B': id_B
             },
             dataType: 'json',
             success: onSuccess
         });
     }
 
-    function createPairRule(data_column_ids_A_B) {
-        getTwoDataColumns(data_column_ids_A_B, function(column_data_A_B) {
+    function createPairRule(id_A, id_B) {
+        getTwoDataColumns(id_A, id_B, function(column_data_A_B) {
             var column_data_A = column_data_A_B[0],
                 column_data_B = column_data_A_B[1];
             var pairID = 'A' + column_data_A[0] + '_B' + column_data_B[0];
@@ -223,97 +224,107 @@ $(document).ready(function(){
         });
     }
 
-    function addPair(AorB, my_id, BorA, pair_id) {
-        p1 = $(document.getElementById('match_column_button_' + AorB + '_' + my_id));
-        p2 = $(document.getElementById('match_column_button_' + BorA + '_' + pair_id));
+    function addPair(c) {
+        p1 = $(document.getElementById('match_column_button_' + c['my_AorB'] + '_' + c['my_id']));
+        p2 = $(document.getElementById('match_column_button_' + c['pair_AorB'] + '_' + c['pair_id']));
 
-        pair = document.getElementById('match_column_button_' + BorA + '_' + sel_id);
-        p1.data('pair-id', pair_id);
-        p2.data('pair-id', my_id);
+        p1.data('pair-id', c['pair_id']);
+        p2.data('pair-id', c['my_id']);
         p1.removeClass('btn-default').addClass('btn-success');
         p2.removeClass('btn-info').addClass('btn-success');
 
         sel_id = null;
         sel_AorB = null;
 
-        var data_column_ids_A_B = (AorB == 'A') ? [my_id, pair_id] : [pair_id, my_id];
-        createPairRule(data_column_ids_A_B);
+        var id_A = (c['my_AorB'] == 'A') ? c['my_id'] : c['pair_id'],
+            id_B = (c['my_AorB'] == 'A') ? c['pair_id'] : c['my_id'];
+        createPairRule(id_A, id_B);
     }
-
-
-    function removePair(AorB, my_id, BorA, pair_id) {
-        p1 = $(document.getElementById('match_column_button_' + AorB + '_' + my_id));
-        p2 = $(document.getElementById('match_column_button_' + BorA + '_' + pair_id));
+    
+    function groupID(c) {
+        if (c['my_AorB']== 'A') {
+            return 'A' + c['my_id'] + '_B' + c['pair_id']
+        } else {
+            return 'A' + c['pair_id'] + '_B' + c['my_id']
+        }
+    }
+    
+    function removePair(c) {
+        p1 = $(document.getElementById('match_column_button_' + c['my_AorB'] + '_' + c['my_id']));
+        p2 = $(document.getElementById('match_column_button_' + c['pair_AorB'] + '_' + c['pair_id']));
         p1.data('pair-id', null);
         p2.data('pair-id', null);
         p1.removeClass('btn-success').addClass('btn-default');
         p2.removeClass('btn-success').addClass('btn-default');
 
-        var orderedDesc = (AorB == 'A') ? AorB + my_id + BorA + pair_id : BorA + pair_id + AorB + my_id;
-        var goneDiv = document.getElementById('match_rules_table_row_' + orderedDesc);
+        var goneDiv = document.getElementById('match_rules_table_row_' + groupID(c));
         goneDiv.parentNode.removeChild(goneDiv);
     }
 
-    function whisper(verbose, s) {
+    function printClickStatus(verbose, c) {
         if (verbose) {
+            var s = c['action'] + " - my_id: " + c['my_id'] + ', pair_id: ' + c['pair_id'] + ', my_AorB: ' + c['my_AorB'] + ', pair_AorB: ' + c['pair_AorB'];
             console.log(s);
         }
     }
 
-    // NONE = btn-default, SELECTED = btn-info, PAIRED = btn-success
-
     clickColumnButton = function(elem) {
         var button = $(elem);
-        var my_id = button.data("dc-id"),
-            pair_id = button.data("pair-id"),
-            AorB = button.data("aorb");
-        var BorA = (AorB == 'A') ? 'B' : 'A';
+        var c = {
+            "my_id": button.data("dc-id"),
+            "pair_id": button.data("pair-id"),
+            "my_AorB": button.data("aorb"),
+            "pair_AorB": (button.data("aorb") == 'A') ? 'B' : 'A',
+            "action": "CLICKED"
+        }
 
-        var verbose = true;
-        whisper(verbose, 'CLICKED - my_id: ' + my_id + ', pair_id: ' + pair_id + ', AorB: ' + AorB + ', BorA: ' + BorA);
+        var verbose = false;
+        printClickStatus(verbose, c)
 
         // if paired: unpair self and partner
-        if (pair_id != null) {
-            whisper(verbose, 'UNPAIRED - my_id: ' + my_id + ', pair_id: ' + pair_id + ', AorB: ' + AorB + ', BorA: ' + BorA);
-
-            removePair(AorB, my_id, BorA, pair_id);
+        if (c['pair_id'] != null) {
+            c['action'] = "UNPAIR";
+            removePair(c);
 
         // if something selected ...
         } else if (sel_id != null) {
 
             // ... if it's me: unselect
-            if (sel_id == my_id) {
+            if (sel_id == c['my_id']) {
+                c['action'] = "UNSELECT";
                 sel_id = null;
                 sel_AorB = null;
                 button.removeClass('btn-info').addClass('btn-default');
 
             // ... within the same data set: change to me
-            } else if (sel_AorB == AorB) {
-                whisper(verbose, 'CHANGING - my_id: ' + my_id + ', AorB: ' + AorB);
+            } else if (sel_AorB == c['my_AorB']) {
+                c['action'] = "CHANGE";
 
-                old = document.getElementById('match_column_button_' + AorB + '_' + sel_id);
+                old = document.getElementById('match_column_button_' + c['my_AorB'] + '_' + sel_id);
                 $(old).removeClass('btn-info').addClass('btn-default');
                 button.removeClass('btn-default').addClass('btn-info');
-                sel_id = my_id;
+                sel_id = c['my_id'];
 
             // in the other data set: pair
             } else {
-                whisper(verbose, 'PAIRING - my_id: ' + my_id + ', AorB: ' + AorB + ', other_id: ' + sel_id + ', BorA: ' + sel_AorB);
-
-                addPair(AorB, my_id, BorA, pair_id);
+                c['action'] = "PAIR";
+                c['pair_id'] = sel_id;
+                addPair(c);
             }
 
         // if nothing selected: select
         } else {
-            whisper(verbose, 'SELECTING - my_id: ' + my_id + ', AorB: ' + AorB);
+            c['action'] = "SELECT";
 
-            sel_id = my_id;
-            sel_AorB = AorB;
+            sel_id = c['my_id'];
+            sel_AorB = c['my_AorB'];
             button.removeClass('btn-default').addClass('btn-info');
 
             document.getElementById('match_rules').style.display = 'block';
             document.getElementById('match_create').style.display = 'block';
         }
+
+        printClickStatus(verbose, c)
     }
 
 
@@ -336,8 +347,8 @@ $(document).ready(function(){
             var weight = importance / sumImportance;
             var weightPct = (weight * 100).toFixed(1) + "%";
 
-            data_column_id = $(this)[0].getAttribute('data-column-id');
-            $('#match_weight_' + data_column_id)[0].innerHTML = weightPct;
+            pair_id = $(this)[0].getAttribute('pair-id');
+            $('#match_weight_' + pair_id)[0].innerHTML = weightPct;
         });
     }
 
