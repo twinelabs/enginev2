@@ -150,6 +150,9 @@ def create_assign(request):
             data_table_id = cfg['load'][0]['data_table']['id']
             data_table = DataTable.objects.get(pk=data_table_id)
             match.data_tables.add(data_table)
+            data_table_id = cfg['load'][1]['data_table']['id']
+            data_table = DataTable.objects.get(pk=data_table_id)
+            match.data_tables.add(data_table)
             match.save()
 
             return HttpResponseRedirect('/match/view/' + str(match.id))

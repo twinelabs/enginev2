@@ -66,3 +66,12 @@ class MatchAssignForm(forms.Form):
         widget= forms.Select
     )
 
+    # Size of cluster/assign group
+    capacity = forms.IntegerField(
+        required = True,
+        label = "Assignment capacity",
+        max_value = 10,
+        min_value = 1,
+        initial = 3
+    )
+

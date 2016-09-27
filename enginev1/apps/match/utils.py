@@ -300,7 +300,14 @@ def create_assign_request_to_config(request):
             }
         ],
         "match": {
-            "task": "assign"
+            "task": "assign",
+            "algorithm": {
+                "params": {
+                    "capacity": int(req['capacity'][0]),
+                    "direction": req['direction'][0],
+                    "duplicates": req['duplicates'][0]
+                }
+            }
         }
     }
 
@@ -309,12 +316,14 @@ def create_assign_request_to_config(request):
 
     for key in req:
         if key[:11] == 'match_rule_':
+            group_id = key[11:]
+            print("group ID: " + group_id)
 
-            column_id_A, column_id_B = key[11:].split('_')
-            column_id_A, column_id_B = int(column_id_A), int(column_id_B)
+            tag_A, tag_B = group_id.split('_')
+            id_A, id_B = int(tag_A[1:]), int(tag_B[1:])
 
-            column_name_A = models.DataColumn.objects.get(pk=column_id_A).name
-            column_name_B = models.DataColumn.objects.get(pk=column_id_B).name
+            column_name_A = models.DataColumn.objects.get(pk=id_A).name
+            column_name_B = models.DataColumn.objects.get(pk=id_B).name
 
             components.append({
                 "columns": [column_name_A, column_name_B],

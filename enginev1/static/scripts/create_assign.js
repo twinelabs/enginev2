@@ -248,7 +248,7 @@ $(document).ready(function(){
             return 'A' + c['pair_id'] + '_B' + c['my_id']
         }
     }
-    
+
     function removePair(c) {
         p1 = $(document.getElementById('match_column_button_' + c['my_AorB'] + '_' + c['my_id']));
         p2 = $(document.getElementById('match_column_button_' + c['pair_AorB'] + '_' + c['pair_id']));
