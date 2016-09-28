@@ -1,4 +1,5 @@
 {% extends 'sidebar_page.html' %}
+{% load staticfiles %}
 
 {% load bootstrap3 %}
 
@@ -12,17 +13,16 @@
 {% endblock %}
 
 {% block content_block %}
-    <div class="row">
-        <div class="col-md-4">
-            <form id="upload_csv_form" method="post" action="/dataset/upload_csv/" enctype="multipart/form-data" class="form">
-
-                {% csrf_token %}
-                {% bootstrap_form csv_form %}
-
-                <input type="submit" name="submit" value="Upload Data" class="btn btn-primary"/>
-            </form>
-
-        </div>
+    <div class="well">
+        <form id="upload_csv_form" method="post" action="/dataset/upload_csv/" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            {% bootstrap_form csv_form %}
+            <input type="submit" name="submit" value="Upload Data" class="btn btn-primary"/>
+        </form>
+    </div>
+    <div class="well">
+        <h3>Required Data Format</h3>
+        <img height="300" width="800" src="{% static "img/data_format_cropped.png" %}" />
     </div>
 
 {% endblock %}
