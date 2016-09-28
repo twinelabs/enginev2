@@ -79,20 +79,8 @@ def user_login(request):
 
 @login_required
 def home(request):
-    """ Home page.
-    """
-
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
-
-    context = {
-        'c': c,
-        'data_tables': data_tables,
-        'matches': matches
-    }
-
-    return render(request, 'welcome/home.html', context)
+    """ Home page. """
+    return render(request, 'welcome/home.html', {})
 
 
 @login_required

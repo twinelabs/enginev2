@@ -13,13 +13,9 @@ from .forms import MatchGroupForm, MatchAssignForm
 
 @login_required
 def view(request, match_id):
-
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
-
     match = Match.objects.get(id=match_id)
-    if match.client != c:
+
+    if match.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
     config_html = match_config_as_html(match)
@@ -31,10 +27,6 @@ def view(request, match_id):
         result_html = None
 
     context = {
-        'c': c,
-        'data_tables': data_tables,
-        'matches': matches,
-
         'match': match,
         'has_results': has_results,
         'config_html': config_html,
@@ -46,20 +38,14 @@ def view(request, match_id):
 
 @login_required
 def feedback(request, match_id):
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
-
     match = Match.objects.get(id=match_id)
-    if match.client != c:
+
+    if match.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
     (group_numbers, feedback_s) = match_results_for_feedback(match)
 
     context = {
-        'c': c,
-        'data_tables': data_tables,
-        'matches': matches,
         'match': match,
         'group_numbers': group_numbers,
         'feedback_s': feedback_s
@@ -69,37 +55,21 @@ def feedback(request, match_id):
 
 @login_required
 def feedback_old(request):
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
+    return render(request, 'match/feedback_old.html', {})
 
-    context = {
-        'c': c,
-        'data_tables': data_tables,
-        'matches': matches
-    }
-    return render(request, 'match/feedback_old.html', context)
 
 @login_required
 def feedback_employeerole(request):
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
+    return render(request, 'match/feedback_employeerole.html', {})
 
-    context = {
-        'c': c,
-        'data_tables': data_tables,
-        'matches': matches
-    }
-    return render(request, 'match/feedback_employeerole.html', context)
+
+@login_required
+def create(request):
+    return render(request, 'match/create.html', {})
 
 
 @login_required
 def create_group(request):
-
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
 
     if request.method == 'POST':
         name = request.POST['name']
@@ -119,13 +89,9 @@ def create_group(request):
         except:
             return HttpResponse("Improper match parameters")
 
-
     else:
         match_group_form = MatchGroupForm()
         context = {
-            'c': c,
-            'data_tables': data_tables,
-            'matches': matches,
             'match_group_form': match_group_form
         }
 
@@ -134,10 +100,6 @@ def create_group(request):
 
 @login_required
 def create_assign(request):
-
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
 
     if request.method == 'POST':
         name = request.POST['name']
@@ -163,9 +125,6 @@ def create_assign(request):
     else:
         match_assign_form = MatchAssignForm()
         context = {
-            'c': c,
-            'data_tables': data_tables,
-            'matches': matches,
             'match_assign_form': match_assign_form
         }
 
@@ -175,15 +134,8 @@ def create_assign(request):
 @login_required
 def create_employeerole(request):
 
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
-
     match_form = MatchForm(client=c)
     context = {
-        'c': c,
-        'data_tables': data_tables,
-        'matches': matches,
         'match_form': match_form
     }
 
@@ -192,11 +144,9 @@ def create_employeerole(request):
 
 @login_required
 def run(request, match_id):
-
-    c = request.user.client
-
     match = Match.objects.get(id=match_id)
-    if match.client != c:
+
+    if match.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
     match.run()
@@ -206,21 +156,14 @@ def run(request, match_id):
 
 @login_required
 def analyze(request, match_id):
-
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
-
     match = Match.objects.get(id=match_id)
-    if match.client != c:
+
+    if match.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
     analytics = match_analytics(match)
 
     context = {
-        'c': c,
-        'data_tables': data_tables,
-        'matches': matches,
         'match': match,
         'analytics': analytics
     }
@@ -230,11 +173,9 @@ def analyze(request, match_id):
 
 @login_required
 def delete(request, match_id):
+    match = Match.objects.get(id=match_id)
 
-    c = request.user.client
-    match = Match.objects.get(pk=match_id)
-
-    if match.client != c:
+    if match.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
     match.delete()

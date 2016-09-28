@@ -4,6 +4,7 @@ from . import views, views_ajax
 
 urlpatterns = [
 
+    url(r'^create/$', views.create, name='create'),
     url(r'^create_group/$', views.create_group, name='create_group'),
     url(r'^create_assign/$', views.create_assign, name='create_assign'),
     url(r'^create_employeerole/$', views.create_employeerole, name='create_employeerole'),

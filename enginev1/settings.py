@@ -81,6 +81,8 @@ class Common(Configuration):
                     'django.template.context_processors.request',
                     'django.contrib.auth.context_processors.auth',
                     'django.contrib.messages.context_processors.messages',
+
+                    'enginev1.context_processors.insert_client_data',
                 ],
             },
         },
@@ -164,6 +166,7 @@ class Common(Configuration):
     LOGIN_URL = '/welcome/login/'
 
     MEDIA_ROOT = './enginev1/static/'
+
 
 
 class Development(Common):

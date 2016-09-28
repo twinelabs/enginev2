@@ -1,0 +1,35 @@
+{% extends 'sidebar_page.html' %}
+
+{% load bootstrap3 %}
+{% load widget_tweaks %}
+
+{% block title %}Create Match{% endblock %}
+
+{% block header_block %}
+    <div class="col-sm-8">
+        <h2 class="headerLine">Create Match</h2>
+    </div>
+{% endblock %}
+
+{% block content_block %}
+    <div class="well">
+        <h3>Select Match Type</h3>
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-1">
+                <a href="/match/create_group" class="btn btn-default">
+                    <h4><b>Group</b></h4>
+                    <br />
+                    Organize elements within one data set.
+                </a>
+            </div>
+            <div class="col-md-4 col-md-offset-1">
+                <a href="/match/create_assign" class="btn btn-default">
+                    <h4><b>Assign</b></h4>
+                    <br />
+                    Match elements across two data sets.
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

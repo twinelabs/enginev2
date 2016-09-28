@@ -14,10 +14,6 @@ def upload_csv(request):
     """ Upload CSV into DataTable object.
     """
 
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
-
     if request.method == 'POST':
         csv_form = UploadCSVForm(request.POST, request.FILES)
 
@@ -36,9 +32,6 @@ def upload_csv(request):
         csv_form = UploadCSVForm()
         context = {
             'csv_form': csv_form,
-            'c': c,
-            'data_tables': data_tables,
-            'matches': matches
         }
 
     return render(request, 'dataset/upload_csv.html', context)
@@ -46,21 +39,14 @@ def upload_csv(request):
 
 @login_required
 def view(request, data_table_id):
-
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
-
     data_table = DataTable.objects.get(id=data_table_id)
-    if data_table.client != c:
+
+    if data_table.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
     (dt_header, dt_values, dt_count) = data_table.as_table_data()
 
     context = {
-        'c': c,
-        'data_tables': data_tables,
-        'matches': matches,
         'data_table': data_table,
         'dt_header': dt_header,
         'dt_values': dt_values,
@@ -72,13 +58,9 @@ def view(request, data_table_id):
 
 @login_required
 def analytics(request, data_table_id):
-
-    c = request.user.client
-    data_tables = c.datatable_set.all()
-    matches = c.match_set.all()
-
     data_table = DataTable.objects.get(id=data_table_id)
-    if data_table.client != c:
+
+    if data_table.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
     tables_for_analytics = [{
@@ -90,9 +72,6 @@ def analytics(request, data_table_id):
     tables_for_analytics_s = json.dumps(tables_for_analytics)
 
     context = {
-        'c': c,
-        'data_tables': data_tables,
-        'matches': matches,
         'data_table': data_table,
         'dashboard': tables_for_analytics,
         'dashboard_s': tables_for_analytics_s
@@ -103,11 +82,9 @@ def analytics(request, data_table_id):
 
 @login_required
 def export_csv(request, data_table_id):
-
-    c = request.user.client
-
     data_table = DataTable.objects.get(id=data_table_id)
-    if data_table.client != c:
+
+    if data_table.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
     csv_response = export_data_table_as_csv(data_table)
@@ -116,11 +93,9 @@ def export_csv(request, data_table_id):
 
 @login_required
 def export_xls(request, data_table_id):
-
-    c = request.user.client
-
     data_table = DataTable.objects.get(id=data_table_id)
-    if data_table.client != c:
+
+    if data_table.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
     xls_response = export_data_table_as_xls(data_table)
@@ -129,11 +104,9 @@ def export_xls(request, data_table_id):
 
 @login_required
 def delete(request, data_table_id):
-
-    c = request.user.client
-
     data_table = DataTable.objects.get(id=data_table_id)
-    if data_table.client != c:
+
+    if data_table.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
     data_table.delete()
