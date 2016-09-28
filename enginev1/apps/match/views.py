@@ -106,6 +106,7 @@ def create_assign(request):
         cfg = create_assign_request_to_config(request.POST)
 
         try:
+            c = request.user.client
             match = Match(client=c, name=name, config=cfg)
             match.save()
 

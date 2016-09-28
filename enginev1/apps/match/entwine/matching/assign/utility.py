@@ -31,6 +31,10 @@ def get_matching_criteria(components_config):
         elif component['function'] == "lte":
             f_crit = lambda a, b: float(a) <= float(b) if (b != "" and a != "") else False
 
+        elif component['function'] == "intersect_comma":
+            f_s = ','
+            f_crit = lambda a, b: len(intersect(a.split(f_s), b.split(f_s))) > 0
+
         elif component['function'] == "intersect":
             f_s = component['f_s']
             f_crit = lambda a, b: len(intersect(a.split(f_s), b.split(f_s))) > 0

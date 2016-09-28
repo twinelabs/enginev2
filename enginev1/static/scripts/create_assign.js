@@ -111,12 +111,13 @@ $(document).ready(function(){
 
     function matchRuleFormDiv(column_data_A, column_data_B, pairID) {
         var stringOptions  = [
-            ["binary_diff", "Diverse"],
-            ["binary_same", "Similar"]
+            ["equality", "Should be Same"],
+            ["inequality", "Should be Different"],
+            ["intersect_comma", "Should Overlap (comma-separated)"],
         ];
         var numericOptions  = [
-            ["euclidean_distance", "Max Distance"],
-            ["euclidean_distance", "Min Distance"]
+            ["gte", "Greater Than"],
+            ["lte", "Less Than"]
         ];
 
         if (column_data_A[2] == 'int64') {
