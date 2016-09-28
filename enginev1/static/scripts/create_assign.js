@@ -59,7 +59,7 @@ $(document).ready(function(){
             for (i = 0; i < columns_data.length; i++) {
                 var column = columns_data[i];
                 parentDiv.append(
-                    $('<div/>', {'class': 'col-md-4'}).append(
+                    $('<div/>', {'class': 'col-md-10'}).append(
                         $('<a/>', {
                             'id': 'match_column_button_' + AorB + '_' + column[0],
                             'class': 'btn btn-default match_column_button match_column_button' + AorB,

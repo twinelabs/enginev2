@@ -5,13 +5,14 @@ import xlwt
 from django.http import HttpResponse
 
 import models
+import pdb
 
 def import_csv_as_data_table(client, name, csv_file):
     """ Loads csv file into DataTable object and creates DataColumn objects.
     Returns data_table_id if successfully saved.
     """
 
-    df = pd.read_csv(csv_file)
+    df = pd.read_csv(csv_file, na_filter=False, encoding='latin-1')
     n_rows, n_cols = df.shape
     list_of_dicts = df.to_dict(orient='records')
 
@@ -20,6 +21,7 @@ def import_csv_as_data_table(client, name, csv_file):
                                   data = { 'data': list_of_dicts },
                                   n_rows = n_rows,
                                   n_cols = n_cols)
+
     data_table.save()
 
     # Create columns
