@@ -41,7 +41,7 @@ def match_config_as_html(match):
     return s
 
 
-def match_results_as_html(match):
+def match_results_as_html(match, full=False):
     cfg = match.config['match']
     results = json.loads(match.result['results'])
 
@@ -72,7 +72,7 @@ def match_results_as_html(match):
         s += "</table>"
 
     elif cfg['task'] == 'assign':
-        n_lim = 4
+        n_lim = 999 if full else 4
 
         dt_B = match.data_tables.all()[0]
         dt_B_values = dt_B.values()

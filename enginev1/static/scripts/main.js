@@ -33,10 +33,13 @@ $(document).ready(function(){
             scrollY: true,
             select: 'single',
             lengthMenu: [[10, 25, 250, -1], [10, 25, 250, 'All']],
-            buttons: [{
-                extend: 'colvis',
-                text: 'Select columns',
-            }]
+            buttons: ['excel', 'csv']
+//            buttons: [
+//                {
+//                    extend: 'colvis',
+//                    text: 'Select columns',
+//                }
+//            ]
         });
         new $.fn.dataTable.Buttons(table, {
             buttons: [{

@@ -12,6 +12,31 @@ from .forms import MatchGroupForm, MatchAssignForm
 
 
 @login_required
+def view_full(request, match_id):
+    match = Match.objects.get(id=match_id)
+
+    if match.client != request.user.client:
+        return HttpResponse("You are not permissioned.")
+
+    config_html = match_config_as_html(match)
+
+    has_results = match.has_results()
+    if has_results:
+        result_html = match_results_as_html(match, True)
+    else:
+        result_html = None
+
+    context = {
+        'match': match,
+        'has_results': has_results,
+        'config_html': config_html,
+        'result_html': result_html,
+    }
+
+    return render(request, 'match/view.html', context)
+
+
+@login_required
 def view(request, match_id):
     match = Match.objects.get(id=match_id)
 

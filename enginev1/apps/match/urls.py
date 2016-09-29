@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^create_assign/$', views.create_assign, name='create_assign'),
     url(r'^create_employeerole/$', views.create_employeerole, name='create_employeerole'),
     url(r'^view/(?P<match_id>\w+)$', views.view, name="view"),
+    url(r'^view_full/(?P<match_id>\w+)$', views.view_full, name="view_full"),
     url(r'^analyze/(?P<match_id>\w+)$', views.analyze, name="analyze"),
     url(r'^feedback/(?P<match_id>\w+)$', views.feedback, name='feedback'),
     url(r'^feedback_old/$', views.feedback_old, name='feedback_old'),
