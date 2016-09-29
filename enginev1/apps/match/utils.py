@@ -74,9 +74,9 @@ def match_results_as_html(match):
     elif cfg['task'] == 'assign':
         n_lim = 4
 
-        dt_B = match.data_tables.all()[1]
+        dt_B = match.data_tables.all()[0]
         dt_B_values = dt_B.values()
-        dt_A = match.data_tables.all()[0]
+        dt_A = match.data_tables.all()[1]
         dt_A_values = dt_A.values()
 
         header = dt_B.header()[:n_lim] + [""] + dt_A.header()[:n_lim]
