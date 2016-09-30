@@ -14,6 +14,8 @@ def upload_csv(request):
     """ Upload CSV into DataTable object.
     """
 
+    context = {}
+
     if request.method == 'POST':
         csv_form = UploadCSVForm(request.POST, request.FILES)
 

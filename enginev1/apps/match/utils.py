@@ -1,6 +1,10 @@
 import json
 import pdb
+import xlwt
 
+from django.http import HttpResponse
+
+from .entwine.display import assignments
 import models
 
 def match_config_as_html(match):
@@ -74,9 +78,9 @@ def match_results_as_html(match, full=False):
     elif cfg['task'] == 'assign':
         n_lim = 999 if full else 4
 
-        dt_B = match.data_tables.all()[0]
+        dt_B = match.data_tables.all()[1]
         dt_B_values = dt_B.values()
-        dt_A = match.data_tables.all()[1]
+        dt_A = match.data_tables.all()[0]
         dt_A_values = dt_A.values()
 
         header = dt_B.header()[:n_lim] + [""] + dt_A.header()[:n_lim]
@@ -339,3 +343,70 @@ def create_assign_request_to_config(request):
 
     return config
 
+
+def export_assign_as_excel(match):
+
+    pretty_csv = assignments.pretty_csv(match)
+
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="' + match.name + ' - Export.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet("Results")
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    i_row = 0
+    for i_col, colname in enumerate(pretty_csv[0]):
+        ws.write(i_row, i_col, colname, font_style)
+        ws.col(i_col).width = 4000
+
+    font_style = xlwt.XFStyle()
+    font_style.alignment.wrap = 1
+
+    for csv_row in pretty_csv[1:]:
+        i_row += 1
+        for i_col, x in enumerate(csv_row):
+            ws.write(i_row, i_col, x, font_style)
+
+    wb.save(response)
+
+    return response
+
+
+
+
+    s = ""
+
+    n_lim = 999 if full else 4
+
+    dt_B = match.data_tables.all()[0]
+    dt_B_values = dt_B.values()
+    dt_A = match.data_tables.all()[1]
+    dt_A_values = dt_A.values()
+
+    header = dt_B.header()[:n_lim] + [""] + dt_A.header()[:n_lim]
+
+    s += "<table class='dataset-table nowrap table table-striped table-hover'>"
+    s += "<thead><tr><th>"
+    s += "</th><th>".join([ str(val) for val in header])
+    s += "</th></tr></thead>"
+
+    s += "<tbody>"
+    for i, pod in enumerate(results):
+
+#            pdb.set_trace()
+
+        elem_B = dt_B_values[i]
+
+        for j, member in enumerate(pod):
+            elem_A = dt_A_values[member]
+            vals = elem_B[:n_lim] + ["<->"] + elem_A[:n_lim]
+            s += "<tr><td>"
+            s += "</td><td>".join([ str(val) for val in vals])
+            s += "</td></tr>"
+    s += "</tbody>"
+    s += "</table>"
+
+    return s

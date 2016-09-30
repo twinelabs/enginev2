@@ -160,7 +160,7 @@ def create_assign(request):
 @login_required
 def create_employeerole(request):
 
-    match_form = MatchForm(client=c)
+    match_form = MatchAssignForm()
     context = {
         'match_form': match_form
     }
@@ -207,3 +207,14 @@ def delete(request, match_id):
     match.delete()
 
     return HttpResponseRedirect('/welcome/home/')
+
+
+@login_required
+def export_xls(request, match_id):
+    match = Match.objects.get(id=match_id)
+
+    if match.client != request.user.client:
+        return HttpResponse("You are not permissioned.")
+
+    xls_response = export_assign_as_excel(match)
+    return xls_response

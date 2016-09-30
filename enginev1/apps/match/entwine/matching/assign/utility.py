@@ -62,7 +62,7 @@ def utility_matrix(dfs, match_config):
     if len(dfs) != 2:
         raise TypeError("Match data list must have 2 items for AB_functions.utility_matrix")
 
-    # Helper function / subrountine. Makes more sense to be inside this function.        
+    # Helper function / subrountine. Makes more sense to be inside this function.
     def submatches(matching_criteria):
 
         submatches = []
@@ -72,9 +72,9 @@ def utility_matrix(dfs, match_config):
             s_val = df_A[col_A][i]
             a_val = df_B[col_B][j]
             f_result = func(s_val, a_val)
-    
+
             submatches.append(f_result)
-    
+
         return submatches
 
     df_A = dfs[0]

@@ -11,12 +11,15 @@
 
     <div class="col-sm-6 header-buttons">
         <a href="/match/analyze/{{ match.id }}" class="header-button btn btn-info" id="analytics-button">
-            &nbsp; &nbsp; Analytics &nbsp; &nbsp;
+            &nbsp; Analytics &nbsp;
         </a>
         <a href="/match/feedback/{{ match.id }}" class="header-button btn btn-success" id="feedback-button">
-            &nbsp; &nbsp; Feedback &nbsp; &nbsp;
+            &nbsp; Feedback &nbsp;
         </a>
-        <button type="button" class="header-button btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete Match</button>
+        <a href="/match/export_xls/{{ match.id }}" class="header-button btn btn-default" id="feedback-button">
+            &nbsp; Export &nbsp;
+        </a>
+        <button type="button" class="header-button btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
