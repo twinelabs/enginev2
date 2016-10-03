@@ -6,7 +6,7 @@
 {% block title %}Create Match{% endblock %}
 {% block header_block %}
     <div class="col-sm-8">
-        <h2 class="headerLine">Sample Match: Employees/Roles</h2>
+        <h2 class="headerLine">Edit: Internal Mobility</h2>
     </div>
 
     <div class="col-sm-4">
@@ -37,7 +37,7 @@
                     </a>
                 </div>
                 <div class="col-md-4">
-                    <a class="btn btn-info btn-lg">
+                    <a class="btn btn-info btn-lg" style="background-color:#ccddee; color:black;">
                         <b>Assign</b><br />Match people across 2 data sets
                     </a>
                 </div>
@@ -63,22 +63,22 @@
                 <div class="col-md-7 col-md-offset-1">
                     <h3>Assignment Options</h3>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <div class="row matchSectionSmall">
+                        <div class="col-sm-7">
+                            <div class="row matchSectionSmall" style="font-size:15px;">
                                 <input id="radio-capacity-onetomany" class="toggleView" name="capacity" type="radio" value="onetomany" checked>
-                                Match each <b>Employee</b> with top <input type='text' name='onetomany_n' size='3' class='match-weight-input' placeholder='1-5' value='5'> <b>Roles</b>
+                                Match each <b>Role</b> with top <input type='text' name='onetomany_n' size='3' class='match-weight-input' placeholder='1-5' value='5'> <b>Employees</b>
                             </div>
-                            <div class="row">
+                            <div class="row" style="font-size:15px;">
                                 <input id="radio-capacity-manytoone" class="toggleView" name="capacity" type="radio" value="manytoone">
-                                Match top <input type='text' name='manytoone_n' size='3' class='match-weight-input' placeholder='1-5' value='5'> <b>Employees</b> with each <b>Role</b>
+                                Match each <b>Employee</b> with top <input type='text' name='manytoone_n' size='3' class='match-weight-input' placeholder='1-5' value='5'> <b>Roles</b>
                             </div>
                         </div>
-                        <div class="col-sm-4 col-sm-offset-2">
-                            <div class="row matchSectionSmall">
-                                <input id="radio-duplicates-yes" class="toggleView" name="duplicates" type="radio" value="yes">
+                        <div class="col-sm-4 col-sm-offset-1">
+                            <div class="row matchSectionSmall" style="font-size:15px;">
+                                <input checked id="radio-duplicates-yes" class="toggleView" name="duplicates" type="radio" value="yes">
                                 Allow duplicates
                             </div>
-                            <div class="row">
+                            <div class="row" style="font-size:15px;">
                                 <input id="radio-duplicates-no" class="toggleView" name="duplicates" type="radio" value="no">
                                 Do not allow duplicates
                             </div>
@@ -91,10 +91,13 @@
                 <h3>Select Attributes for Matching</h3>
                 <div class="fieldWrapper">
                     <div class="row">
-                        <div class="col-md-5 col-md-offset-1">
-                            <h4>EMPLOYEES</h4>
+                        <div class="col-md-4 col-md-offset-1">
+                            <h4>EMPLOYEE fields</h4>
                             <div>
-                                <a class="btn btn-info btn-dummy" style="background-color:#ccddee; color:black;">Education Degree</a>
+                                <a class="btn btn-info btn-dummy" style="background-color:#cceedd; color:black;">Skills</a>
+                            </div>
+                            <div>
+                                <a class="btn btn-info btn-dummy" style="background-color:#ccddee; color:black;">Degree</a>
                             </div>
                             <div>
                                 <a class="btn btn-info btn-dummy" style="background-color:#cceedd; color:black;">Location</a>
@@ -115,8 +118,11 @@
                                 <a class="btn btn-default">Add Field</a>
                             </div>
                         </div>
-                        <div class="col-md-5">
-                            <h4>ROLES</h4>
+                        <div class="col-md-4 col-md-offset-1">
+                            <h4>JOB ROLE fields</h4>
+                            <div>
+                                <a class="btn btn-info btn-dummy" style="background-color:#cceedd; color:black;">Skills Required</a>
+                            </div>
                             <div>
                                 <a class="btn btn-info btn-dummy" style="background-color:#ccddee; color:black;">Required Education</a>
                             </div>
@@ -152,11 +158,34 @@
                                 <th class="colVariable1">EMPLOYEE</th>
                                 <th class="colPreference">Matching Rule</th>
                                 <th class="colVariable2">ROLE</th>
-                                <th class="colWeight">Weight (1-5)</th>
-                                <th class="colAutoWeight">(%)</th>
+                                <th class="colWeight">Importance (1-5)</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <tr style="border-bottom: 2px solid #cccccc">
+                                <td style="margin-bottom: 1em;">
+                                    <h5>Skills</h5>
+                                </td>
+                                <td>
+                                    <div style="padding-right: 60px;">
+                                        <select class="form-control" name="rule-education">
+                                            <option value="1">Greater Than</option>
+                                            <option value="2" selected="selected">Includes Each</option>
+                                            <option value="3">Equal To</option>
+                                            <option value="4">Less Than or Equal To</option>
+                                            <option value="5">Less Than</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h4>Skills Required</h4>
+                                </td>
+                                <td>
+                                    <div class='match-weight-form'>
+                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='5'>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr style="border-bottom: 2px solid #cccccc">
                                 <td style="margin-bottom: 1em;">
                                     <h5>Degree</h5>
@@ -178,11 +207,6 @@
                                 <td>
                                     <div class='match-weight-form'>
                                         <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='5'>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class='match-autoweight-form'>
-                                        23%
                                     </div>
                                 </td>
                             </tr>
@@ -211,11 +235,6 @@
                                         <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='4'>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class='match-autoweight-form'>
-                                        18%
-                                    </div>
-                                </td>
                             </tr>
                             <tr style="border-bottom: 2px solid #cccccc">
                                 <td>
@@ -242,11 +261,6 @@
                                         <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='2'>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class='match-autoweight-form'>
-                                        <p style="color: B0B0B0;">9%</p>
-                                    </div>
-                                </td>
                             </tr>
                             <tr style="border-bottom: 2px solid #cccccc">
                                 <td>
@@ -271,11 +285,6 @@
                                         <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='3'>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class='match-autoweight-form'>
-                                        14%
-                                    </div>
-                                </td>
                             </tr>
                             <tr style="border-bottom: 2px solid #cccccc">
                                 <td>
@@ -297,11 +306,6 @@
                                 <td>
                                     <div class='match-weight-form'>
                                         <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='3'>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class='match-autoweight-form'>
-                                        14%
                                     </div>
                                 </td>
                             </tr>
@@ -328,11 +332,6 @@
                                         <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='5'>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class='match-autoweight-form'>
-                                        23%
-                                    </div>
-                                </td>
                             </tr>
                             <tr style="border-bottom: 2px solid #cccccc">
                                 <td>
@@ -355,11 +354,6 @@
                                 <td>
                                     <div class='match-weight-form'>
                                         <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='5'>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class='match-autoweight-form'>
-                                        23%
                                     </div>
                                 </td>
                             </tr>

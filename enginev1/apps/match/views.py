@@ -158,14 +158,14 @@ def create_assign(request):
 
 
 @login_required
-def create_employeerole(request):
+def edit(request):
 
     match_form = MatchAssignForm()
     context = {
         'match_form': match_form
     }
 
-    return render(request, 'match/create_employeerole.html', context)
+    return render(request, 'match/edit.html', context)
 
 
 @login_required

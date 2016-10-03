@@ -50,25 +50,12 @@
                     <strong>{{ match.name }}</strong>
                 </div>
                 <img class="match-img center-block" src="{% static "img/match.png" %}" />
-                <a href="/match/view/{{ match.id }}" class="btn btn-primary center-block">Results</a>
-                <a href="/match/analyze/{{ match.id }}" class="btn btn-info center-block">Analytics</a>
-                <a href="/match/feedback/{{ match.id }}" class="btn btn-success center-block">Feedback</a>
+                <a href="/match/edit" class="btn btn-primary center-block">Edit</a>
+                <a href="/match/analyze/{{ match.id }}" class="btn btn-info center-block">Results</a>
+                <a href="/match/feedback/{{ match.id }}" class="btn btn-success center-block">Analytics</a>
             </div>
         {% endfor %}
     </div>
-</div>
-
-
-<div class="dropup">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Additional Pages
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="/match/create_employeerole">Create Employee/Role Match</a></li>
-    <li><a href="/match/feedback_employeerole">Feedback for Employee/Role</a></li>
-    <li><a href="/match/feedback_old">Feedback Basic</a></li>
-  </ul>
 </div>
 
 {% endblock %}
