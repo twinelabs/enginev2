@@ -62,7 +62,7 @@
                 </div>
                 <div class="col-md-7 col-md-offset-1">
                     <h3>Assignment Options</h3>
-                    <div class="row">
+                    <div class="row" style="padding-top: 15px;">
                         <div class="col-sm-7">
                             <div class="row matchSectionSmall" style="font-size:15px;">
                                 <input id="radio-capacity-onetomany" class="toggleView" name="capacity" type="radio" value="onetomany" checked>
@@ -170,7 +170,7 @@
                                     <div style="padding-right: 60px;">
                                         <select class="form-control" name="rule-education">
                                             <option value="1">Greater Than</option>
-                                            <option value="2" selected="selected">Includes Each</option>
+                                            <option value="2" selected="selected">Includes All</option>
                                             <option value="3">Equal To</option>
                                             <option value="4">Less Than or Equal To</option>
                                             <option value="5">Less Than</option>
@@ -216,14 +216,21 @@
                                 </td>
                                 <td>
                                     <div class='match-preference-form'>
-                                        <div class='match-preference-input'>
-                                            <input type='radio' name='match-latlong' value='1' checked><label for='gender-prefs0'>Closeness</label>
-                                        </div>
-                                        <div class='match-preference-input'>
-                                            <input type='radio' name='match-latlong' value='2'><label for='gender-prefs0'>Any</label>
-                                        </div>
-                                        <div class='match-preference-input'>
-                                            <input type='radio' name='match-latlong' value='3'><label for='gender-prefs0'>Distance</label>
+                                        <div class='row'>
+                                            <div class='col-md-6' style="padding-top: 10px;">
+                                                <div class='match-preference-input'>
+                                                    <input type='radio' name='match-latlong' value='1' checked><label for='gender-prefs0'>&nbsp; Closer than</label>
+                                                </div>
+                                                <div class='match-preference-input'>
+                                                    <input type='radio' name='match-latlong' value='3'><label for='gender-prefs0'>&nbsp; Farther than</label>
+                                                </div>
+                                            </div>
+                                            <div class='col-md-6'>
+                                                <input class="form-control" type='text' name='xxx1' size='3' class='match-weight-input' placeholder='1-5' value='50' style="width: 80px;">
+                                                <select class="form-control" name="xxx2" style="width: 80px;">
+                                                    <option value="2" selected="selected">miles</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -243,13 +250,10 @@
                                 <td>
                                     <div class='match-preference-form'>
                                         <div class='match-preference-input'>
-                                            <input type='radio' name='match-func' value='1'><label for='gender-prefs0'>Similarity</label>
+                                            <input type='radio' name='match-func' value='1'><label for='gender-prefs0'>&nbsp; Similar</label>
                                         </div>
                                         <div class='match-preference-input'>
-                                            <input type='radio' name='match-func' value='2'><label for='gender-prefs0'>Any</label>
-                                        </div>
-                                        <div class='match-preference-input'>
-                                            <input type='radio' name='match-func' value='3' checked><label for='gender-prefs0'>Difference</label>
+                                            <input type='radio' name='match-func' value='3' checked><label for='gender-prefs0'>&nbsp; Different</label>
                                         </div>
                                     </div>
                                 </td>
@@ -258,7 +262,7 @@
                                 </td>
                                 <td>
                                     <div class='match-weight-form'>
-                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='2'>
+                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='4'>
                                     </div>
                                 </td>
                             </tr>
@@ -293,10 +297,10 @@
                                 <td>
                                     <div class='match-preference-form'>
                                         <div class='match-preference-input'>
-                                            <input type='radio' name='match-mgr' value='1' checked><label for='gender-prefs0'>Require</label>
+                                            <input type='radio' name='match-mgr' value='1' checked><label for='gender-prefs0'>&nbsp; Similar</label>
                                         </div>
                                         <div class='match-preference-input'>
-                                            <input type='radio' name='match-mgr' value='2'><label for='gender-prefs0'>Do Not Require</label>
+                                            <input type='radio' name='match-mgr' value='2'><label for='gender-prefs0'>&nbsp; Different</label>
                                         </div>
                                     </div>
                                 </td>
@@ -305,7 +309,7 @@
                                 </td>
                                 <td>
                                     <div class='match-weight-form'>
-                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='3'>
+                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='2'>
                                     </div>
                                 </td>
                             </tr>
@@ -329,31 +333,7 @@
                                 </td>
                                 <td>
                                     <div class='match-weight-form'>
-                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='5'>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr style="border-bottom: 2px solid #cccccc">
-                                <td>
-                                    <h4>Employee Rating</h4>
-                                </td>
-                                <td>
-                                    <div style="padding-right: 60px;">
-                                        <select class="form-control" name="rule-education">
-                                            <option value="1">Greater Than</option>
-                                            <option value="2" selected="selected">Greater Than or Equal To</option>
-                                            <option value="3">Equal To</option>
-                                            <option value="4">Less Than or Equal To</option>
-                                            <option value="5">Less Than</option>
-                                        </select>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h4><input type='text' name='xxx' size='5' class='match-weight-input' placeholder='1-5' value='3.0'></h4>
-                                </td>
-                                <td>
-                                    <div class='match-weight-form'>
-                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='5'>
+                                        <input type='text' name='gender-weight0' size='6' class='match-weight-input' placeholder='1-5' value='1'>
                                     </div>
                                 </td>
                             </tr>
@@ -363,8 +343,7 @@
             </div>
 
             <input type="button" name="save-custom-search" value="Save Match" class="btn btn-primary" />
-            <input type="submit" name="submit" value="Run Match" class="btn btn-success"/>
+            <a href="/match/res" style='margin-left: 10px;' class="btn btn-success" type="button">Run Match</a>
         </div>
     </form>
-
 {% endblock %}

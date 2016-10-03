@@ -84,8 +84,8 @@ def feedback_old(request):
 
 
 @login_required
-def feedback_employeerole(request):
-    return render(request, 'match/feedback_employeerole.html', {})
+def res(request):
+    return render(request, 'match/res.html', {})
 
 
 @login_required

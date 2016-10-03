@@ -6,9 +6,8 @@
 
 {% block title %}Create Match{% endblock %}
 {% block header_block %}
-    <div class="col-sm-4">
-        <img height="100" width="80" style="float:left; margin-top: 10px; margin-left: 20px; margin-right: 20px;" src="{% static "img/feedback_employeerole_p1.png" %}" />
-        <h3>Welcome Anna! <br /> <br />VP, People Analytics</h3>
+    <div class="col-sm-8">
+        <h3 class="headerLine">Match Results: Internal Mobility</h3>
     </div>
 {% endblock %}
 
@@ -17,9 +16,9 @@
 <div class="row">
     <div class="col-md-6">
         <div class="well">
-            <h4>Select Internal Role:</h4>
+            <h4>Select Job Role:</h4>
             <select class="form-control" name="jobrole">
-                <option value="" selected="selected">Senior Manager, Marketing Services</option>
+                <option value="" selected="selected">#1: &nbsp; Senior Manager, Marketing Services</option>
             </select>
 
             <div style="margin-top: 30px;">
@@ -49,11 +48,19 @@
 
     <div class="col-md-6">
         <div class="well">
-            <h4># of Employee Suggestions Per Role</h4>
+            <h4>Select Employee</h4>
 
-            <select class="form-control" name="jobrole">
-                <option value="" selected="selected">5</option>
+            <div class="row">
+                <div class="col-md-5">
+            <select class="form-control" name="jobrole" style="width: 200px;">
+                <option value="" selected="selected" style="width: 80px;">Match #1: &nbsp; Matt Allen</option>
             </select>
+                </div>
+                <div class="col-md-6 col-md-offset-1">
+            <a href="#" class="btn btn-primary">< previous</a> &nbsp;
+            <a href="#" class="btn btn-primary">next ></a>
+                </div>
+            </div>
 
             <div style="margin-top: 30px;">
                 <img height="100" width="100" style="float:left; margin-left: 20px; margin-right: 20px;" src="{% static "img/feedback_employeerole_p2.png" %}" />
@@ -65,30 +72,38 @@
                 <br /><br />
                 <b>Candidate Summary:</b>
                 <p>
-                    Matt Allen was identified as a candidate for Sr. Manager, Marketing Services.
+                    Matt Allen was identified as a candidate for Senior Manager, Marketing Services.
                 </p>
                 <p>
-                    Matt was successfully matched on 17 out of 21 criteria.
+                    Matt has 9 years of work experience, including 3 years at YC. He currently works in the Strategy function in the Chicago office. Matt is competent at Programming and Analytics. His most recent HR rating was 4.2.
                 </p>
                 <p>
-                    Matt has 9 years of work experience, including 3 years at this company. He currently works in the Strategy function in the Chicago office. Cost center: Strategic Planning. Matt's most recent HR rating was 4.
+                    Before YC, Matt worked at McKinsey & Co. for 6 years and got a degree in Operations Research at Cornell University.
                 </p>
                 <p>
-                    Matt most recently worked at McKinsey & Co. for 2 years and got a degree in Operations Research at Cornell University.
+                    Matt was successfully matched on 5 out of 7 criteria, with Twine Score of 93%.
                 </p>
             </div>
 
-            <table class="feedbackTable">
-                <thead>
-                    <tr>
-                        <th class="c1">
-                            <a href="#" class="btn btn-primary">< previous</a>
-                            &nbsp; &nbsp;
-                            <a href="#" class="btn btn-primary">next ></a>
-                        </th>
-                    </tr>
-                </thead>
-            </table>
+            <div style="margin-top: 40px;">
+                <div class="row" style="padding-left: 20px;">
+                    <div style="font-size: 18px; margin-bottom: 10px;">
+                        Skills
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                &nbsp; Programming<br />&nbsp; Analytics
+                            </td>
+                            <td>
+                                <a class="btn btn-default btn-sm">Overqualified</a>
+                                <a class="btn btn-default btn-sm">Good Fit</a>
+                                <a class="btn btn-default btn-sm">Underqualified</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
         </div>
     </div>
