@@ -44,15 +44,124 @@
 
 {% block content_block %}
     <div class="well">
-        {{ config_html | safe }}
+        <h3>{{ match.name }}</h3>
+        <a class="btn btn-default" data-toggle="collapse" href="#matchSetup" aria-expanded="false" aria-controls="matchSetup">
+            Show Details
+        </a>
+
+        <div class="collapse" id="matchSetup">
+        <div class='row'>
+            {% if match.task == "assign" %}
+                <div class='col-md-5'>
+                    <h4>Configuration</h4>
+                    <ul>
+                        <li>
+                            Data Sets: <b>{{ match_data_table_names.0 }}</b> and <b>{{ match_data_table_names.1 }}</b>
+                        </li>
+                        <li>
+                            Capacity:
+                            <b> {{ match_config.algorithm.params.capacity }}</b>
+                        </li>
+                        <li>
+                            Algorithm:
+                            <b>NRMP</b>
+                        </li>
+                    </ul>
+                </div>
+                <div class='col-md-5 col-md-offset-1'>
+                    <h4>Matching Rules</h4>
+                    <ol>
+                        {% for c, w in match_rules %}
+                        <li>
+                            <b>{{ c.columns.0 }}</b> - <b>{{ c.columns.1 }}</b>
+                             (weight = {{ w }})
+                        </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            {% else %}
+                <div class='col-md-5'>
+                    <h4>Configuration</h4>
+                    <ul>
+                        <li>
+                            Data Set:
+                            {% for name in match_data_table_names %}
+                                <b>{{ name }}, </b>
+                            {% endfor %}
+                        </li>
+                        <li>
+                            Group Size:
+                            <b> {{ match_config.algorithm.params.k_size }}</b>
+                        </li>
+                        <li>
+                            Algorithm:
+                            <b>{{ match_config.algorithm.name }}</b>
+                        </li>
+                    </ul>
+                </div>
+                <div class='col-md-5 col-md-offset-1'>
+                    <h4>Matching Rules</h4>
+                    <ol>
+                        {% for c, w in match_rules %}
+                        <li>
+                            <b>{{ c.columns.0 }}</b> (weight = {{ w }})
+                        </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            {% endif %}
+        </div>
+        </div>
     </div>
 
-    <div class="well">
-        {% if has_results %}
-            <h3>Match Results</h3>
+    {% if match_results %}
+        <div class="well">
+            {% if match.task == "group" %}
+                <h3>Groups</h3>
+
+                <ul class="nav nav-tabs">
+                    {% for group in match_results %}
+                        <li>
+                            <a href="#group_{{forloop.counter0}}" role="tab" data-toggle="tab">
+                                Group {{forloop.counter0}}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="tab-content">
+                    {% for group in match_results %}
+                        <div class="tab-pane fade active in" id="group_{{forloop.counter0}}">
+                            <div class="groupDiv row-horizontal-scroll">
+                                {% for member in group %}
+                                    <div class="dataDiv">
+                                        <ul>
+                                            {% for attribute in member %}
+                                                <li><b>{{ attribute.0 }}</b>: {{ attribute.1 }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {% for assignment in match_results %}
+                    <div class="row">
+
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="well">
+            <h3>Full Results</h3>
             {{ result_html | safe }}
-        {% else %}
+        </div>
+    {% else %}
+        <div class="well">
+            <h3>Results</h3>
             <a href="/match/run/{{ match.id }}" class="btn btn-primary">Run Match</a>
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 {% endblock %}

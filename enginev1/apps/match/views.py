@@ -43,18 +43,22 @@ def view(request, match_id):
     if match.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
-    config_html = match_config_as_html(match)
+    match_config = match.config['match']
+    match_data_table_names = match.data_table_names()
+    match_rules = zip(match_config['components'], match_config['weights'])
 
-    has_results = match.has_results()
-    if has_results:
+    match_results = match.results()
+    if match_results:
         result_html = match_results_as_html(match)
     else:
         result_html = None
 
     context = {
         'match': match,
-        'has_results': has_results,
-        'config_html': config_html,
+        'match_config': match_config,
+        'match_data_table_names': match_data_table_names,
+        'match_rules': match_rules,
+        'match_results': match_results,
         'result_html': result_html,
     }
 

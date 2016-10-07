@@ -61,7 +61,7 @@ assign_name = 'Internal Mobility'
 with open('./fixtures/match_cfg_assign.json') as f:
     assign_cfg = json.load(f, strict=False)
 
-assign_match = Match(client=client, name=assign_name, config=assign_cfg)
+assign_match = Match(client=client, task="assign", name=assign_name, config=assign_cfg)
 assign_match.save()
 
 assign_match.data_tables.add(dt_employees)
@@ -76,7 +76,7 @@ group_name = 'Diverse Employee Teams'
 with open('./fixtures/match_cfg_group.json') as f:
     group_cfg = json.load(f, strict=False)
 
-group_match = Match(client=client, name=group_name, config=group_cfg)
+group_match = Match(client=client, task="group",  name=group_name, config=group_cfg)
 group_match.save()
 
 group_match.data_tables.add(dt_employees)

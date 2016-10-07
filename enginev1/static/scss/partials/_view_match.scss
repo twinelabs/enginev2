@@ -1,0 +1,28 @@
+.groupDiv {
+    margin-bottom: 20px;
+}
+
+.dataDiv {
+    background-color: #E0E0E0;
+    padding: 10px;
+}
+
+.row-horizontal-scroll {
+    white-space: nowrap;
+    overflow: auto;
+    overflow-x: auto;
+}
+
+.row-horizontal-scroll .dataDiv {
+    display: inline-block;
+}
+
+.nav-tabs {
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: -webkit-box;
+  display: -moz-box;
+}
+.nav-tabs>li {
+  float: none;
+}

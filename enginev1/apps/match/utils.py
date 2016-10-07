@@ -7,43 +7,6 @@ from django.http import HttpResponse
 from .entwine.display import assignments
 import models
 
-def match_config_as_html(match):
-
-    cfg = match.config['match']
-    data_tables = match.data_tables.all()
-
-    s = "<h3>" + match.name + "</h3><div class='row'>"
-    s += "<div class='col-md-5'><h4>Configuration</h4><ul>"
-
-    if cfg['task'] == 'cluster':
-        s += "<li>Data Set: <b>" + data_tables[0].name + "</b></li>"
-        s += "<li>Group Size: <b>" + str(cfg['algorithm']['params']['k_size']) + "</b></li>"
-        s += "<li>Algorithm: <b>" + cfg['algorithm']['name'] + "</b></li>"
-        s += "</ul></div>"
-
-        s += "<div class='col-md-5 col-md-offset-1'><h4>Matching Rules</h4><ol>"
-        for c, w in zip(cfg['components'], cfg['weights']):
-            s += "<li><b>" + c['columns'][0] + "</b> - " + c['function'] + " (weight = " + str(w) + ")</li>"
-        s += "</ol></div>"
-
-    elif cfg['task'] == 'assign':
-        s += "<li>Data Sets: <b>" + ", ".join([ d.name for d in data_tables ]) + "</b></li>"
-        s += "<li>Capacity: <b>" + str(cfg['algorithm']['params']['capacity']) + "</b></li>"
-        s += "<li>Algorithm: <b>NRMP</b></li>"
-        s += "</ul></div>"
-
-        s += "<div class='col-md-5 col-md-offset-1'><h4>Matching Rules</h4><ol>"
-        for c, w in zip(cfg['components'], cfg['weights']):
-            s += "<li><b>" + c['columns'][0] + "</b> with <b>" + c['columns'][1] + "</b> - " + c['function'] + " (weight = " + str(w) + ")</li>"
-        s += "</ol></div>"
-
-    else:
-        raise TypeError("Unsupported task for match config: " + cfg['task'])
-
-    s += "</div>"
-
-    return s
-
 
 def match_results_as_html(match, full=False):
     cfg = match.config['match']
@@ -373,8 +336,6 @@ def export_assign_as_excel(match):
     wb.save(response)
 
     return response
-
-
 
 
     s = ""
