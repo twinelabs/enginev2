@@ -1,4 +1,5 @@
 {% extends 'sidebar_page.html' %}
+{% load staticfiles %}
 
 {% load bootstrap3 %}
 {% load widget_tweaks %}
@@ -26,6 +27,10 @@
 {% endblock %}
 
 {% block content_block %}
+
+
+    <div id="divLoading" style="background-image: url('{% static 'img/loading.gif' %}')"></div>
+
     <form id="user_form" method="post" action="/match/create_match/" enctype="multipart/form-data" class="form">
         {% csrf_token %}
         <div class="well">
@@ -343,7 +348,23 @@
             </div>
 
             <input type="button" name="save-custom-search" value="Save Match" class="btn btn-primary" />
-            <a href="/match/res" style='margin-left: 10px;' class="btn btn-success" type="button">Run Match</a>
+            <a id="runMatch" href="#" style='margin-left: 10px;' class="btn btn-success" type="button">Run Match</a>
         </div>
     </form>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#runMatch").click(function(){
+
+            $("div#divLoading").addClass('show');
+            setTimeout(function () {
+                window.location.replace("http://127.0.0.1:8000/match/res");
+            }, 3000);
+
+        });
+    });
+
+</script>
+
 {% endblock %}

@@ -51,8 +51,8 @@
                 </div>
                 <img class="match-img center-block" src="{% static "img/match.png" %}" />
                 <a href="/match/edit" class="btn btn-primary center-block">Edit</a>
+                <a href="/match/feedback/{{ match.id }}" class="btn btn-success center-block">Run</a>
                 <a href="/match/analyze/{{ match.id }}" class="btn btn-info center-block">Results</a>
-                <a href="/match/feedback/{{ match.id }}" class="btn btn-success center-block">Analytics</a>
             </div>
         {% endfor %}
     </div>
