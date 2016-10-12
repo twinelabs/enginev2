@@ -16,7 +16,7 @@
         <a href="/match/feedback/{{ match.id }}" class="header-button btn btn-success" id="feedback-button">
             &nbsp; Feedback &nbsp;
         </a>
-        <a href="/match/export_xls/{{ match.id }}" class="header-button btn btn-default" id="feedback-button">
+        <a href="/match/export_xls/{{ match.id }}" class="header-button btn btn-default" id="export-button">
             &nbsp; Export &nbsp;
         </a>
         <button type="button" class="header-button btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
@@ -39,7 +39,6 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block content_block %}
@@ -114,24 +113,22 @@
         </div>
     </div>
 
-    {% if match_results %}
+    {% if match_result_data %}
         <div class="well">
             {% if match.task == "group" %}
-                <h3>Groups</h3>
-
+                <h3>Results By Group</h3>
                 <ul class="nav nav-tabs">
-                    {% for group in match_results %}
+                    {% for group in match_result_data %}
                         <li>
                             <a href="#group_{{forloop.counter0}}" role="tab" data-toggle="tab">
-                                Group {{forloop.counter0}}
+                                Group {{ forloop.counter0 }}
                             </a>
                         </li>
                     {% endfor %}
                 </ul>
-
                 <div class="tab-content">
-                    {% for group in match_results %}
-                        <div class="tab-pane fade active in" id="group_{{forloop.counter0}}">
+                    {% for group in match_result_data %}
+                        <div class="tab-pane fade in" id="group_{{forloop.counter0}}">
                             <div class="groupDiv row-horizontal-scroll">
                                 {% for member in group %}
                                     <div class="dataDiv">
@@ -147,20 +144,94 @@
                     {% endfor %}
                 </div>
             {% else %}
-                {% for assignment in match_results %}
-                    <div class="row">
-
-                    </div>
-                {% endfor %}
+                <h3>Matches</h3>
+                <ul class="nav nav-tabs">
+                    {% for assignment in match_result_data %}
+                        <li>
+                            <a href="#assignment_{{forloop.counter0}}" role="tab" data-toggle="tab">
+                                Match {{ forloop.counter0 }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="tab-content">
+                    {% for assignment in match_result_data %}
+                        <div class="tab-pane fade in" id="assignment_{{forloop.counter0}}">
+                            <div class="groupDiv row-horizontal-scroll">
+                                {% for member in assignment %}
+                                    <div class="dataDiv">
+                                        <ul>
+                                            {% for attribute in member %}
+                                                <li><b>{{ attribute.0 }}</b>: {{ attribute.1 }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
         </div>
+
         <div class="well">
             <h3>Full Results</h3>
-            {{ result_html | safe }}
+            {% if match.task == "group" %}
+                <table class='dataset-table nowrap table table-hover'>
+                    <thead>
+                        <tr>
+                            {% for col in match_result_header %}
+                                <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for group in match_result_data %}
+                            {% for member in group %}
+                                <tr class="group-{% if forloop.parentloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">
+                                    {% for col, val in member %}
+                                        <td>{{ val }}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <table class='dataset-table nowrap table table-hover'>
+                    <thead>
+                        <tr>
+                            {% for col in match_result_header %}
+                                <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for assignment in match_result_data %}
+                            {% for member in assignment %}
+                                {% if forloop.counter > 1 %}
+                                    <tr class="group-{% if forloop.parentloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">
+                                        {% for col, val in assignment.0 %}
+                                            <td>{{ val }}</td>
+                                        {% endfor %}
+                                        <td class="assignmentColumn">
+                                        </td>
+                                        {% for col, val in member %}
+                                            <td>{{ val }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% endif %}
         </div>
     {% else %}
+            
         <div class="well">
-            <h3>Results</h3>
+            <h3>No Results Found</h3>
             <a href="/match/run/{{ match.id }}" class="btn btn-primary">Run Match</a>
         </div>
     {% endif %}

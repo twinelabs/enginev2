@@ -6,7 +6,6 @@ from enginev1.apps.welcome.models import Client
 from django_hstore import hstore
 
 
-
 class DataTable(models.Model):
     """ Generic data object for matching. DataTable.data stored as JSON hstore field.
     """

@@ -1,3 +1,5 @@
+/* RESULTS BY GROUP */
+
 .groupDiv {
     margin-bottom: 20px;
 }
@@ -25,4 +27,19 @@
 }
 .nav-tabs>li {
   float: none;
+}
+
+/* FULL RESULTS TABLE */
+
+.group-odd {
+    background-color: #D0D0D0;
+}
+
+.group-even {
+    background-color: #F0F0F0;
+}
+
+.assignmentColumn {
+    background-color: green;
+    width: 10px;
 }

@@ -2,38 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 
-import datetime
 import pdb
-import json
 
 from .models import *
 from .utils import *
 from .forms import MatchGroupForm, MatchAssignForm
-
-
-@login_required
-def view_full(request, match_id):
-    match = Match.objects.get(id=match_id)
-
-    if match.client != request.user.client:
-        return HttpResponse("You are not permissioned.")
-
-    config_html = match_config_as_html(match)
-
-    has_results = match.has_results()
-    if has_results:
-        result_html = match_results_as_html(match, True)
-    else:
-        result_html = None
-
-    context = {
-        'match': match,
-        'has_results': has_results,
-        'config_html': config_html,
-        'result_html': result_html,
-    }
-
-    return render(request, 'match/view.html', context)
 
 
 @login_required
@@ -46,20 +19,16 @@ def view(request, match_id):
     match_config = match.config['match']
     match_data_table_names = match.data_table_names()
     match_rules = zip(match_config['components'], match_config['weights'])
-
-    match_results = match.results()
-    if match_results:
-        result_html = match_results_as_html(match)
-    else:
-        result_html = None
+    match_result_data = match.result_data()
+    match_result_header = match.result_header()
 
     context = {
         'match': match,
         'match_config': match_config,
         'match_data_table_names': match_data_table_names,
         'match_rules': match_rules,
-        'match_results': match_results,
-        'result_html': result_html,
+        'match_result_data': match_result_data,
+        'match_result_header': match_result_header
     }
 
     return render(request, 'match/view.html', context)
