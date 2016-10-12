@@ -26,13 +26,74 @@
                 <h3>Select Group</h3>
                 <select class="form-control" id="feedback_group">
                     <option value="" selected="selected">-- click to select --</option>
-                    {% for group_number in group_numbers %}
-                        <option value="{{ group_number }}">Group #{{ group_number }}</option>
+                    {% for entity in match_result_data %}
+                        <option value="{{ forloop.counter }}">Group #{{ forloop.counter }}</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
     </div>
+
+    {% if match_result_data %}
+        {% if match.task == "group" %}
+            {% for group in match_result_data %}
+                <div class="feedbackGroup{{ forloop.counter }} feedbackGroup well" style="display:none">
+                    <div class="row">
+                        {% for member in group %}
+                            <div class="col-md-4">
+                                <h3>{{ match_data_table_names.0 }} #{{ forloop.counter }}</h3>
+                                <table class="feedbackGroup">
+                                    {% for attribute in member %}
+                                        <tr>
+                                            <td><b>{{ attribute.0 }}</b></td>
+                                            <td>{{ attribute.1 }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            {% for assignment in match_result_data %}
+                <div class="feedbackGroup{{ forloop.counter }} feedbackGroup" style="display:none">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="well">
+                                <h3>{{ match_data_table_names.1 }} #{{ forloop.counter }}</h3>
+                                <table class="feedbackGroup">
+                                    {% for attribute in assignment.0 %}
+                                        <tr>
+                                            <td><b>{{ attribute.0 }}</b></td>
+                                            <td>{{ attribute.1 }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="well">
+                                {% for member in assignment %}
+                                    {% if forloop.counter > 1 %}
+                                        <h3>Matched {{ match_data_table_names.0 }} #{{ forloop.counter }}</h3>
+                                        <table class="feedbackGroup">
+                                            {% for attribute in member %}
+                                                <tr>
+                                                    <td><b>{{ attribute.0 }}</b></td>
+                                                    <td>{{ attribute.1 }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
 
     <div>
         {{ feedback_s | safe }}

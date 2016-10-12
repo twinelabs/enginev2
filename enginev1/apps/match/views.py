@@ -41,12 +41,15 @@ def feedback(request, match_id):
     if match.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
-    (group_numbers, feedback_s) = match_results_for_feedback(match)
+    match_data_table_names = match.data_table_names()
+    match_result_data = match.result_data()
+    match_result_header = match.result_header()
 
     context = {
         'match': match,
-        'group_numbers': group_numbers,
-        'feedback_s': feedback_s
+        'match_data_table_names': match_data_table_names,
+        'match_result_data': match_result_data,
+        'match_result_header': match_result_header
     }
     return render(request, 'match/feedback.html', context)
 
