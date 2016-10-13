@@ -3,7 +3,7 @@ import json
 from django.contrib.auth.models import User
 from enginev1.apps.welcome.models import Client
 from enginev1.apps.dataset.models import DataTable
-from enginev1.apps.match.models import Match
+from enginev1.apps.match.models import Match, MatchDataTable
 
 from enginev1.apps.dataset.utils import import_csv_as_data_table
 
@@ -64,9 +64,9 @@ with open('./fixtures/match_cfg_assign.json') as f:
 assign_match = Match(client=client, task="assign", name=assign_name, config=assign_cfg)
 assign_match.save()
 
-assign_match.data_tables.add(dt_employees)
-assign_match.data_tables.add(dt_roles)
-assign_match.save()
+MatchDataTable.objects.create(match=assign_match, data_table=dt_employees, data_table_order=1)
+MatchDataTable.objects.create(match=assign_match, data_table=dt_roles, data_table_order=2)
+
 
 # CREATE MATCH (GROUP)
 # ====
@@ -79,7 +79,4 @@ with open('./fixtures/match_cfg_group.json') as f:
 group_match = Match(client=client, task="group",  name=group_name, config=group_cfg)
 group_match.save()
 
-group_match.data_tables.add(dt_employees)
-group_match.save()
-
-
+MatchDataTable.objects.create(match=group_match, data_table=dt_employees, data_table_order=1)

@@ -17,7 +17,7 @@ class Match(models.Model):
 
     data_tables = models.ManyToManyField(
         DataTable,
-#       through=MatchDataTable,
+        through='MatchDataTable',
         related_name='matches'
     )
 
@@ -41,7 +41,9 @@ class Match(models.Model):
 
 
     def data_table_names(self):
-        return [dt.name for dt in self.data_tables.all()]
+        mdts = MatchDataTable.objects.filter(match=self).order_by('data_table_order')
+        data_table_names = [mdt.data_table.name for mdt in mdts]
+        return data_table_names
 
 
     def result_data(self):
@@ -83,11 +85,11 @@ class Match(models.Model):
     def assign_result_data(self):
         results = json.loads(self.result['results'])
 
-        dt_A = self.data_tables.all()[1]
+        dt_A = self.data_tables.all()[0]
         data_A = dt_A.data['data']
         columns_A = dt_A.header()
 
-        dt_B = self.data_tables.all()[0]
+        dt_B = self.data_tables.all()[1]
         data_B = dt_B.data['data']
         columns_B = dt_B.header()
 
@@ -123,23 +125,21 @@ class Match(models.Model):
 
 
     def assign_result_header(self):
-        dt_A = self.data_tables.all()[1]
+        dt_A = self.data_tables.all()[0]
         columns_A = dt_A.header()
 
-        dt_B = self.data_tables.all()[0]
+        dt_B = self.data_tables.all()[1]
         columns_B = dt_B.header()
 
         header = columns_B + [""] + columns_A
         return header
 
-"""
+
 class MatchDataTable(models.Model):
     match = models.ForeignKey(Match)
     data_table = models.ForeignKey(DataTable)
 
-    order_added = models.PositiveIntegerField()
-
+    data_table_order = models.PositiveIntegerField()
 
     class Meta:
-        ordering = ('order_added',)
-"""
+        ordering = ('data_table_order',)

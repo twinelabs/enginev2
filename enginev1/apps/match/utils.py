@@ -5,8 +5,7 @@ import xlwt
 from django.http import HttpResponse
 
 from .entwine.display import assignments
-import models
-
+from enginev1.apps.dataset.models import DataColumn
 
 def match_analytics(match):
 
@@ -76,7 +75,7 @@ def create_group_request_to_config(request):
             }
         ],
         "match": {
-            "task": "cluster",
+            "task": "group",
             "algorithm": {
                 "name": req['algo'][0],
                 "params": {
@@ -93,7 +92,7 @@ def create_group_request_to_config(request):
         if key[:11] == 'match_rule_':
             column_id = int(key[11:])
             components.append({
-                "columns": [models.DataColumn.objects.get(pk=column_id).name],
+                "columns": [DataColumn.objects.get(pk=column_id).name],
                 "function": req[key][0]
             })
             weights.append(int(req['match_importance_' + str(column_id)][0]))
@@ -147,8 +146,8 @@ def create_assign_request_to_config(request):
             tag_A, tag_B = group_id.split('_')
             id_A, id_B = int(tag_A[1:]), int(tag_B[1:])
 
-            column_name_A = models.DataColumn.objects.get(pk=id_A).name
-            column_name_B = models.DataColumn.objects.get(pk=id_B).name
+            column_name_A = DataColumn.objects.get(pk=id_A).name
+            column_name_B = DataColumn.objects.get(pk=id_B).name
 
             components.append({
                 "columns": [column_name_A, column_name_B],

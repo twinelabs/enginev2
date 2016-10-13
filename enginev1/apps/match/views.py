@@ -77,13 +77,12 @@ def create_group(request):
         cfg = create_group_request_to_config(request.POST)
 
         try:
-            match = Match(client=c, name=name, config=cfg)
+            match = Match(client=c, name=name, config=cfg, task='group')
             match.save()
 
             data_table_id = cfg['load'][0]['data_table']['id']
             data_table = DataTable.objects.get(pk=data_table_id)
-            match.data_tables.add(data_table)
-            match.save()
+            MatchDataTable.objects.create(match=match, data_table=data_table, data_table_order=1)
 
             return HttpResponseRedirect('/match/view/' + str(match.id))
 
@@ -108,16 +107,16 @@ def create_assign(request):
 
         try:
             c = request.user.client
-            match = Match(client=c, name=name, config=cfg)
+            match = Match(client=c, name=name, config=cfg, task='assign')
             match.save()
 
             data_table_id = cfg['load'][0]['data_table']['id']
             data_table = DataTable.objects.get(pk=data_table_id)
-            match.data_tables.add(data_table)
+            MatchDataTable.objects.create(match=match, data_table=data_table, data_table_order=1)
+
             data_table_id = cfg['load'][1]['data_table']['id']
             data_table = DataTable.objects.get(pk=data_table_id)
-            match.data_tables.add(data_table)
-            match.save()
+            MatchDataTable.objects.create(match=match, data_table=data_table, data_table_order=2)
 
             return HttpResponseRedirect('/match/view/' + str(match.id))
 
