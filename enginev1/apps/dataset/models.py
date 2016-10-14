@@ -59,10 +59,11 @@ class DataTable(models.Model):
 
 
 class DataColumn(models.Model):
-    """ Stores information on data columns within DataTable:
+    """ Stores information on data columns within DataTable, including:
     - type of data (numeric, date, string, ...)
     - display order
-    - statistics (number unique, number blank)
+    - counts (number unique, number blank)
+    - additional calculations/statistics as needed
     """
     data_table = models.ForeignKey(DataTable, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)

@@ -3,11 +3,10 @@ from django.http import JsonResponse
 from .models import *
 from enginev1.apps.dataset.models import DataColumn
 
-import pdb
-
 
 def get_data_table_columns(request):
-
+    """ Returns data columns [(id, name), ...] for requested data table.
+    """
     data_table_id = request.GET.get('data_table_id', None)
     data_table = DataTable.objects.get(pk=data_table_id)
 
@@ -19,6 +18,8 @@ def get_data_table_columns(request):
 
 # TODO: collapse into 1 function
 def get_data_column(request):
+    """ Returns [id, name, dtype] for requested data column.
+    """
 
     data_column_id = request.GET.get('data_column_id', None)
     data_column = DataColumn.objects.get(pk=data_column_id)
@@ -28,7 +29,10 @@ def get_data_column(request):
     return JsonResponse(column_data, safe=False)
 
 
+# TODO: collapse into 1 function
 def get_two_data_columns(request):
+    """ Returns [[id, name, dtype], [id, name, dtype]] for 2 requested data columns.
+    """
 
     id_A = request.GET.get('id_A', None)
     d1 = DataColumn.objects.get(pk=id_A)

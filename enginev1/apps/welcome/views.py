@@ -9,7 +9,6 @@ from .models import Client
 
 
 # TODO: require login before client update
-
 class ClientUpdate(UpdateView):
     """ Page to update client data attributes.
     """

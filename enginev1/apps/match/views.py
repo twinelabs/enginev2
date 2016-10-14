@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 import pdb
@@ -55,22 +55,14 @@ def feedback(request, match_id):
 
 
 @login_required
-def feedback_old(request):
-    return render(request, 'match/feedback_old.html', {})
-
-
-@login_required
-def feedback_employeerole(request):
-    return render(request, 'match/feedback_employeerole.html', {})
-
-
-@login_required
 def create(request):
     return render(request, 'match/create.html', {})
 
 
 @login_required
 def create_group(request):
+    """ Creates GROUP match object, saving associated data table.
+    """
 
     if request.method == 'POST':
         name = request.POST['name']
@@ -100,6 +92,8 @@ def create_group(request):
 
 @login_required
 def create_assign(request):
+    """ Creates ASSIGN match object, saving associated data tables.
+    """
 
     if request.method == 'POST':
         name = request.POST['name']
@@ -130,17 +124,6 @@ def create_assign(request):
         }
 
     return render(request, 'match/create_assign.html', context)
-
-
-@login_required
-def create_employeerole(request):
-
-    match_form = MatchAssignForm()
-    context = {
-        'match_form': match_form
-    }
-
-    return render(request, 'match/create_employeerole.html', context)
 
 
 @login_required
@@ -193,3 +176,29 @@ def export_xls(request, match_id):
 
     xls_response = export_assign_as_excel(match)
     return xls_response
+
+
+# ====
+# DEMO ONLY
+# ====
+
+@login_required
+def feedback_old(request):
+    return render(request, 'match/feedback_old.html', {})
+
+
+@login_required
+def feedback_employeerole(request):
+    return render(request, 'match/feedback_employeerole.html', {})
+
+
+@login_required
+def create_employeerole(request):
+
+    match_form = MatchAssignForm()
+    context = {
+        'match_form': match_form
+    }
+
+    return render(request, 'match/create_employeerole.html', context)
+

@@ -8,6 +8,8 @@ from .entwine.display import assignments
 from enginev1.apps.dataset.models import DataColumn
 
 def match_analytics(match):
+    """ Pulls calculated stats/analytics for match results. Currently static.
+    """
 
     analytics = []
 
@@ -60,7 +62,7 @@ def match_analytics(match):
 
 
 def create_group_request_to_config(request):
-    """ Converts create group form into match object with configs.
+    """ Converts GROUP create match form into match object with configs.
     """
 
     req = dict(request.iterlists())
@@ -104,7 +106,7 @@ def create_group_request_to_config(request):
 
 
 def create_assign_request_to_config(request):
-    """ Converts create assign form into match object with configs.
+    """ Converts ASSIGN create match form into match object with configs.
     """
 
     req = dict(request.iterlists())
@@ -162,6 +164,8 @@ def create_assign_request_to_config(request):
 
 
 def export_assign_as_excel(match):
+    """ Exports ASSIGN results as excel sheet.
+    """
 
     pretty_csv = assignments.pretty_csv(match)
 
@@ -190,38 +194,3 @@ def export_assign_as_excel(match):
     wb.save(response)
 
     return response
-
-
-    s = ""
-
-    n_lim = 999 if full else 4
-
-    dt_B = match.data_tables.all()[0]
-    dt_B_values = dt_B.values()
-    dt_A = match.data_tables.all()[1]
-    dt_A_values = dt_A.values()
-
-    header = dt_B.header()[:n_lim] + [""] + dt_A.header()[:n_lim]
-
-    s += "<table class='dataset-table nowrap table table-striped table-hover'>"
-    s += "<thead><tr><th>"
-    s += "</th><th>".join([ str(val) for val in header])
-    s += "</th></tr></thead>"
-
-    s += "<tbody>"
-    for i, pod in enumerate(results):
-
-#            pdb.set_trace()
-
-        elem_B = dt_B_values[i]
-
-        for j, member in enumerate(pod):
-            elem_A = dt_A_values[member]
-            vals = elem_B[:n_lim] + ["<->"] + elem_A[:n_lim]
-            s += "<tr><td>"
-            s += "</td><td>".join([ str(val) for val in vals])
-            s += "</td></tr>"
-    s += "</tbody>"
-    s += "</table>"
-
-    return s

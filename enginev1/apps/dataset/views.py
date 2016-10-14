@@ -2,7 +2,7 @@ import json
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 
 from .utils import *
 from .forms import UploadCSVForm
@@ -41,6 +41,9 @@ def upload_csv(request):
 
 @login_required
 def view(request, data_table_id):
+    """ Pulls header and data values for viewing.
+    """
+
     data_table = DataTable.objects.get(id=data_table_id)
 
     if data_table.client != request.user.client:
@@ -60,6 +63,8 @@ def view(request, data_table_id):
 
 @login_required
 def analytics(request, data_table_id):
+    """ Creates JSON used by data viz dashboard.
+    """
     data_table = DataTable.objects.get(id=data_table_id)
 
     if data_table.client != request.user.client:
@@ -84,6 +89,7 @@ def analytics(request, data_table_id):
 
 @login_required
 def export_csv(request, data_table_id):
+
     data_table = DataTable.objects.get(id=data_table_id)
 
     if data_table.client != request.user.client:
@@ -95,6 +101,7 @@ def export_csv(request, data_table_id):
 
 @login_required
 def export_xls(request, data_table_id):
+
     data_table = DataTable.objects.get(id=data_table_id)
 
     if data_table.client != request.user.client:
@@ -106,6 +113,7 @@ def export_xls(request, data_table_id):
 
 @login_required
 def delete(request, data_table_id):
+
     data_table = DataTable.objects.get(id=data_table_id)
 
     if data_table.client != request.user.client:
