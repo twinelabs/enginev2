@@ -36,12 +36,13 @@ def register(request):
             client.user = user
             client.save()
 
-            login(request, user)
+            user_authenticated = authenticate(username=user.username, password=user.password)
+            login(request, user_authenticated)
+            return HttpResponseRedirect('/welcome/home')
 
         else:
             print user_form.errors, client_form.errors
-
-        return HttpResponseRedirect('/welcome/home')
+            return HttpResponseRedirect('/welcome/register')
 
     else:
         user_form = UserForm()
