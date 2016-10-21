@@ -48,6 +48,7 @@ parts/
 sdist/
 var/
 venv/
+venv2/
 *.egg-info/
 .installed.cfg
 *.egg
