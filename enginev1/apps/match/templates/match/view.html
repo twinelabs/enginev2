@@ -16,9 +16,6 @@
         <a href="/match/feedback/{{ match.id }}" class="header-button btn btn-success" id="feedback-button">
             &nbsp; Feedback &nbsp;
         </a>
-        <a href="/match/export_xls/{{ match.id }}" class="header-button btn btn-default" id="export-button">
-            &nbsp; Export &nbsp;
-        </a>
         <button type="button" class="header-button btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
     </div>
     <!-- Modal -->
@@ -45,10 +42,10 @@
     <div class="well">
         <h3>{{ match.name }}</h3>
         <a class="btn btn-default" data-toggle="collapse" href="#matchSetup" aria-expanded="false" aria-controls="matchSetup">
-            Show Details
+            Show/Hide
         </a>
 
-        <div class="collapse" id="matchSetup">
+        <div class="collapse in" id="matchSetup">
         <div class='row'>
             {% if match.task == "assign" %}
                 <div class='col-md-5'>
@@ -61,10 +58,6 @@
                             Capacity:
                             <b> {{ match_config.algorithm.params.capacity }}</b>
                         </li>
-                        <li>
-                            Algorithm:
-                            <b>NRMP</b>
-                        </li>
                     </ul>
                 </div>
                 <div class='col-md-5 col-md-offset-1'>
@@ -72,8 +65,19 @@
                     <ol>
                         {% for c, w in match_rules %}
                         <li>
-                            <b>{{ c.columns.0 }}</b> - <b>{{ c.columns.1 }}</b>
-                             (weight = {{ w }})
+                            <b>{{ c.columns.0 }}</b> & <b>{{ c.columns.1 }}:</b>
+                            {% if c.function == 'binary_diff' %}
+                                diversity
+                            {% elif c.function == 'binary_same' %}
+                                similarity
+                            {% elif c.function == 'inequality' %}
+                                not equal
+                            {% elif c.function == 'intersect_comma' %}
+                                overlap
+                            {% else %}
+                                equal
+                            {% endif %}
+                            [weight = {{ w }}]
                         </li>
                         {% endfor %}
                     </ol>
@@ -94,7 +98,15 @@
                         </li>
                         <li>
                             Algorithm:
-                            <b>{{ match_config.algorithm.name }}</b>
+                            <b>
+                                {% if match_config.algorithm.name == 'greedy' %}
+                                    Quick search (fast)
+                                {% elif match_config.algorithm.name == 'greedy_adaptive' %}
+                                    Thorough search (slow)
+                                {% else %}
+                                    Random assignment
+                                {% endif %}
+                            </b>
                         </li>
                     </ul>
                 </div>
@@ -103,7 +115,17 @@
                     <ol>
                         {% for c, w in match_rules %}
                         <li>
-                            <b>{{ c.columns.0 }}</b> (weight = {{ w }})
+                            <b>{{ c.columns.0 }}:</b>
+                            {% if c.function == 'binary_diff' %}
+                                diversity
+                            {% elif c.function == 'euclidean_distance' %}
+                                min distance
+                            {% elif c.function == 'euclidean_distance_inv' %}
+                                max distance
+                            {% else %}
+                                similarity
+                            {% endif %}
+                            [weight = {{ w }}]
                         </li>
                         {% endfor %}
                     </ol>

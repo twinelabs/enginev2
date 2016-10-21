@@ -48,6 +48,12 @@ class Match(models.Model):
         return data_table_names
 
 
+    def match_rules(self):
+        cfg = self.config['match']
+        arr = zip(cfg['components'], cfg['weights'])
+        return arr
+
+
     def result_data(self):
         """ Match results, structured for viewing/manipulation.
         """

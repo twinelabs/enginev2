@@ -18,7 +18,7 @@ def view(request, match_id):
 
     match_config = match.config['match']
     match_data_table_names = match.data_table_names()
-    match_rules = zip(match_config['components'], match_config['weights'])
+    match_rules = match.match_rules()
     match_result_data = match.result_data()
     match_result_header = match.result_header()
 
@@ -68,18 +68,19 @@ def create_group(request):
         name = request.POST['name']
         cfg = create_group_request_to_config(request.POST)
 
-        try:
-            match = Match(client=c, name=name, config=cfg, task='group')
-            match.save()
+#        try:
+        c = request.user.client
+        match = Match(client=c, name=name, config=cfg, task='group')
+        match.save()
 
-            data_table_id = cfg['load'][0]['data_table']['id']
-            data_table = DataTable.objects.get(pk=data_table_id)
-            MatchDataTable.objects.create(match=match, data_table=data_table, data_table_order=1)
+        data_table_id = cfg['load'][0]['data_table']['id']
+        data_table = DataTable.objects.get(pk=data_table_id)
+        MatchDataTable.objects.create(match=match, data_table=data_table, data_table_order=1)
 
-            return HttpResponseRedirect('/match/view/' + str(match.id))
+        return HttpResponseRedirect('/match/view/' + str(match.id))
 
-        except:
-            return HttpResponse("Improper match parameters")
+#        except:
+#            return HttpResponse("Improper match parameters")
 
     else:
         match_group_form = MatchGroupForm()

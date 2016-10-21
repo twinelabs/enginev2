@@ -80,8 +80,8 @@ $(document).ready(function(){
             ["binary_same", "Similar"]
         ];
         var numericOptions  = [
-            ["euclidean_distance", "Max Distance"],
-            ["euclidean_distance", "Min Distance"]
+            ["euclidean_distance", "Min. Distance"],
+            ["euclidean_distance_inv", "Max. Distance"]
         ];
 
         if (column_data[2] == 'int64') {

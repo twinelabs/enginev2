@@ -10,9 +10,9 @@ class MatchGroupForm(forms.Form):
 
     # Cluster algorithm
     ALGO_CHOICES = [
-        ('greedy', 'Quick and simple result'),
-        ('greedy_adaptive', 'Thorough search'),
-        ('random', 'Ignore rules - random assignment')
+        ('greedy', 'Quick search (fast)'),
+        ('greedy_adaptive', 'Thorough search (slow)'),
+        ('random', 'Random assignment')
     ]
 
     algo = forms.ChoiceField(

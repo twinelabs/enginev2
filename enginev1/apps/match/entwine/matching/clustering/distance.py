@@ -17,6 +17,8 @@ def create_single_matrix(df, component, zscore=False):
     distance_matrix = None
     if component['function'] == "euclidean_distance":
         distance_matrix = euclidean_distance(selected_cols)
+    elif component['function'] == "euclidean_distance_inv":
+        distance_matrix = euclidean_distance_inv(selected_cols)
     elif component['function'] == "binary_same":
         distance_matrix = binary_same(selected_cols)
     elif component['function'] == "binary_diff":
@@ -42,11 +44,20 @@ def create_weighted_matrix(df, match_config):
 '''
 Creates a 2D matrix with each entry as the euclidean distance between the 
 attribute vectors of each person.
+When minimizing average intra-cluster distance, this MINIMIZES DISTANCE.
 '''
 def euclidean_distance(rows):
     return [[np.linalg.norm(r1 - r2) for r1 in rows] for r2 in rows]
     
-''' 
+'''
+Creates a 2D matrix with each entry as 1/(euclidean distance) between the
+attribute vectors of each person.
+When minimizing average intra-cluster distance, this MAXIMIZES DISTANCE.
+'''
+def euclidean_distance_inv(rows):
+    return [[1.0/(0.1 + np.linalg.norm(r1 - r2)) for r1 in rows] for r2 in rows]
+
+'''
 Creates a 2D matrix with 0 if same entry, 1 if different entry. 
 When minimizing average intra-cluster distance, this maximizes SIMILARITY.
 Can only be used on a single variable column.

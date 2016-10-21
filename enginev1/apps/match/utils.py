@@ -160,6 +160,7 @@ def create_assign_request_to_config(request):
     config['match']['components'] = components
     config['match']['weights'] = weights
 
+    print(config)
     return config
 
 
