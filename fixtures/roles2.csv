@@ -1,0 +1,51 @@
+Job ID,Location,Position,Department,Required Education,Req. Job Schedule, Salary ,Management Experience,Skills Required,Region
+455373,New York,Analyst,Sales,Bachelor's Degree,Full-time,"50,000",No,Product management,North America
+455414,Chicago,Associate,Marketing,Bachelor's Degree,Full-time,"50,000",No,Analytics,North America
+455374,New York,VP,Engineering,Bachelor's Degree,Full-time,"45,300",No,Programming,North America
+455374,Philadelphia,Director,Management,Bachelor's Degree,Full-time,"45,300",No,Management,North America
+455374,New York,Analyst,Sales,Bachelor's Degree,Full-time,"45,300",No,Product management,North America
+455376,San Francisco,Associate,Marketing,Bachelor's Degree,Full-time,"49,400",No,Analytics,North America
+455416,New York,VP,Engineering,Bachelor's Degree,Full-time,"49,400",No,Programming,North America
+455420,Chicago,Director,Management,Bachelor's Degree,Full-time,"49,500",No,Management,North America
+455418,New York,Analyst,Sales,Bachelor's Degree,Full-time,"49,400",No,Product management,North America
+455422,Philadelphia,Associate,Marketing,Bachelor's Degree,Full-time,"49,500",No,Analytics,North America
+455424,New York,VP,Engineering,Bachelor's Degree,Full-time,"49,500",No,Programming,North America
+455502,San Francisco,Director,Management,Bachelor's Degree,Full-time,"85,000",Yes,Management,North America
+455502,New York,Analyst,Sales,Bachelor's Degree,Full-time,"85,000",Yes,Product management,North America
+455502,Chicago,Associate,Marketing,Bachelor's Degree,Full-time,"85,000",No,Analytics,North America
+457536,New York,VP,Engineering,Bachelor's Degree,Full-time,"81,000",No,Programming,North America
+458419,Philadelphia,Director,Management,Bachelor's Degree,Full-time,"69,000",No,Management,North America
+458424,New York,Analyst,Sales,Bachelor's Degree,Full-time,"69,000",No,Product management,North America
+458418,San Francisco,Associate,Marketing,Bachelor's Degree,Full-time,"81,000",No,Analytics,North America
+459148,New York,VP,Engineering,Bachelor's Degree,Full-time,"87,000",Yes,Programming,North America
+459319,Chicago,Director,Management,Bachelor's Degree,Full-time,"81,000",Yes,Management,North America
+450270,New York,Analyst,Sales,High School Diploma/GED,Full-time,"35,000",No,Product management,North America
+450306,Philadelphia,Associate,Marketing,High School Diploma/GED,Full-time,"69,000",No,Analytics,North America
+450306,New York,VP,Engineering,High School Diploma/GED,Full-time,"69,000",No,Programming,North America
+450669,San Francisco,Director,Management,Bachelor's Degree,Full-time,"81,000",No,Management,North America
+450702,New York,Analyst,Sales,High School Diploma/GED,Full-time,"35,000",No,Product management,North America
+458351,Chicago,Associate,Marketing,High School Diploma/GED,Full-time,"35,000",No,Analytics,North America
+450422,New York,VP,Engineering,High School Diploma/GED,Full-time,"87,000",Yes,Programming,North America
+450422,Philadelphia,Director,Management,High School Diploma/GED,Full-time,"87,000",Yes,Management,North America
+450422,New York,Analyst,Sales,High School Diploma/GED,Full-time,"87,000",Yes,Product management,North America
+450699,San Francisco,Associate,Marketing,High School Diploma/GED,Full-time,"35,000",No,Analytics,North America
+451228,New York,VP,Engineering,High School Diploma/GED,Full-time,"21,600",No,Programming,North America
+451425,Chicago,Director,Management,Bachelor's Degree,Full-time,"87,000",No,Management,North America
+451121,New York,Analyst,Sales,High School Diploma/GED,Full-time,"35,000",No,Product management,North America
+452665,Philadelphia,Associate,Marketing,High School Diploma/GED,Full-time,"35,000",No,Analytics,North America
+452666,New York,VP,Engineering,High School Diploma/GED,Full-time,"35,000",No,Programming,North America
+452528,San Francisco,Director,Management,Bachelor's Degree,Full-time,"38,000",No,Management,North America
+452300,New York,Analyst,Sales,Bachelor's Degree,Full-time,"35,000",No,Product management,North America
+452698,Chicago,Associate,Marketing,Bachelor's Degree,Full-time,"81,000",No,Analytics,North America
+452475,New York,VP,Engineering,Bachelor's Degree,Full-time,"69,000",No,Programming,North America
+450219,Philadelphia,Director,Management,Bachelor's Degree,Part-time,"49,000",No,Management,North America
+450291,New York,Analyst,Sales,High School Diploma/GED,Part-time,"21,000",No,Product management,North America
+452603,San Francisco,Associate,Marketing,High School Diploma/GED,Part-time,"122,000",No,Analytics,North America
+450232,New York,VP,Engineering,High School Diploma/GED,Part-time,"35,000",No,Programming,North America
+450845,Chicago,Director,Management,High School Diploma/GED,Part-time,"52,000",No,Management,North America
+451229,New York,Analyst,Sales,Bachelor's Degree,Part-time,"69,000",No,Product management,North America
+450858,Philadelphia,Associate,Marketing,High School Diploma/GED,Part-time,"52,000",No,Analytics,North America
+452175,New York,VP,Engineering,High School Diploma/GED,Part-time,"34,000",No,Programming,North America
+452195,San Francisco,Director,Management,High School Diploma/GED,Part-time,"35,000",No,Management,North America
+451318,New York,Analyst,Sales,Bachelor's Degree,Part-time,"69,000",Yes,Product management,North America
+451772,Chicago,Associate,Marketing,Bachelor's Degree,Part-time,"69,000",Yes,Analytics,North America

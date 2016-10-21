@@ -46,11 +46,11 @@ company_name = 'Demo'
 # ====
 client = Client.objects.filter(company_name = company_name)[0]
 
-csv_roles = './fixtures/roles.csv'
+csv_roles = './fixtures/roles2.csv'
 dt_roles_id = import_csv_as_data_table(client, 'Open Roles', csv_roles)
 dt_roles = DataTable.objects.get(pk=dt_roles_id)
 
-csv_employees = './fixtures/employees.csv'
+csv_employees = './fixtures/employees2.csv'
 dt_employees_id = import_csv_as_data_table(client, 'Employees', csv_employees)
 dt_employees = DataTable.objects.get(pk=dt_employees_id)
 

@@ -18,6 +18,8 @@ def run_from_config(config):
     output = None
     if config['match']['task'] == 'group':
         output = entwine_cluster(config)
+    elif config['match']['task'] == 'cluster':
+        output = entwine_cluster(config)
     elif config['match']['task'] == 'assign':
         output = entwine_assign(config)
     else:
