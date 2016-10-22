@@ -8,7 +8,7 @@ Scripts to display assignment results.
 import pdb
 import json
 
-from ..matching.assign.utility import *
+from ..matching.assign.utilities import *
 
 
 def pretty_csv(match):

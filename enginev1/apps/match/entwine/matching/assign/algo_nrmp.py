@@ -9,7 +9,7 @@ Function to run assignment algorithms.
 import numpy as np
 import random
 
-def residency(utility_matrix, match_config, verbose=False):
+def residency(utility_matrix, algo_params, verbose=False):
     """ Solves residency matching program with symmetric utilities and multiple capacity.
 
     :param utility_matrix: np array of utilities, with N rows of individuals (applicants) and M columns of programs (residencies).
@@ -17,7 +17,7 @@ def residency(utility_matrix, match_config, verbose=False):
     """
     a_s = {}
     n, m = utility_matrix.shape
-    capacity = match_config['algorithm']['params']['capacity']
+    capacity = algo_params['capacity']
     capacities = [capacity] * m
     
     for i in range(n):

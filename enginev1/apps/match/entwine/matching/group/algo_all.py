@@ -18,9 +18,10 @@ import enginev1.apps.match.entwine.analytics.goodness.cluster_evaluation as clus
 
 # from memory_profiler import profile
 
-# Original order clustering. Used to do random clustering if rand is True.
 # @profile
 def cluster_order(dist_mat, params, rand=False):
+    """ Original order clustering. Used to do random clustering if rand is True.
+    """
     k = params['k_size']
     dist_mat = np.array(dist_mat)
     indices = range(dist_mat.shape[0])
@@ -28,16 +29,17 @@ def cluster_order(dist_mat, params, rand=False):
         random.shuffle(indices)
     return [indices[i:i+k] for i in xrange(0, len(indices), k)]
     
-# Random clustering
 # @profile
 def cluster_random(dist_mat, params):
+    """ Random clustering
+    """
     return cluster_order(dist_mat, params, rand=True)
 
-# Full search clustering. 
-# Found that it is almost always infeasible.
-# Feasible parameters are roughly (n=12,k=2) and (n=20,k=10)
 # @profile
 def cluster_fullsearch(dist_mat, params):
+    """ Full search clustering. Almost always infeasible.
+    Feasible parameters are roughly (n=12,k=2) and (n=20,k=10).
+    """
     n = dist_mat.shape[0]
     k = params['k_size']
     best_goodness = 0
@@ -55,11 +57,12 @@ def cluster_fullsearch(dist_mat, params):
             
     return best_clusters
 
-# Greedy clustering.
-# Cluster goodness is evaluated based on average cluster distance.
-# Can take in a maximize parameter set to True if you want to maximize.
 # @profile
 def cluster_greedy(dist_mat, params):
+    """ Greedy clustering. Almost always infeasible.
+    Cluster goodness is evaluated based on average cluster distance.
+    Can take in a maximize parameter set to True if you want to maximize.
+    """
     k = params['k_size']
     # Sets maximize to True only if maximize is in params and is set to True
     maximize = params.get('maximize',False)
@@ -102,9 +105,11 @@ def cluster_greedy(dist_mat, params):
 
     return clusters_original
 
-# Adaptive search clustering.
+
 # @profile
 def cluster_adaptive(dist_mat, params, clusters=[]):
+    """ Adaptive search clustering.
+    """
     # Always use mean distance function, for now
     gom_function = cluster_evaluation.cluster_mean_distance
 
@@ -153,14 +158,17 @@ def cluster_adaptive(dist_mat, params, clusters=[]):
 
     return clusters
     
-# Combined greedy and adaptive search clustering.
 def cluster_greedy_adaptive(dist_mat, params):
+    """ Combined greedy and adaptive search clustering.
+    """
     greedy_clusters = cluster_greedy(dist_mat, params)
     final_clusters = cluster_adaptive(dist_mat, params, greedy_clusters)
     return final_clusters
     
-# Recursive helper to find all group combinations of size k
+
 def all_groups(remaining, k):
+    """ Recursive helper to find all group combinations of size k
+    """
     # If only k or fewer remaining, just return those indices as a group
     if len(remaining) <= k:
         return [tuple(remaining)]
@@ -173,25 +181,8 @@ def all_groups(remaining, k):
             clusters += [group + new_cluster for new_cluster in new_clusters]
         return clusters
         
-# n choose k helper function, for testing
 def nCk(n,k):
+    """ n choose k helper function, for testing
+    """
     f = math.factorial
     return f(n) / f(k) / f(n-k)
-
-# Test to see if all_groups is producing all possible groups. Works!
-# Shows that combination length blows up really fast.
-# n=9, k=3 --> 1680
-# n=10, k=3 --> 16800
-# n=11, k=3 --> 92400
-# n=15, k=3 --> 168168000 (Infeasible)
-# n=20, k=4 --> 305540235000 (Nope)
-def number_all_groups(n,k):
-    total_combos = 1
-    remaining = n
-    while remaining >= k:
-        total_combos *= nCk(remaining,k)        
-        remaining -= k
-    return total_combos
-        
-    
-

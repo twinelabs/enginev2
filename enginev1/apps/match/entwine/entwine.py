@@ -9,17 +9,16 @@ Runs from config dictionary or from file.
 import sys
 import yaml
 
-from entwine_cluster import entwine_cluster
+from entwine_group import entwine_group
 from entwine_assign import entwine_assign
 
 def run_from_config(config):
     """ Run matching process from config dictionary specifying match parameters.
     """
     output = None
+
     if config['match']['task'] == 'group':
-        output = entwine_cluster(config)
-    elif config['match']['task'] == 'cluster':
-        output = entwine_cluster(config)
+        output = entwine_group(config)
     elif config['match']['task'] == 'assign':
         output = entwine_assign(config)
     else:
@@ -28,7 +27,7 @@ def run_from_config(config):
 
 
 # ===
-# COMMAND LINE SUPPORT (internal use)
+# COMMAND LINE INTERFACE (internal/research use)
 # ===
 
 if __name__ == '__main__':

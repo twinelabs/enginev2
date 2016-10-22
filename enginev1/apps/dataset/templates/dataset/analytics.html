@@ -16,26 +16,24 @@
 
 {% block content_block %}
 {% verbatim %}
-
     <div class="dashboard">
-
         <div class="row" ng-cloak>
             <div class="col col-md-3">
                 <div class="section section-left">
                     <div class="chartTitle">Variables</div>
                     <ul class="typeList">
                         <li class="types" ng-repeat="t in _.getFieldTypes() track by $index">
-                          <span class="arrow" ng-class="{ open: _.dataFieldsByType[t].open }"></span>
-                          <div class="typeName" ng-click="_.dataFieldsByType[t].open = !_.dataFieldsByType[t].open">
-                            <strong>{{ _.dataFieldsByType[t].name }}</strong>
-                          </div>
-
-                          <ul class="fieldList" ng-class="{ open: _.dataFieldsByType[t].open }">
-                            <li class="fields" ng-repeat="f in _.dataFieldsByType[t].fields track by $index"
-                                 ng-class="{ active: f == _.selectedDataField }"
-                                 ng-click="_.selectedDataField = f"
-                            >{{ f }}</li>
-                          </ul>
+                            <span class="arrow" ng-class="{ open: _.dataFieldsByType[t].open }"></span>
+                            <div class="typeName" ng-click="_.dataFieldsByType[t].open = !_.dataFieldsByType[t].open">
+                                <strong>{{ _.dataFieldsByType[t].name }}</strong>
+                            </div>
+                            <ul class="fieldList" ng-class="{ open: _.dataFieldsByType[t].open }">
+                                <li class="fields" ng-repeat="f in _.dataFieldsByType[t].fields track by $index"
+                                     ng-class="{ active: f == _.selectedDataField }"
+                                     ng-click="_.selectedDataField = f">
+                                    {{ f }}
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -51,8 +49,7 @@
                                 <span><strong>Sort</strong>:</span>
                                 <div class="view" ng-repeat="c in _.chartControlSort track by c.id"
                                      ng-class="{ active: c.id == _.selectedChartControlSort.id }"
-                                     ng-click="_.selectedChartControlSort = c"
-                                >
+                                     ng-click="_.selectedChartControlSort = c">
                                     <a href="">{{ c.name }}</a>
                                 </div>
                             </div>
@@ -60,8 +57,7 @@
                                 <span><strong>Scale</strong>:</span>
                                 <div class="view" ng-repeat="c in _.chartControlScale track by c.id"
                                      ng-class="{ active: c.id == _.selectedChartControlScale.id }"
-                                     ng-click="_.selectedChartControlScale = c"
-                                >
+                                     ng-click="_.selectedChartControlScale = c">
                                     <a href="">{{ c.name }}</a>
                                 </div>
                             </div>

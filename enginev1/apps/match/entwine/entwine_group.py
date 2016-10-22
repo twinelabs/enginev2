@@ -7,8 +7,8 @@ Runs matching process for clustering task.
 
 import time
 
-import matching.clustering.distance
-import matching.clustering.run_new
+from matching.group.utilities import calc_distance_matrix
+from matching.group.algos import find_groups
 import etl.load
 
 
@@ -24,25 +24,25 @@ def load(load_cfg):
     return df
 
 
-def cluster_analytics(df, clusters):
+def group_analytics(df, groups):
     return None
 
 
-def cluster(df, match_cfg):
+def group(df, match_cfg):
     """ Runs clustering using match configuration parameters.
     Returns results, simple statistics, and analytics.
     """
 
     start_time = time.time()
 
-    distance_matrix = matching.clustering.distance.create_weighted_matrix(df, match_cfg)
+    distance_matrix = calc_distance_matrix(df, match_cfg)
     distance_time = time.time()
 
-    clusters = matching.clustering.run_new.cluster(distance_matrix, match_cfg)
+    groups = find_groups(distance_matrix, match_cfg)
     results_time = time.time()
 
     output = {}
-    output['results'] = clusters
+    output['results'] = groups
 
     stats = []
     stats.append({ 'name': 'distance_time', 'value': distance_time - start_time })
@@ -54,12 +54,12 @@ def cluster(df, match_cfg):
     stats.append({ 'name': 'k_size', 'value': match_cfg['algorithm']['params']['k_size'] })
     output['stats'] = stats
 
-    output['analytics'] = cluster_analytics(df, clusters)
+    output['analytics'] = group_analytics(df, groups)
 
     return output
 
 
-def entwine_cluster(config):
+def entwine_group(config):
     """ Loads data and match config, runs clustering.
     """
 
@@ -67,6 +67,6 @@ def entwine_cluster(config):
     df = load(load_cfg)
 
     match_cfg = config['match']
-    output = cluster(df, match_cfg)
+    output = group(df, match_cfg)
 
     return output

@@ -8,8 +8,8 @@ Runs matching process for assignment task.
 import time
 import pdb
 
-import matching.assign.utility
-import matching.assign.run_new
+from matching.assign.utilities import calc_utility_matrix
+from matching.assign.algo_nrmp import find_assignments
 import etl.load
 
 
@@ -35,10 +35,10 @@ def assign(dfs, match_cfg):
 
     start_time = time.time()
 
-    utility_matrix = matching.assign.utility.utility_matrix(dfs, match_cfg)
+    utility_matrix = calc_utility_matrix(dfs, match_cfg)
     utility_time = time.time()
 
-    assignments = matching.assign.run_new.residency(utility_matrix, match_cfg)
+    assignments = find_assignments(utility_matrix, match_cfg)
     results_time = time.time()
 
     output = {}

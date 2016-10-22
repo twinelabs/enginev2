@@ -5,7 +5,7 @@ div_job
 Runs matching process.
 """
 
-from analytics.goodness import cluster_evaluation
+from enginev1.apps.match.entwine.analytics.goodness import cluster_evaluation
 import numpy as np
 import pandas as pd
 
