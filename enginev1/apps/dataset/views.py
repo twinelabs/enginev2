@@ -70,18 +70,12 @@ def analytics(request, data_table_id):
     if data_table.client != request.user.client:
         return HttpResponse("You are not permissioned.")
 
-    tables_for_analytics = [{
-        "id": data_table.id,
-        "name": data_table.name,
-        "data": data_table.data['data'],
-        "columns": data_table.header_analytics()
-    }]
-    tables_for_analytics_s = json.dumps(tables_for_analytics)
+    viz_data = data_table.to_viz_data()
+    viz_data_s = json.dumps(viz_data)
 
     context = {
         'data_table': data_table,
-        'dashboard': tables_for_analytics,
-        'dashboard_s': tables_for_analytics_s
+        'viz_data_s': viz_data_s
     }
 
     return render(request, 'dataset/analytics.html', context)

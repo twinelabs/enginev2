@@ -40,11 +40,19 @@ class Match(models.Model):
         self.save()
 
 
+    def ordered_data_tables(self):
+        """ Associated data tables, ordered.
+        """
+        mdts = MatchDataTable.objects.filter(match=self).order_by('data_table_order')
+        data_tables = [mdt.data_table for mdt in mdts]
+        return data_tables
+
+
     def data_table_names(self):
         """ List of names of related data tables, ordered.
         """
-        mdts = MatchDataTable.objects.filter(match=self).order_by('data_table_order')
-        data_table_names = [mdt.data_table.name for mdt in mdts]
+        dts = self.ordered_data_tables()
+        data_table_names = [dt.name for dt in dts]
         return data_table_names
 
 
@@ -127,11 +135,13 @@ class Match(models.Model):
 
         results = json.loads(self.result['results'])
 
-        dt_A = self.data_tables.all()[0]
+        dts = self.ordered_data_tables()
+
+        dt_A = dts[0]
         data_A = dt_A.data['data']
         columns_A = dt_A.header()
 
-        dt_B = self.data_tables.all()[1]
+        dt_B = dts[1]
         data_B = dt_B.data['data']
         columns_B = dt_B.header()
 
@@ -171,10 +181,12 @@ class Match(models.Model):
     def assign_result_header(self):
         """ Header for ASSIGN results: dataset_B columns + "" + dataset_A columns.
         """
-        dt_A = self.data_tables.all()[0]
+        dts = self.ordered_data_tables()
+
+        dt_A = dts[0]
         columns_A = dt_A.header()
 
-        dt_B = self.data_tables.all()[1]
+        dt_B = dts[1]
         columns_B = dt_B.header()
 
         header = columns_B + [""] + columns_A

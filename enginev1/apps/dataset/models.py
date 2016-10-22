@@ -46,16 +46,19 @@ class DataTable(models.Model):
         count = len(values)
         return (header, values, count)
 
-    def header_analytics(self):
-        res = []
-        for dc in self.datacolumn_set.order_by('order_original'):
-            if dc.dtype == 'int64' or dc.dtype == 'float64':
-                res.append({ "name": dc.name, "type": "number" })
-            else:
-                if dc.n_unique < 10:
-                    res.append({ "name": dc.name, "type": "string" })
 
-        return res
+    def to_viz_data(self):
+        """ Returns data table formatted for visualization dashboard
+        """
+        viz_data = [{
+            "id": self.id,
+            "name": self.name,
+            "data": self.data['data'],
+            "columns": [
+                dc.name_vtype_dict() for dc in self.datacolumn_set.order_by('order_original')
+            ]
+        }]
+        return viz_data
 
 
 class DataColumn(models.Model):
@@ -81,3 +84,21 @@ class DataColumn(models.Model):
 
     def __str__(self):
         return self.name
+
+
+    def vtype(self):
+        """ Assigns data type (number, string, text) used for visualization dashboard.
+        """
+        if self.dtype == 'int64' or self.dtype == 'float64':
+            vtype = 'number'
+        elif self.n_unique < 10:
+            vtype = 'string'
+        else:
+            vtype = 'text'
+        return vtype
+
+
+    def name_vtype_dict(self):
+        """ Returns { name, vtype } dictionary.
+        """
+        return { "name": self.name, "type": self.vtype() }
