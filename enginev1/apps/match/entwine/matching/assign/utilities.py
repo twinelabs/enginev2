@@ -21,7 +21,6 @@ UTILITY_FUNCTIONS = {
     "lte": lambda a, b, params: lte(a, b, params),
     "intersect": lambda a, b, params: intersect(a, b, params),
     "intersect_comma": lambda a, b, params: intersect_comma(a, b, params),
-    "b_contains_a": lambda a, b, params: b, b_contains_a(a, b, params),
     "a_contains_b": lambda a, b, params: a_contains_b(a, b, params)
 }
 

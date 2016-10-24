@@ -144,3 +144,8 @@ def residency_mod(utility_matrix, match_config, verbose=False):
     assignments = [b_s[i]['matches'] for i in range(m)]
 
     return assignments
+
+
+def find_assignments(utility_matrix, algo_params, verbose=False):
+    res = residency(utility_matrix, algo_params, verbose=False)
+    return res
