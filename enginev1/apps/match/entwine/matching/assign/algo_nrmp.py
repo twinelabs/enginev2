@@ -8,8 +8,9 @@ Function to run assignment algorithms.
 
 import numpy as np
 import random
+import pdb
 
-def residency(utility_matrix, algo_params, verbose=False):
+def residency(utility_matrix, match_cfg, verbose=False):
     """ Solves residency matching program with symmetric utilities and multiple capacity.
 
     :param utility_matrix: np array of utilities, with N rows of individuals (applicants) and M columns of programs (residencies).
@@ -17,7 +18,7 @@ def residency(utility_matrix, algo_params, verbose=False):
     """
     a_s = {}
     n, m = utility_matrix.shape
-    capacity = algo_params['capacity']
+    capacity = match_cfg['algorithm']['params']['capacity']
     capacities = [capacity] * m
     
     for i in range(n):
@@ -146,6 +147,6 @@ def residency_mod(utility_matrix, match_config, verbose=False):
     return assignments
 
 
-def find_assignments(utility_matrix, algo_params, verbose=False):
-    res = residency(utility_matrix, algo_params, verbose=False)
+def find_assignments(utility_matrix, match_cfg, verbose=False):
+    res = residency(utility_matrix, match_cfg, verbose=False)
     return res
