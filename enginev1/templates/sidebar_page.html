@@ -3,13 +3,14 @@
 
 {% block body_block %}
     <div class="row content-wrapper">
+
         <div class="sidebar-content col-sm-2">
 
             <div class="sidebar-header">
                 {% if c.logo.name %}
                     <a href="/welcome"><img class="sidebar-logo" src="{% static c.logo.name %}" /></a>
                 {% else %}
-                    <a href="/welcome"><img class="sidebar-logo" src="{% static "img/twine_logo.png" %}" /></a>
+                    <a href="/welcome"><img class="sidebar-logo" src="{% static "img/twine_logo.svg" %}" /></a>
                 {% endif %}
                 <h5>Hello, <strong>{{ c.first_name }}</strong> ({{ c.company_name }})</h5>
             </div>
@@ -50,7 +51,8 @@
 
         <div class="main-content col-sm-10 col-sm-offset-2">
             <div class="row content-header">
-                <div class="sidebar-close-button sidebar-visible"> < </div>
+                <div class="sidebar-close-button-wrapper">
+                <div class="sidebar-close-button sidebar-visible"> < </div> </div>
                 {% block header_block %}
                 {% endblock %}
             </div>

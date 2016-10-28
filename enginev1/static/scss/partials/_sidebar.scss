@@ -58,18 +58,28 @@
         .sidebar-submenu {
             display: none;
             .sidebar-menu-item {
+                background-color:$brand-primary;
                 display: block;
                 padding: 0 2rem 0 3rem;
                 font-size: 16px;
 
                 &:hover {
-                    background-color: lighten($brand-primary, 15%)
+                    background-color: lighten($brand-primary, 15%);
                 }
             }
+
+            .sidebar-menu-item:nth-child(even) {
+                background-color:lighten($brand-primary, 5%);
+
+                &:hover {
+                    background-color: lighten($brand-primary, 15%);
+                }
+            }
+
         }
         &.active {
             background-color: darken($brand-primary, 5%);
-            padding-bottom: 1rem;
+            //padding-bottom: 0;
         }
     }
 
@@ -123,9 +133,14 @@
     text-align: center;
     z-index: 1;
     color: white;
-    position: absolute;
-    left: -15px;
-    top: 24px;
+    position: relative;
+    left: -11px;
+    top: 30px;
+}
+
+.sidebar-close-button-wrapper {
+    position:fixed;
+    top: 30px;
 }
 
 .content-header {
@@ -139,5 +154,5 @@
         padding-left: 1rem;
     }
 
-    background-color: lighten($brand-primary, 65%);
+    background-color: lighten($brand-secondary, 25%);
 }

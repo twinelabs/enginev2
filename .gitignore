@@ -106,3 +106,4 @@ staticfiles/*
 
 /.idea/
 .idea/workspace.xml
+.idea/*
