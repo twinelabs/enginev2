@@ -1,5 +1,5 @@
 dj-database-url==0.4.1
-Django==1.9.6
+Django==2.2.24
 django-bootstrap3==7.0.1
 django-compressor==2.0
 django-compressor-autoprefixer==0.1.0
